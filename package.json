@@ -1,0 +1,30 @@
+{
+  "name": "Dikampus",
+  "version": "0.0.0",
+  "description": "Delivery Food Sekitar Telkom University",
+  "main": "bot.js",
+  "scripts": {
+    "start": "node ."
+  },
+  "engines": {
+    "node": "8.2.1"
+  },
+  "dependencies": {
+    "@line/bot-sdk": "^5.0.0",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.2",
+    "firebase-admin": "^5.12.1",
+    "request": "^2.87.0",
+    "request-promise": "^4.2.2"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "dikampusjs"
+  },
+  "keywords": [
+    "dikampusjs"
+  ],
+  "author": "iyai",
+  "license": "ISC"
+}
