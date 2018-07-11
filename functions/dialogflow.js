@@ -76,6 +76,7 @@ var self = {
         var ref = db.ref("warung/"+warung+"/nomorWarung");
         ref.once("value", function(snapshot) {
           var data = snapshot.val();
+          console.log(data);
           var text = "Pesen " + outputParam.menu[0] + " " + outputParam.jumlah[0] + ", dikirim ke "+outputParam.alamat;
           text = encodeURIComponent(text);
           var url = "https://api.whatsapp.com/send?phone="+data+"&text="+text;
@@ -103,6 +104,7 @@ var self = {
       var ref = db.ref("warung/"+warung+"/nomorWarung");
       ref.once("value", function(snapshot) {
         var data = snapshot.val();
+        console.log(data);
         var text = "Pesen " + outputParam.menu[0] + " " + outputParam.jumlah[0] + ", "+ outputParam.note + ", dikirim ke "+outputParam.alamat;
         text = encodeURIComponent(text);
         var url = "https://api.whatsapp.com/send?phone="+data+"&text="+text;
