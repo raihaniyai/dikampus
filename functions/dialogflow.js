@@ -73,6 +73,7 @@ var self = {
       } else {
         var outputParam = body.result.contexts[0].parameters;
         var warung = outputParam.warung;
+        console.log(body);
         var ref = db.ref("warung/"+warung+"/nomorWarung");
         ref.once("value", function(snapshot) {
           data = snapshot.val();
