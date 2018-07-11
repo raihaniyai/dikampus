@@ -1,5 +1,6 @@
 const bot = require('./../bot.js');
 const template = require('./template.js');
+const flex = require('./flex.js');
 
 var self = {
   response: function (message, replyToken, source) {
@@ -79,26 +80,7 @@ var self = {
           var text = "Pesen " + outputParam.menu[0] + " " + outputParam.jumlah[0] + ", dikirim ke "+outputParam.alamat;
           text = encodeURIComponent(text);
           var url = "https://api.whatsapp.com/send?phone="+data+"&text="+text;
-          return client.replyMessage(replyToken , {
-            "type": "template",
-            "altText": "Invoice",
-            "template": {
-              "type": "confirm",
-              "actions": [
-                {
-                  "type": "message",
-                  "label": "Notes 📝",
-                  "text": "Catatan tambahan dong"
-                },
-                {
-                  "type": "uri",
-                  "label": "Iya ✔️",
-                  "uri": url
-                }
-              ],
-              "text": "Invoice: " + outputParam.menu[0] + " " + outputParam.jumlah[0] + ", dikirim ke "+outputParam.alamat+", Aku sambungin ke warung "+outputParam.warung+" ya? 👨‍🍳 "
-            }
-          });
+          return flex.order(replyToken, body);
           process.exit();
         }, function (errorObject) {
           console.log("The read failed: " + errorObject.code);
@@ -125,21 +107,7 @@ var self = {
         var text = "Pesen " + outputParam.menu[0] + " " + outputParam.jumlah[0] + ", "+ outputParam.note + ", dikirim ke "+outputParam.alamat;
         text = encodeURIComponent(text);
         var url = "https://api.whatsapp.com/send?phone="+data+"&text="+text;
-        return client.replyMessage(replyToken , {
-          "type": "template",
-          "altText": "Invoice",
-          "template": {
-              "type": "buttons",
-              "text": "Invoice: " + outputParam.menu[0] + " " + outputParam.jumlah[0] + ", "+ outputParam.note + ", dikirim ke "+outputParam.alamat+", Aku sambungin ke warung "+outputParam.warung+" ya? 👨‍🍳 ",
-              "actions": [
-                {
-                  "type": "uri",
-                  "label": "Iya ✔️",
-                  "uri": url
-                }
-              ]
-          }
-        });
+        return orderNote(replyToken, body);
         process.exit();
       }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
