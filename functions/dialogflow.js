@@ -107,7 +107,7 @@ var self = {
         var text = "Pesen " + outputParam.menu[0] + " " + outputParam.jumlah[0] + ", "+ outputParam.note + ", dikirim ke "+outputParam.alamat;
         text = encodeURIComponent(text);
         var url = "https://api.whatsapp.com/send?phone="+data+"&text="+text;
-        return orderNote(replyToken, body);
+        return orderNote(replyToken, body, data, text);
         process.exit();
       }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
