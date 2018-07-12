@@ -33,7 +33,7 @@ var self = {
               "type": "text",
               "text": "RECEIPT",
               "weight": "bold",
-              "color": "#1DB446",
+              "color": "#0B5ED7",
               "size": "sm"
             },
             {
@@ -154,13 +154,13 @@ var self = {
               ]
             },
             {
+              "type": "separator",
+              "margin": "xxl"
+            },
+            {
               "type": "box",
               "layout": "vertical",
               "contents": [
-                {
-                  "type": "spacer",
-                  "size": "xl"
-                },
                 {
                   "type": "button",
                   "style": "primary",
@@ -173,6 +173,7 @@ var self = {
                 },
                 {
                   "type": "button",
+                  "style": "link",
                   "action": {
                     "type": "uri",
                     "label": "Catatan Tambahan",
