@@ -11,7 +11,6 @@ var self = {
     "type": "flex",
     "altText": "this is a flex message",
     "contents": {
-      {
       "type": "bubble",
       "styles": {
         "footer": {
