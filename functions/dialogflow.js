@@ -76,11 +76,10 @@ var self = {
         var ref = db.ref("warung/"+warung+"/nomorWarung");
         ref.once("value", function(snapshot) {
           var data = snapshot.val();
-          console.log(data);
           var text = "Pesen " + outputParam.menu[0] + " " + outputParam.jumlah[0] + ", dikirim ke "+outputParam.alamat;
           text = encodeURIComponent(text);
           var url = "https://api.whatsapp.com/send?phone="+data+"&text="+text;
-          return flex.order(replyToken, body);
+          return flex.order(replyToken, body, url);
           process.exit();
         }, function (errorObject) {
           console.log("The read failed: " + errorObject.code);
@@ -104,11 +103,10 @@ var self = {
       var ref = db.ref("warung/"+warung+"/nomorWarung");
       ref.once("value", function(snapshot) {
         var data = snapshot.val();
-        console.log(data);
         var text = "Pesen " + outputParam.menu[0] + " " + outputParam.jumlah[0] + ", "+ outputParam.note + ", dikirim ke "+outputParam.alamat;
         text = encodeURIComponent(text);
         var url = "https://api.whatsapp.com/send?phone="+data+"&text="+text;
-        return flex.orderNote(replyToken, body, data, text);
+        return flex.orderNote(replyToken, body, url);
         process.exit();
       }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);

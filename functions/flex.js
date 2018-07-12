@@ -1,12 +1,11 @@
 const bot = require('./../bot.js');
 
 var self = {
-  order: function (replyToken, body, data, text) {
+  order: function (replyToken, body, url) {
     var db = bot.database;
     var client = bot.client;
     var outputParam = body.result.contexts[0].parameters;
     var warung = outputParam.warung;
-    var url = "https://api.whatsapp.com/send?phone="+data+"&text="+text;
 
     return client.replyMessage(replyToken , {
       "type": "template",
@@ -29,12 +28,11 @@ var self = {
       }
     });
   },
-  orderNote: function (replyToken, body, data, text) {
+  orderNote: function (replyToken, body, url) {
     var db = bot.database;
     var client = bot.client;
     var outputParam = body.result.contexts[0].parameters;
     var warung = outputParam.warung;
-    var url = "https://api.whatsapp.com/send?phone="+data+"&text="+text;
 
     return client.replyMessage(replyToken , {
       "type": "template",
