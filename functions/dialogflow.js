@@ -83,7 +83,7 @@ var self = {
           var pesanan = {};
           pesanan = {
             [outputParam.menu[0]] : {'jumlah' : outputParam.jumlah[0]},
-            'warung' = warung
+            'warung' : warung
           }
           transaksi  = {
             'alamat': outputParam.alamat,
