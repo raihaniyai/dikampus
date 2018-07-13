@@ -91,7 +91,8 @@ var self = {
             'pesanan': pesanan,
             'waktu': date
           };
-          var post = ref.push(transaksi);
+          var newRef = db.ref("transaksi");
+          var post = newRef.push(transaksi);
           var idTransaksi = post.key;
           // Sending invoice to user
           var nomorWarung = dataWarung.nomorWarung;
