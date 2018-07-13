@@ -133,8 +133,8 @@ var self = {
       var totalHarga = 0;
       var jmlData = 0;
       for (result in data.pesanan){
-        totalHarga += result.jumlah * result.harga;
-        viewHarga = result.jumlah + ' x ' + result.harga;
+        totalHarga += data.pesanan[result].jumlah * data.pesanan[result].harga;
+        viewHarga = data.pesanan[result].jumlah + ' x ' + data.pesanan[result].harga;
         pesanan = {
           "type": "box",
           "layout": "horizontal",
