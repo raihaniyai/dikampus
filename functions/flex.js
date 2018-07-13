@@ -31,7 +31,7 @@ var self = {
               },
               {
                 "type": "text",
-                "text": data.pesanan.warung,
+                "text": data.warung,
                 "weight": "bold",
                 "size": "xxl",
                 "margin": "md"
