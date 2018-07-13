@@ -81,8 +81,9 @@ var self = {
           // Save transaction to realtime database
           var transaksi = {};
           var pesanan = {};
+          var harga = dataWarung.menu[outputParam.menu[0]].harga;
           pesanan = {
-            [outputParam.menu[0]] : {'jumlah' : outputParam.jumlah[0]},
+            [outputParam.menu[0]] : {'jumlah' : outputParam.jumlah[0], ['harga'] : harga},
             'warung' : warung
           }
           transaksi  = {

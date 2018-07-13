@@ -54,39 +54,6 @@ var self = {
                 "spacing": "sm",
                 "contents": [
                   {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "Ayam Suwir",
-                        "size": "sm",
-                        "color": "#555555",
-                        "flex": 0
-                      }
-                    ]
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "Susu Milo",
-                        "size": "sm",
-                        "color": "#555555",
-                        "flex": 0
-                      },
-                      {
-                        "type": "text",
-                        "text": "4.000",
-                        "size": "sm",
-                        "color": "#111111",
-                        "align": "end"
-                      }
-                    ]
-                  },
-                  {
                     "type": "separator",
                     "margin": "xxl"
                   },
@@ -172,13 +139,28 @@ var self = {
         }
       };
       for (result in data.pesanan){
+        viewHarga = result.jumlah + ' x ' + result.harga;
         pesanan = {
-          "type": "text",
-          "text": result,
-          "size": "sm",
-          "color": "#555555",
-          "flex": 0
-        }
+          "type": "box",
+          "layout": "horizontal",
+          "contents": [
+            {
+              "type": "text",
+              "text": result,
+              "size": "sm",
+              "color": "#555555",
+              "flex": 0
+            },
+            {
+              "type": "text",
+              "text": viewHarga,
+              "size": "sm",
+              "color": "#111111",
+              "align": "end"
+            }
+          ]
+        };
+        flexMsg.contents.body.contents[4].unshift(pesanan);
       }
       return client.replyMessage(replyToken , flexMsg);
       process.exit();
