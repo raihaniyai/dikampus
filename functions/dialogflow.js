@@ -71,15 +71,34 @@ var self = {
       if (parameters.alamat === '') {
         return replyText(replyToken, "Mau dikirim kemana nih kak?")
       } else {
+        var date = new Date();
+        date = date.toLocaleString('id-ID');
         var outputParam = body.result.contexts[0].parameters;
         var warung = outputParam.warung;
-        var ref = db.ref("warung/"+warung+"/nomorWarung");
+        var ref = db.ref("warung/"+warung);
         ref.once("value", function(snapshot) {
-          var data = snapshot.val();
+          var dataWarung = snapshot.val();
+          // Save transaction to realtime database
+          var transaksi = {};
+          var pesanan = {};
+          pesanan = {
+            [outputParam.menu[0]] : {'jumlah' : outputParam.jumlah[0]},
+            'warung' = warung
+          }
+          transaksi  = {
+            'alamat': outputParam.alamat,
+            'user': source.userId,
+            'pesanan': pesanan,
+            'waktu': date
+          };
+          var post = ref.push(data);
+          var idTransaksi = post.key;
+          // Sending invoice to user
+          var nomorWarung = dataWarung.nomorWarung;
           var text = "Pesen " + outputParam.menu[0] + " " + outputParam.jumlah[0] + ", dikirim ke "+outputParam.alamat;
           text = encodeURIComponent(text);
-          var url = "https://api.whatsapp.com/send?phone="+data+"&text="+text;
-          return flex.order(replyToken, body, url);
+          var url = "https://api.whatsapp.com/send?phone="+nomorWarung+"&text="+text;
+          return flex.order(replyToken, idTransaksi, url, dataWarung);
           process.exit();
         }, function (errorObject) {
           console.log("The read failed: " + errorObject.code);
