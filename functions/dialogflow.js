@@ -83,14 +83,14 @@ var self = {
           var pesanan = {};
           var harga = dataWarung.menu[outputParam.menu[0]].harga;
           pesanan = {
-            [outputParam.menu[0]] : {'jumlah' : outputParam.jumlah[0], ['harga'] : harga},
-            'warung' : warung
+            [outputParam.menu[0]] : {'jumlah' : outputParam.jumlah[0], ['harga'] : harga}
           }
           transaksi  = {
             'alamat': outputParam.alamat,
             'user': source.userId,
             'pesanan': pesanan,
-            'waktu': date
+            'waktu': date,
+            'warung' : warung
           };
           var newRef = db.ref("transaksi");
           var post = newRef.push(transaksi);
