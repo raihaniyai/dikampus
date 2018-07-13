@@ -84,15 +84,6 @@ var self = {
                         "text": "ALAMAT PENGIRIMAN",
                         "size": "sm",
                         "color": "#555555"
-                      },
-                      {
-                        "type": "text",
-                        "margin": "sm",
-                        "text": "Jalan Sukabirus no D38, Gang Mesjid Istiqomah",
-                        "wrap": true,
-                        "size": "xs",
-                        "color": "#111111",
-                        "align": "start"
                       }
                     ]
                   }
@@ -160,13 +151,23 @@ var self = {
       }
       var showTotal = {
         "type": "text",
-        "text": totalHarga,
+        "text": totalHarga.toString(),
         "weight": "bold",
         "size": "sm",
         "color": "#111111",
         "align": "end"
       };
+      var showAlamat = {
+        "type": "text",
+        "margin": "sm",
+        "text": data.alamat,
+        "wrap": true,
+        "size": "xs",
+        "color": "#111111",
+        "align": "start"
+      };
       flexMsg.contents.body.contents[4].contents[1+jmlData].contents.push(showTotal);
+      flexMsg.contents.body.contents[4].contents[3+jmlData].contents.push(showAlamat);
       console.log(JSON.stringify(flexMsg));
       return client.replyMessage(replyToken , flexMsg);
       process.exit();
