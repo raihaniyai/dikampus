@@ -67,14 +67,6 @@ var self = {
                         "text": "TOTAL",
                         "size": "sm",
                         "color": "#555555"
-                      },
-                      {
-                        "type": "text",
-                        "text": "Rp 14.000",
-                        "weight": "bold",
-                        "size": "sm",
-                        "color": "#111111",
-                        "align": "end"
                       }
                     ]
                   },
@@ -138,7 +130,10 @@ var self = {
           }
         }
       };
+      var totalHarga = 0;
+      var jmlData = 0;
       for (result in data.pesanan){
+        totalHarga += result.jumlah * result.harga;
         viewHarga = result.jumlah + ' x ' + result.harga;
         pesanan = {
           "type": "box",
@@ -160,8 +155,18 @@ var self = {
             }
           ]
         };
-        flexMsg.contents.body.contents[4].unshift(pesanan);
+        flexMsg.contents.body.contents[4].contents.unshift(pesanan);
+        jmlData++;
       }
+      var showTotal = {
+        "type": "text",
+        "text": totalHarga,
+        "weight": "bold",
+        "size": "sm",
+        "color": "#111111",
+        "align": "end"
+      };
+      flexMsg.contents.body.contents[4].contents[1+jmlData].contents.push(showTotal);
       return client.replyMessage(replyToken , flexMsg);
       process.exit();
     }, function (errorObject) {
