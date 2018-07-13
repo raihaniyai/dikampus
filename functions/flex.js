@@ -104,15 +104,15 @@ var self = {
                     "action": {
                       "type": "uri",
                       "label": "Order",
-                      "uri": "https://linecorp.com"
+                      "uri": url
                     }
                   },
                   {
                     "type": "button",
                     "action": {
-                      "type": "uri",
+                      "type": "message",
                       "label": "Catatan Tambahan",
-                      "uri": "https://linecorp.com"
+                      "text": "Catatan tambahan dong"
                     }
                   }
                 ]
@@ -166,6 +166,7 @@ var self = {
         "color": "#111111",
         "align": "start"
       };
+      var post = newRef.push({'totalHarga' : totalHarga});
       flexMsg.contents.body.contents[4].contents[1+jmlData].contents.push(showTotal);
       flexMsg.contents.body.contents[4].contents[3+jmlData].contents.push(showAlamat);
       console.log(JSON.stringify(flexMsg));
