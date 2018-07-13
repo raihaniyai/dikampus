@@ -167,6 +167,7 @@ var self = {
         "align": "end"
       };
       flexMsg.contents.body.contents[4].contents[1+jmlData].contents.push(showTotal);
+      console.log(JSON.stringify(flexMsg));
       return client.replyMessage(replyToken , flexMsg);
       process.exit();
     }, function (errorObject) {
