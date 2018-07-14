@@ -134,11 +134,8 @@ var self = {
         idRef.once("value", function(snapshot) {
           var idTransaksi = snapshot.val();
           // Add notes to saved transaction database
-          note  = {
-            'note': outputParam.note
-          };
           var newRef = db.ref("transaksi/"+idTransaksi);
-          var post = newRef.set(note);
+          var post = newRef.child('note').set(outputParam.note);
           return flex.orderNote(replyToken, idTransaksi, url, dataWarung);
           process.exit();
         }, function (errorObject) {

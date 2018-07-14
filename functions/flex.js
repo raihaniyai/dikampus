@@ -166,10 +166,10 @@ var self = {
         "color": "#111111",
         "align": "start"
       };
-      ref.child('totalHarga').set(idTransaksi);
+      ref.child('totalHarga').set(totalHarga);
       flexMsg.contents.body.contents[4].contents[1+jmlData].contents.push(showTotal);
       flexMsg.contents.body.contents[4].contents[3+jmlData].contents.push(showAlamat);
-      return client.replyMessage(replyToken , flexMsg);
+      return client.replyMessage(replyToken, flexMsg);
       process.exit();
     }, function (errorObject) {
       console.log("The read failed: " + errorObject.code);
@@ -312,7 +312,6 @@ var self = {
           }
         }
       };
-      var totalHarga = 0;
       var jmlData = 0;
       for (result in data.pesanan){
         viewHarga = data.pesanan[result].jumlah + ' x ' + data.pesanan[result].harga;
