@@ -151,7 +151,7 @@ var self = {
       }
       var showTotal = {
         "type": "text",
-        "text": totalHarga.toString(),
+        "text": "Rp" + totalHarga.toString(),
         "weight": "bold",
         "size": "sm",
         "color": "#111111",
@@ -166,7 +166,7 @@ var self = {
         "color": "#111111",
         "align": "start"
       };
-      var post = newRef.push({'totalHarga' : totalHarga});
+      var post = ref.push({'totalHarga' : totalHarga});
       flexMsg.contents.body.contents[4].contents[1+jmlData].contents.push(showTotal);
       flexMsg.contents.body.contents[4].contents[3+jmlData].contents.push(showAlamat);
       console.log(JSON.stringify(flexMsg));
