@@ -95,8 +95,8 @@ var self = {
           var newRef = db.ref("transaksi");
           var post = newRef.push(transaksi);
           var idTransaksi = post.key;
-          var userRef = db.ref("user/activeTransaction/"+source.userId);
-          userRef.setValue(idTransaksi);
+          var userRef = db.ref("user/activeTransaction");
+          userRef.child(source.userId).set(idTransaksi);
           // Sending invoice to user
           var nomorWarung = dataWarung.nomorWarung;
           var text = "Pesen " + outputParam.menu[0] + " " + outputParam.jumlah[0] + ", dikirim ke "+outputParam.alamat;
