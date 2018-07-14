@@ -151,7 +151,7 @@ var self = {
       }
       var showTotal = {
         "type": "text",
-        "text": "Rp" + totalHarga.toString(),
+        "text": "Rp " + totalHarga.toString(),
         "weight": "bold",
         "size": "sm",
         "color": "#111111",
