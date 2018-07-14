@@ -123,13 +123,13 @@ var self = {
       case 'Note.Done':
       var outputParam = body.result.contexts[0].parameters;
       var warung = outputParam.warung;
-      var ref = db.ref("warung/"+warung+"/nomorWarung");
+      var ref = db.ref("warung/"+warung);
       ref.once("value", function(snapshot) {
-        var data = snapshot.val();
+        var dataWarung = snapshot.val();
         // Sending Invoice to User
         var text = "Pesen " + outputParam.menu[0] + " " + outputParam.jumlah[0] + ", "+ outputParam.note + ", dikirim ke "+outputParam.alamat;
         text = encodeURIComponent(text);
-        var url = "https://api.whatsapp.com/send?phone="+data+"&text="+text;
+        var url = "https://api.whatsapp.com/send?phone="+dataWarung.nomor+"&text="+text;
         var idRef = db.ref("user/activeTransaction/"+source.userId);
         idRef.once("value", function(snapshot) {
           var idTransaksi = snapshot.val();
