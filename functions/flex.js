@@ -166,7 +166,7 @@ var self = {
         "color": "#111111",
         "align": "start"
       };
-      var post = ref.push({'totalHarga' : totalHarga});
+      var post = ref.set({'totalHarga' : totalHarga});
       flexMsg.contents.body.contents[4].contents[1+jmlData].contents.push(showTotal);
       flexMsg.contents.body.contents[4].contents[3+jmlData].contents.push(showAlamat);
       console.log(JSON.stringify(flexMsg));
