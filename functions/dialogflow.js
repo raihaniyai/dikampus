@@ -126,11 +126,24 @@ var self = {
       var ref = db.ref("warung/"+warung+"/nomorWarung");
       ref.once("value", function(snapshot) {
         var data = snapshot.val();
+        // Sending Invoice to User
         var text = "Pesen " + outputParam.menu[0] + " " + outputParam.jumlah[0] + ", "+ outputParam.note + ", dikirim ke "+outputParam.alamat;
         text = encodeURIComponent(text);
         var url = "https://api.whatsapp.com/send?phone="+data+"&text="+text;
-        return flex.orderNote(replyToken, body, url);
-        process.exit();
+        var idRef = db.ref("user/activeTransaction/"+source.userId);
+        idRef.once("value", function(snapshot) {
+          var idTransaksi = snapshot.val();
+          // Add notes to saved transaction database
+          note  = {
+            'note': outputParam.note
+          };
+          var newRef = db.ref("transaksi/"+idTransaksi);
+          var post = newRef.set(note);
+          return flex.orderNote(replyToken, idTransaksi, url, dataWarung);
+          process.exit();
+        }, function (errorObject) {
+          console.log("The read failed: " + errorObject.code);
+        });
       }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
       });
