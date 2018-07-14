@@ -297,14 +297,6 @@ var self = {
                       "label": "Order",
                       "uri": url
                     }
-                  },
-                  {
-                    "type": "button",
-                    "action": {
-                      "type": "message",
-                      "label": "Catatan Tambahan",
-                      "text": "Catatan tambahan dong"
-                    }
                   }
                 ]
               }
