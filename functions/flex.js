@@ -166,10 +166,9 @@ var self = {
         "color": "#111111",
         "align": "start"
       };
-      var post = ref.set({'totalHarga' : totalHarga});
+      ref.child('totalHarga').set(idTransaksi);
       flexMsg.contents.body.contents[4].contents[1+jmlData].contents.push(showTotal);
       flexMsg.contents.body.contents[4].contents[3+jmlData].contents.push(showAlamat);
-      console.log(JSON.stringify(flexMsg));
       return client.replyMessage(replyToken , flexMsg);
       process.exit();
     }, function (errorObject) {
@@ -316,7 +315,6 @@ var self = {
       var totalHarga = 0;
       var jmlData = 0;
       for (result in data.pesanan){
-        totalHarga += data.pesanan[result].jumlah * data.pesanan[result].harga;
         viewHarga = data.pesanan[result].jumlah + ' x ' + data.pesanan[result].harga;
         pesanan = {
           "type": "box",
@@ -343,7 +341,7 @@ var self = {
       }
       var showTotal = {
         "type": "text",
-        "text": "Rp " + totalHarga.toString(),
+        "text": "Rp " + data.totalHarga.toString(),
         "weight": "bold",
         "size": "sm",
         "color": "#111111",
@@ -367,7 +365,6 @@ var self = {
         "color": "#111111",
         "align": "start"
       };
-      var post = ref.set({'totalHarga' : totalHarga});
       flexMsg.contents.body.contents[4].contents[1+jmlData].contents.push(showTotal);
       flexMsg.contents.body.contents[4].contents[3+jmlData].contents.push(showAlamat);
       flexMsg.contents.body.contents[5].contents.push(showNote);
