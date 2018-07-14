@@ -358,7 +358,7 @@ var self = {
       var showNote = {
         "type": "text",
         "margin": "sm",
-        "text": data.notes,
+        "text": data.note,
         "wrap": true,
         "size": "xs",
         "color": "#111111",
