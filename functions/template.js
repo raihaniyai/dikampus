@@ -68,7 +68,7 @@ var self = {
             "thumbnailImageUrl": item.thumbnail,
             "imageBackgroundColor": "#FFFFFF",
             "title": i,
-            "text": item.harga,
+            "text": "Rp " + item.harga,
             "actions" : [
               {
                 "type": "message",

@@ -154,7 +154,7 @@ var self = {
         response = body.result.fulfillment.speech;
         return replyText(replyToken, response);
       } else {
-        response = body.query.fulfillment.messages[0].payload.line;
+        response = body.result.fulfillment.messages[0].payload.line;
         return client.replyMessage(replyToken, response);
       }
       break;
