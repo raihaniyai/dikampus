@@ -79,8 +79,8 @@ var self = {
       }
       break;
       case 'orderFood.chooseMenu':
+      var warung = parameters.warung;
       if (parameters.menu === '') {
-        var warung = parameters.warung;
         return template.food(replyToken, 'menu', warung);
       } else {
         if (parameters.jumlah === ''){
@@ -89,8 +89,15 @@ var self = {
           var ref = db.ref("user/activeTransaction/"+source.userId);
           ref.once("value", function(snapshot) {
             var activeTransaction = snapshot.val();
-            var orderRef = db.ref("transaksi/"+activeTransaction+"/pesanan");
-            orderRef.child(parameters.menu).set({'jumlah' : parameters.jumlah});
+            var warungRef = db.ref("warung/"+warung)
+            warungRef.once("value", function(snapshot) {
+              var dataWarung = snapshot.val();
+              var harga = dataWarung.menu[parameters.menu].harga;
+              var orderRef = db.ref("transaksi/"+activeTransaction+"/pesanan");
+              orderRef.child(parameters.menu).set({'jumlah' : parameters.jumlah, 'harga' : harga});
+            }, function (errorObject) {
+              console.log("The read failed: " + errorObject.code);
+            });
             return client.replyMessage(replyToken, {
               "type": "template",
               "altText": "Ada tambahan lain?",
