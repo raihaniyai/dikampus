@@ -37,7 +37,12 @@ var self = {
             ]
           });
         }
-        return client.replyMessage(replyToken, message);
+        return client.replyMessage(replyToken, [
+          {
+          "type": "text",
+          "text": "Ini rekomendasi warung makan dari Dika"
+          }, message
+        ]);
         process.exit();
       }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
@@ -73,18 +78,18 @@ var self = {
             ]
           });
         }
-        return client.replyMessage(replyToken, message);
+        return client.replyMessage(replyToken, [
+          {
+          "type": "text",
+          "text": "Ini menu yang ada di " + path
+          }, message
+        ]);
         process.exit();
       }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
       });
-
-      default:
-
+      break;
     }
-  },
-  bar: function () {
-    console.log("function bar");
   }
 };
 

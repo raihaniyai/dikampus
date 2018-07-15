@@ -374,7 +374,6 @@ var self = {
       flexMsg.contents.body.contents[4].contents[1+jmlData].contents.push(showTotal);
       flexMsg.contents.body.contents[4].contents[3+jmlData].contents.push(showAlamat);
       flexMsg.contents.body.contents[5].contents.push(showNote);
-      console.log(JSON.stringify(flexMsg));
       return client.replyMessage(replyToken , flexMsg);
       process.exit();
     }, function (errorObject) {

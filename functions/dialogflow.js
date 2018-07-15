@@ -66,16 +66,6 @@ var self = {
         var userRef = db.ref("user/activeTransaction");
         userRef.child(source.userId).set(idTransaksi);
         return template.food(replyToken, 'menu', warung);
-        // if (parameters.menu.length === 0){
-        //   var warung = parameters.warung;
-        //   return template.food(replyToken, 'menu', warung);
-        // } else {
-        //   if (parameters.jumlah.length === 0){
-        //     return replyText(replyToken, "Mau pesen "+parameters.menu[0]+" berapa banyak kak?");
-        //   } else{
-        //     return replyText(replyToken, "Mau dikirim kemana nih kak?")
-        //   }
-        // }
       }
       break;
       case 'orderFood.chooseMenu':
