@@ -145,16 +145,17 @@ var self = {
             var activeTransaction = snapshot.val();
             var transRef = db.ref("transaksi/" + activeTransaction);
             orderRef.child('waktu').set(date);
+            orderRef.child('alamat').set(parameters.alamat);
 
             // Sending invoice to user
-            var nomorWarung = dataWarung.nomorWarung;
-            var text = "Pesen " + outputParam.menu + " " + outputParam.jumlah + ", dikirim ke "+outputParam.alamat;
-            text = encodeURIComponent(text);
-            var url = "https://api.whatsapp.com/send?phone="+nomorWarung+"&text="+text;
-            return flex.order(replyToken, activeTransaction, url, dataWarung);
           }, function (errorObject) {
             console.log("The read failed: " + errorObject.code);
           });
+          var nomorWarung = dataWarung.nomorWarung;
+          var text = "Pesen " + outputParam.menu + " " + outputParam.jumlah + ", dikirim ke "+outputParam.alamat;
+          text = encodeURIComponent(text);
+          var url = "https://api.whatsapp.com/send?phone="+nomorWarung+"&text="+text;
+          return flex.order(replyToken, activeTransaction, url, dataWarung);
           process.exit();
         }, function (errorObject) {
           console.log("The read failed: " + errorObject.code);
