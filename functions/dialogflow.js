@@ -135,36 +135,26 @@ var self = {
       } else {
         var date = new Date();
         date = date.toLocaleString('id-ID');
-        var outputParam = body.result.contexts[0].parameters;
-        var warung = outputParam.warung;
+        var warung = parameters.warung;
         var ref = db.ref("warung/"+warung);
         ref.once("value", function(snapshot) {
           var dataWarung = snapshot.val();
           // Save transaction to realtime database
-          var transaksi = {};
-          var pesanan = {};
-          var harga = dataWarung.menu[outputParam.menu].harga;
-          pesanan = {
-            [outputParam.menu] : {'jumlah' : outputParam.jumlah, ['harga'] : harga}
-          }
-          transaksi  = {
-            'alamat': outputParam.alamat,
-            'user': source.userId,
-            'pesanan': pesanan,
-            'waktu': date,
-            'warung' : warung
-          };
-          var newRef = db.ref("transaksi");
-          var post = newRef.push(transaksi);
-          var idTransaksi = post.key;
-          var userRef = db.ref("user/activeTransaction");
-          userRef.child(source.userId).set(idTransaksi);
-          // Sending invoice to user
-          var nomorWarung = dataWarung.nomorWarung;
-          var text = "Pesen " + outputParam.menu + " " + outputParam.jumlah + ", dikirim ke "+outputParam.alamat;
-          text = encodeURIComponent(text);
-          var url = "https://api.whatsapp.com/send?phone="+nomorWarung+"&text="+text;
-          return flex.order(replyToken, idTransaksi, url, dataWarung);
+          var userRef = db.ref("user/"+source.userId)
+          ref.once("value", function(snapshot) {
+            var activeTransaction = snapshot.val();
+            var transRef = db.ref("transaksi/" + activeTransaction);
+            orderRef.child('waktu').set(date);
+
+            // Sending invoice to user
+            var nomorWarung = dataWarung.nomorWarung;
+            var text = "Pesen " + outputParam.menu + " " + outputParam.jumlah + ", dikirim ke "+outputParam.alamat;
+            text = encodeURIComponent(text);
+            var url = "https://api.whatsapp.com/send?phone="+nomorWarung+"&text="+text;
+            return flex.order(replyToken, activeTransaction, url, dataWarung);
+          }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+          });
           process.exit();
         }, function (errorObject) {
           console.log("The read failed: " + errorObject.code);
