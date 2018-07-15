@@ -147,18 +147,12 @@ var self = {
             var transRef = db.ref("transaksi/" + idTransaksi);
             transRef.child('waktu').set(date);
             transRef.child('alamat').set(parameters.alamat);
-
             // Sending invoice to user
             return flex.order(replyToken, idTransaksi, dataWarung);
             process.exit();
           }, function (errorObject) {
             console.log("The read failed: " + errorObject.code);
           });
-          // var nomorWarung = dataWarung.nomorWarung;
-          // var text = "Pesen " + outputParam.menu + " " + outputParam.jumlah + ", dikirim ke "+outputParam.alamat;
-          // text = encodeURIComponent(text);
-          // var url = "https://api.whatsapp.com/send?phone="+nomorWarung+"&text="+text;
-
         }, function (errorObject) {
           console.log("The read failed: " + errorObject.code);
         });
@@ -176,22 +170,18 @@ var self = {
       break;
 
       case 'Note.Done':
-      var outputParam = body.result.contexts[0].parameters;
-      var warung = outputParam.warung;
+      var warung = parameters.warung;
       var ref = db.ref("warung/"+warung);
       ref.once("value", function(snapshot) {
         var dataWarung = snapshot.val();
         // Sending Invoice to User
-        // var text = "Pesen " + outputParam.menu + " " + outputParam.jumlah + ", "+ outputParam.note + ", dikirim ke "+outputParam.alamat;
-        // text = encodeURIComponent(text);
-        var url = "https://api.whatsapp.com/send?phone="+dataWarung.nomorWarung+"&text="+text;
-        var idRef = db.ref("user/activeTransaction/"+source.userId);
-        idRef.once("value", function(snapshot) {
+        var userRef = db.ref("user/activeTransaction/"+source.userId);
+        userRef.once("value", function(snapshot) {
           var idTransaksi = snapshot.val();
           // Add notes to saved transaction database
           var newRef = db.ref("transaksi/"+idTransaksi);
-          var post = newRef.child('note').set(outputParam.note);
-          return flex.orderNote(replyToken, idTransaksi, url, dataWarung);
+          var post = newRef.child('note').set(parameters.note);
+          return flex.orderNote(replyToken, idTransaksi, dataWarung);
           process.exit();
         }, function (errorObject) {
           console.log("The read failed: " + errorObject.code);

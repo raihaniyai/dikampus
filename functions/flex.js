@@ -8,6 +8,13 @@ var self = {
     ref.once("value", function(snapshot) {
       data = snapshot.val();
       var pesanan = {};
+      var text = "Pesen ";
+      for (menu in data.pesanan) {
+        text += menu + " " + data.pesanan[menu].jumlah + ", "
+      }
+      text += "kirim ke " + data.alamat;
+      text = encodeURIComponent(text);
+      var url = "https://api.whatsapp.com/send?phone="+dataWarung.nomorWarung+"&text="+text;
       var flexMsg = {
         "type": "flex",
         "altText": "Invoice",
@@ -104,7 +111,7 @@ var self = {
                     "action": {
                       "type": "uri",
                       "label": "Order",
-                      "uri": "https://instagram.com/raihaniyai"
+                      "uri": url
                     }
                   },
                   {
@@ -169,7 +176,6 @@ var self = {
       ref.child('totalHarga').set(totalHarga);
       flexMsg.contents.body.contents[4].contents[1+jmlData].contents.push(showTotal);
       flexMsg.contents.body.contents[4].contents[3+jmlData].contents.push(showAlamat);
-      console.log(flexMsg);
       return client.replyMessage(replyToken, flexMsg);
       process.exit();
     }, function (errorObject) {
@@ -177,7 +183,7 @@ var self = {
     });
 
   },
-  orderNote: function (replyToken, idTransaksi, url, dataWarung) {
+  orderNote: function (replyToken, idTransaksi, dataWarung) {
     var db = bot.database;
     var client = bot.client;
     var ref = db.ref("transaksi/"+idTransaksi);
@@ -185,6 +191,14 @@ var self = {
     ref.once("value", function(snapshot) {
       data = snapshot.val();
       var pesanan = {};
+      var text = "Pesen ";
+      for (menu in data.pesanan) {
+        text += menu + " " + data.pesanan[menu].jumlah + ", "
+      }
+      text += parameters.note + ", ";
+      text += "kirim ke " + data.alamat;
+      text = encodeURIComponent(text);
+      var url = "https://api.whatsapp.com/send?phone="+dataWarung.nomorWarung+"&text="+text;
       var flexMsg = {
         "type": "flex",
         "altText": "Invoice",
