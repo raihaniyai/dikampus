@@ -140,7 +140,7 @@ var self = {
         ref.once("value", function(snapshot) {
           var dataWarung = snapshot.val();
           // Save transaction to realtime database
-          var userRef = db.ref("user/activeTransaction/"+source.userId)
+          var userRef = db.ref("user/activeTransaction/"+source.userId);
           userRef.once("value", function(snapshot) {
             var idTransaksi = snapshot.val();
             console.log(idTransaksi);
@@ -150,6 +150,7 @@ var self = {
 
             // Sending invoice to user
             return flex.order(replyToken, idTransaksi, dataWarung);
+            process.exit();
           }, function (errorObject) {
             console.log("The read failed: " + errorObject.code);
           });
@@ -157,7 +158,7 @@ var self = {
           // var text = "Pesen " + outputParam.menu + " " + outputParam.jumlah + ", dikirim ke "+outputParam.alamat;
           // text = encodeURIComponent(text);
           // var url = "https://api.whatsapp.com/send?phone="+nomorWarung+"&text="+text;
-          process.exit();
+
         }, function (errorObject) {
           console.log("The read failed: " + errorObject.code);
         });
