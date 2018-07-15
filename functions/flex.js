@@ -195,7 +195,7 @@ var self = {
       for (menu in data.pesanan) {
         text += menu + " " + data.pesanan[menu].jumlah + ", "
       }
-      text += parameters.note + ", ";
+      text += note + ", ";
       text += "kirim ke " + data.alamat;
       text = encodeURIComponent(text);
       var url = "https://api.whatsapp.com/send?phone="+dataWarung.nomorWarung+"&text="+text;
