@@ -171,6 +171,7 @@ var self = {
 
       case 'Note.Done':
       var warung = parameters.warung;
+      var note = parameters.note
       var ref = db.ref("warung/"+warung);
       ref.once("value", function(snapshot) {
         var dataWarung = snapshot.val();
@@ -181,7 +182,7 @@ var self = {
           // Add notes to saved transaction database
           var newRef = db.ref("transaksi/"+idTransaksi);
           var post = newRef.child('note').set(parameters.note);
-          return flex.orderNote(replyToken, idTransaksi, dataWarung);
+          return flex.orderNote(replyToken, idTransaksi, dataWarung, note);
           process.exit();
         }, function (errorObject) {
           console.log("The read failed: " + errorObject.code);

@@ -183,7 +183,7 @@ var self = {
     });
 
   },
-  orderNote: function (replyToken, idTransaksi, dataWarung) {
+  orderNote: function (replyToken, idTransaksi, dataWarung, note) {
     var db = bot.database;
     var client = bot.client;
     var ref = db.ref("transaksi/"+idTransaksi);
