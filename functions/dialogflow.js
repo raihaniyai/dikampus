@@ -88,7 +88,7 @@ var self = {
         } else {
           var ref = db.ref("user/activeTransaction/"+source.userId);
           ref.once("value", function(snapshot) {
-            var activeIdTrans = snapshot.val();
+            var activeTransaction = snapshot.val();
             var orderRef = db.ref("transaction/"+activeTransaction+"/pesanan");
             orderRef.child(parameters.menu).set({'jumlah' : parameters.jumlah});
             return client.replyMessage(replyToken, {
