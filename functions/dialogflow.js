@@ -140,7 +140,7 @@ var self = {
         ref.once("value", function(snapshot) {
           var dataWarung = snapshot.val();
           // Save transaction to realtime database
-          var userRef = db.ref("user/activeTransaction"+source.userId)
+          var userRef = db.ref("user/activeTransaction/"+source.userId)
           ref.once("value", function(snapshot) {
             var idTransaksi = snapshot.val();
             var transRef = db.ref("transaksi/" + idTransaksi);
