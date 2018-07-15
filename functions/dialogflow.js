@@ -56,6 +56,15 @@ var self = {
         return template.food(replyToken, 'warung', null);
       } else {
         var warung = parameters.warung;
+        transaksi  = {
+          'user': source.userId,
+          'warung' : warung
+        };
+        var transRef = db.ref("transaksi");
+        var post = transRef.push(transaksi);
+        var idTransaksi = post.key;
+        var userRef = db.ref("user/activeTransaction");
+        userRef.child(source.userId).set(idTransaksi);
         return template.food(replyToken, 'menu', warung);
         // if (parameters.menu.length === 0){
         //   var warung = parameters.warung;
@@ -75,35 +84,45 @@ var self = {
         return template.food(replyToken, 'menu', warung);
       } else {
         if (parameters.jumlah === ''){
-          return replyText(replyToken, "Mau pesen "+parameters.menu[0]+" berapa banyak kak?");
+          return replyText(replyToken, "Mau pesen "+parameters.menu+" berapa banyak kak?");
         } else {
-          return client.replyMessage(replyToken, {
-            "type": "template",
-            "altText": "Ada tambahan lain?",
-            "template": {
-                "type": "confirm",
-                "text": "Ada tambahan lain ga nih kak?",
-                "actions": [
-                    {
-                      "type": "message",
-                      "label": "Ada",
-                      "text": "Ada"
-                    },
-                    {
-                      "type": "message",
-                      "label": "Tidak Ada",
-                      "text": "Tidak Ada"
-                    }
-                ]
-            }
+          var ref = db.ref("user/activeTransaction/"+source.userId);
+          ref.once("value", function(snapshot) {
+            var activeIdTrans = snapshot.val();
+            var orderRef = db.ref("transaction/"+activeTransaction+"/pesanan");
+            orderRef.child(parameters.menu).set({'jumlah' : parameters.jumlah});
+            return client.replyMessage(replyToken, {
+              "type": "template",
+              "altText": "Ada tambahan lain?",
+              "template": {
+                  "type": "confirm",
+                  "text": "Ada tambahan lain ga nih kak?",
+                  "actions": [
+                      {
+                        "type": "message",
+                        "label": "Ada",
+                        "text": "Ada"
+                      },
+                      {
+                        "type": "message",
+                        "label": "Tidak Ada",
+                        "text": "Tidak Ada"
+                      }
+                  ]
+              }
+            });
+            process.exit();
+          }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
           });
+
         }
       }
       break;
       case 'orderFood.next':
       return replyText(replyToken, "Mau dikirim kemana nih kak?");
       break;
-      case 'orderFood.Alamat':
+      case 'orderFood.alamat':
       if (parameters.alamat === '') {
         return replyText(replyToken, "Mau dikirim kemana nih kak?");
       } else {
@@ -117,9 +136,9 @@ var self = {
           // Save transaction to realtime database
           var transaksi = {};
           var pesanan = {};
-          var harga = dataWarung.menu[outputParam.menu[0]].harga;
+          var harga = dataWarung.menu[outputParam.menu].harga;
           pesanan = {
-            [outputParam.menu[0]] : {'jumlah' : outputParam.jumlah[0], ['harga'] : harga}
+            [outputParam.menu] : {'jumlah' : outputParam.jumlah, ['harga'] : harga}
           }
           transaksi  = {
             'alamat': outputParam.alamat,
@@ -135,7 +154,7 @@ var self = {
           userRef.child(source.userId).set(idTransaksi);
           // Sending invoice to user
           var nomorWarung = dataWarung.nomorWarung;
-          var text = "Pesen " + outputParam.menu[0] + " " + outputParam.jumlah[0] + ", dikirim ke "+outputParam.alamat;
+          var text = "Pesen " + outputParam.menu + " " + outputParam.jumlah + ", dikirim ke "+outputParam.alamat;
           text = encodeURIComponent(text);
           var url = "https://api.whatsapp.com/send?phone="+nomorWarung+"&text="+text;
           return flex.order(replyToken, idTransaksi, url, dataWarung);
@@ -163,7 +182,7 @@ var self = {
       ref.once("value", function(snapshot) {
         var dataWarung = snapshot.val();
         // Sending Invoice to User
-        var text = "Pesen " + outputParam.menu[0] + " " + outputParam.jumlah[0] + ", "+ outputParam.note + ", dikirim ke "+outputParam.alamat;
+        var text = "Pesen " + outputParam.menu + " " + outputParam.jumlah + ", "+ outputParam.note + ", dikirim ke "+outputParam.alamat;
         text = encodeURIComponent(text);
         var url = "https://api.whatsapp.com/send?phone="+dataWarung.nomorWarung+"&text="+text;
         var idRef = db.ref("user/activeTransaction/"+source.userId);
