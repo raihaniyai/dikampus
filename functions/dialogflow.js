@@ -55,21 +55,57 @@ var self = {
       if (parameters.warung === '') {
         return template.food(replyToken, 'warung', null);
       } else {
-        if (parameters.menu.length === 0){
-          var warung = parameters.warung;
-          return template.food(replyToken, 'menu', warung);
+        var warung = parameters.warung;
+        return template.food(replyToken, 'menu', warung);
+        // if (parameters.menu.length === 0){
+        //   var warung = parameters.warung;
+        //   return template.food(replyToken, 'menu', warung);
+        // } else {
+        //   if (parameters.jumlah.length === 0){
+        //     return replyText(replyToken, "Mau pesen "+parameters.menu[0]+" berapa banyak kak?");
+        //   } else{
+        //     return replyText(replyToken, "Mau dikirim kemana nih kak?")
+        //   }
+        // }
+      }
+      break;
+      case 'orderFood.chooseMenu':
+      if (parameters.menu === '') {
+        var warung = parameters.warung;
+        return template.food(replyToken, 'menu', warung);
+      } else {
+        if (parameters.jumlah === ''){
+          return replyText(replyToken, "Mau pesen "+parameters.menu[0]+" berapa banyak kak?");
         } else {
-          if (parameters.jumlah.length === 0){
-            return replyText(replyToken, "Mau pesen "+parameters.menu[0]+" berapa banyak kak?");
-          } else{
-            return replyText(replyToken, "Mau dikirim kemana nih kak?")
-          }
+          return client.replyMessage(replyToken, {
+            "type": "template",
+            "altText": "Ada tambahan lain?",
+            "template": {
+                "type": "confirm",
+                "text": "Ada tambahan lain ga nih kak?",
+                "actions": [
+                    {
+                      "type": "message",
+                      "label": "Ada",
+                      "text": "Ada"
+                    },
+                    {
+                      "type": "message",
+                      "label": "Tidak Ada",
+                      "text": "Tidak Ada"
+                    }
+                ]
+            }
+          });
         }
       }
       break;
+      case 'orderFood.next':
+      return replyText(replyToken, "Mau dikirim kemana nih kak?");
+      break;
       case 'orderFood.Alamat':
       if (parameters.alamat === '') {
-        return replyText(replyToken, "Mau dikirim kemana nih kak?")
+        return replyText(replyToken, "Mau dikirim kemana nih kak?");
       } else {
         var date = new Date();
         date = date.toLocaleString('id-ID');
@@ -129,7 +165,7 @@ var self = {
         // Sending Invoice to User
         var text = "Pesen " + outputParam.menu[0] + " " + outputParam.jumlah[0] + ", "+ outputParam.note + ", dikirim ke "+outputParam.alamat;
         text = encodeURIComponent(text);
-        var url = "https://api.whatsapp.com/send?phone="+dataWarung.nomor+"&text="+text;
+        var url = "https://api.whatsapp.com/send?phone="+dataWarung.nomorWarung+"&text="+text;
         var idRef = db.ref("user/activeTransaction/"+source.userId);
         idRef.once("value", function(snapshot) {
           var idTransaksi = snapshot.val();
