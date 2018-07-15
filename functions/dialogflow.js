@@ -139,10 +139,12 @@ var self = {
         var ref = db.ref("warung/"+warung);
         ref.once("value", function(snapshot) {
           var dataWarung = snapshot.val();
+          console.log(snapshot.val());
           // Save transaction to realtime database
           var userRef = db.ref("user/"+source.userId)
           ref.once("value", function(snapshot) {
             var idTransaksi = snapshot.val();
+            console.log(idTransaksi);
             var transRef = db.ref("transaksi/" + idTransaksi);
             orderRef.child('waktu').set(date);
             orderRef.child('alamat').set(parameters.alamat);
