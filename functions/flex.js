@@ -169,6 +169,7 @@ var self = {
       ref.child('totalHarga').set(totalHarga);
       flexMsg.contents.body.contents[4].contents[1+jmlData].contents.push(showTotal);
       flexMsg.contents.body.contents[4].contents[3+jmlData].contents.push(showAlamat);
+      console.log(flexMsg);
       return client.replyMessage(replyToken, flexMsg);
       process.exit();
     }, function (errorObject) {

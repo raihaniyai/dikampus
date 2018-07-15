@@ -143,6 +143,7 @@ var self = {
           var userRef = db.ref("user/activeTransaction/"+source.userId)
           ref.once("value", function(snapshot) {
             var idTransaksi = snapshot.val();
+            console.log(idTransaksi);
             var transRef = db.ref("transaksi/" + idTransaksi);
             transRef.child('waktu').set(date);
             transRef.child('alamat').set(parameters.alamat);
