@@ -139,15 +139,13 @@ var self = {
         var ref = db.ref("warung/"+warung);
         ref.once("value", function(snapshot) {
           var dataWarung = snapshot.val();
-          console.log(snapshot.val());
           // Save transaction to realtime database
-          var userRef = db.ref("user/"+source.userId)
+          var userRef = db.ref("user/activeTransaction"+source.userId)
           ref.once("value", function(snapshot) {
             var idTransaksi = snapshot.val();
-            console.log(idTransaksi);
             var transRef = db.ref("transaksi/" + idTransaksi);
-            orderRef.child('waktu').set(date);
-            orderRef.child('alamat').set(parameters.alamat);
+            transRef.child('waktu').set(date);
+            transRef.child('alamat').set(parameters.alamat);
 
             // Sending invoice to user
             return flex.order(replyToken, idTransaksi, dataWarung);
