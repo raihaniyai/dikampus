@@ -88,12 +88,12 @@ var self = {
         } else {
           var ref = db.ref("user/activeTransaction/"+source.userId);
           ref.once("value", function(snapshot) {
-            var activeTransaction = snapshot.val();
+            var idTransaksi = snapshot.val();
             var warungRef = db.ref("warung/"+warung)
             warungRef.once("value", function(snapshot) {
               var dataWarung = snapshot.val();
               var harga = dataWarung.menu[parameters.menu].harga;
-              var orderRef = db.ref("transaksi/"+activeTransaction+"/pesanan");
+              var orderRef = db.ref("transaksi/"+idTransaksi+"/pesanan");
               orderRef.child(parameters.menu).set({'jumlah' : parameters.jumlah, 'harga' : harga});
             }, function (errorObject) {
               console.log("The read failed: " + errorObject.code);
@@ -142,20 +142,20 @@ var self = {
           // Save transaction to realtime database
           var userRef = db.ref("user/"+source.userId)
           ref.once("value", function(snapshot) {
-            var activeTransaction = snapshot.val();
-            var transRef = db.ref("transaksi/" + activeTransaction);
+            var idTransaksi = snapshot.val();
+            var transRef = db.ref("transaksi/" + idTransaksi);
             orderRef.child('waktu').set(date);
             orderRef.child('alamat').set(parameters.alamat);
 
             // Sending invoice to user
+            return flex.order(replyToken, idTransaksi, dataWarung);
           }, function (errorObject) {
             console.log("The read failed: " + errorObject.code);
           });
-          var nomorWarung = dataWarung.nomorWarung;
-          var text = "Pesen " + outputParam.menu + " " + outputParam.jumlah + ", dikirim ke "+outputParam.alamat;
-          text = encodeURIComponent(text);
-          var url = "https://api.whatsapp.com/send?phone="+nomorWarung+"&text="+text;
-          return flex.order(replyToken, activeTransaction, url, dataWarung);
+          // var nomorWarung = dataWarung.nomorWarung;
+          // var text = "Pesen " + outputParam.menu + " " + outputParam.jumlah + ", dikirim ke "+outputParam.alamat;
+          // text = encodeURIComponent(text);
+          // var url = "https://api.whatsapp.com/send?phone="+nomorWarung+"&text="+text;
           process.exit();
         }, function (errorObject) {
           console.log("The read failed: " + errorObject.code);
@@ -180,8 +180,8 @@ var self = {
       ref.once("value", function(snapshot) {
         var dataWarung = snapshot.val();
         // Sending Invoice to User
-        var text = "Pesen " + outputParam.menu + " " + outputParam.jumlah + ", "+ outputParam.note + ", dikirim ke "+outputParam.alamat;
-        text = encodeURIComponent(text);
+        // var text = "Pesen " + outputParam.menu + " " + outputParam.jumlah + ", "+ outputParam.note + ", dikirim ke "+outputParam.alamat;
+        // text = encodeURIComponent(text);
         var url = "https://api.whatsapp.com/send?phone="+dataWarung.nomorWarung+"&text="+text;
         var idRef = db.ref("user/activeTransaction/"+source.userId);
         idRef.once("value", function(snapshot) {

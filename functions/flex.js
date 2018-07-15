@@ -1,7 +1,7 @@
 const bot = require('./../bot.js');
 
 var self = {
-  order: function (replyToken, idTransaksi, url, dataWarung) {
+  order: function (replyToken, idTransaksi, dataWarung) {
     var db = bot.database;
     var client = bot.client;
     var ref = db.ref("transaksi/"+idTransaksi);
@@ -104,7 +104,7 @@ var self = {
                     "action": {
                       "type": "uri",
                       "label": "Order",
-                      "uri": url
+                      "uri": "https://instagram.com/raihaniyai"
                     }
                   },
                   {
