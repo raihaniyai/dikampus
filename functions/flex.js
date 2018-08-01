@@ -465,7 +465,8 @@ var self = {
         };
         for (var menu in itemKat) {
           var itemMenu = itemKat[menu];
-          var flexMenu = {
+          console.log(itemMenu);
+          var flexMenu = [{
             "type": "box",
             "layout": "baseline",
             "contents": [
@@ -485,14 +486,14 @@ var self = {
                 "color": "#222222"
               }
             ]
-          };
-          // {
-          //   "type": "text",
-          //   "text": itemMenu.deskripsi,
-          //   "wrap": true,
-          //   "color": "#aaaaaa",
-          //   "size": "xxs"
-          // };
+          },
+          {
+            "type": "text",
+            "text": itemMenu.deskripsi,
+            "wrap": true,
+            "color": "#aaaaaa",
+            "size": "xxs"
+          }];
           kategori.body.contents.push(flexMenu);
           jmlMenu++;
           if (jmlMenu < 3) {
@@ -505,6 +506,7 @@ var self = {
           }
         }
         flexMsg.contents.contents.unshift(kategori);
+        console.log(kategori);
         jmlKat++;
       }
       return client.replyMessage(replyToken, flexMsg);
