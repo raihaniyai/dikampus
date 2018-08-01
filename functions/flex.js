@@ -397,7 +397,8 @@ var self = {
       };
       var jmlKat = 0;
       for (var kat in data) {
-        var item = data[kat];
+        var jmlMenu = 0;
+        var itemKat = data[kat];
         var kategori = {
           "type": "bubble",
           "header": {
@@ -415,7 +416,7 @@ var self = {
           },
           "hero": {
             "type": "image",
-            "url": item.thumbnail,
+            "url": itemKat.thumbnail,
             "size": "full",
             "aspectRatio": "20:13",
             "aspectMode": "cover",
@@ -437,102 +438,7 @@ var self = {
                 "type": "box",
                 "layout": "vertical",
                 "spacing": "sm",
-                "contents": [
-                  {
-                    "type": "box",
-                    "layout": "baseline",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "Bento 1",
-                        "weight": "bold",
-                        "size": "sm",
-                        "margin": "sm",
-                        "flex": 0
-                      },
-                      {
-                        "type": "text",
-                        "text": "Rp 25000",
-                        "size": "sm",
-                        "align": "end",
-                        "color": "#222222"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "text",
-                    "text": "Sauce, Onions, Pickles, Lettuce & Cheese",
-                    "wrap": true,
-                    "color": "#aaaaaa",
-                    "size": "xxs"
-                  },
-                  {
-                    "type": "separator",
-                    "margin": "lg"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "baseline",
-                    "margin": "lg",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "Bento Mix",
-                        "weight": "bold",
-                        "size": "sm",
-                        "margin": "sm",
-                        "flex": 0
-                      },
-                      {
-                        "type": "text",
-                        "text": "Rp 19500",
-                        "size": "sm",
-                        "align": "end",
-                        "color": "#222222"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "text",
-                    "text": "Sauce, Onions, Pickles, Lettuce & Cheese",
-                    "wrap": true,
-                    "color": "#aaaaaa",
-                    "size": "xxs"
-                  }
-                ]
-              },
-              {
-                "type": "separator",
-                "margin": "lg"
-              },
-              {
-                "type": "box",
-                "layout": "baseline",
-                "margin": "lg",
-                "contents": [
-                  {
-                    "type": "text",
-                    "text": "Bento Mix",
-                    "size": "sm",
-                    "weight": "bold",
-                    "margin": "sm",
-                    "flex": 0
-                  },
-                  {
-                    "type": "text",
-                    "text": "Rp 19500",
-                    "size": "sm",
-                    "align": "end",
-                    "color": "#222222"
-                  }
-                ]
-              },
-              {
-                "type": "text",
-                "text": "Sauce, Onions, Pickles, Lettuce & Cheese",
-                "wrap": true,
-                "color": "#aaaaaa",
-                "size": "xxs"
+                "contents": []
               }
             ]
           },
@@ -549,14 +455,55 @@ var self = {
                 "style": "link",
                 "color": "#0B5ED7",
                 "action": {
-                  "type": "uri",
+                  "type": "text",
                   "label": "Lihat Menu",
-                  "uri": "https://linecorp.com"
+                  "message": kat
                 }
               }
             ]
           }
         };
+        for (var menu in itemKat) {
+          var itemMenu = itemKat[menu];
+          var flexMenu = {
+            "type": "box",
+            "layout": "baseline",
+            "contents": [
+              {
+                "type": "text",
+                "text": menu,
+                "weight": "bold",
+                "size": "sm",
+                "margin": "sm",
+                "flex": 0
+              },
+              {
+                "type": "text",
+                "text": itemMenu.harga,
+                "size": "sm",
+                "align": "end",
+                "color": "#222222"
+              }
+            ]
+          },
+          {
+            "type": "text",
+            "text": itemMenu.deskripsi,
+            "wrap": true,
+            "color": "#aaaaaa",
+            "size": "xxs"
+          };
+          kategori.body.contents.push(flexMenu);
+          jmlMenu++;
+          if (jmlMenu < 3) {
+            break;
+          } else {
+            kategori.body.contents.push({
+              "type": "separator",
+              "margin": "lg"
+            });
+          }
+        }
         flexMsg.contents.contents.unshift(kategori);
         jmlKat++;
       }
