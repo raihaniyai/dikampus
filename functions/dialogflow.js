@@ -134,7 +134,7 @@ var self = {
               warungRef.once("value", function(snapshot) {
                 var dataWarung = snapshot.val();
                 var harga = dataWarung[parameters.kategori][parameters.menu].harga;
-                var orderRef = db.ref("transaksi/"+idTransaksi+"/pesanan");
+                var orderRef = db.ref("transaksi/makanan/"+idTransaksi+"/pesanan");
                 orderRef.child(parameters.menu).set({'jumlah' : parameters.jumlah, 'harga' : harga});
               }, function (errorObject) {
                 console.log("The read failed: " + errorObject.code);
@@ -184,8 +184,7 @@ var self = {
           var userRef = db.ref("user/activeTransaction/"+source.userId);
           userRef.once("value", function(snapshot) {
             var idTransaksi = snapshot.val();
-            console.log(idTransaksi);
-            var transRef = db.ref("transaksi/makanan" + idTransaksi);
+            var transRef = db.ref("transaksi/makanan/" + idTransaksi);
             transRef.child('waktu').set(date);
             transRef.child('alamat').set(parameters.alamat);
             // Sending invoice to user
