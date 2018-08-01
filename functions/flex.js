@@ -470,6 +470,7 @@ var self = {
       var jmlMenu = 0;
       for (var menu in data) {
         var itemMenu = data[menu];
+        console.log(menu + ":" + itemMenu);
         var flexMenu = {
           "type": "bubble",
           "hero": {
