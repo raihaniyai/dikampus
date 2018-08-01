@@ -20,14 +20,14 @@ var self = {
             "columns": []
           }
         };
-
         for(var i in data) {
+          var deskripsi = item.alamat + "\n" + item.jamBuka
           var item = data[i];
           message.template.columns.push({
             "thumbnailImageUrl": item.thumbnail,
             "imageBackgroundColor": "#FFFFFF",
             "title": i,
-            "text": item.deskripsi,
+            "text": deskripsi,
             "actions" : [
               {
                 "type": "message",

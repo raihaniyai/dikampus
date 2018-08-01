@@ -83,7 +83,7 @@ function handleEvent(event) {
       },
       {
       "type": "text",
-      "text": `Kenalin namaku Dika 😄, \naku bisa pesenin makanan 🍽️ kesukaanmu di sekitar Telkom University loh!`
+      "text": `Kenalin namaku Dika 􀰂􀄤smiling􏿿 \naku bisa pesenin makanan 🍽️ kesukaanmu di sekitar Telkom University loh!`
       },
       {
         "type": "text",

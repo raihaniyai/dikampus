@@ -60,7 +60,7 @@ var self = {
           'user': source.userId,
           'warung' : warung
         };
-        var transRef = db.ref("transaksi");
+        var transRef = db.ref("transaksi/makanan");
         var post = transRef.push(transaksi);
         var idTransaksi = post.key;
         var userRef = db.ref("user/activeTransaction");
