@@ -479,7 +479,7 @@ var self = {
               },
               {
                 "type": "text",
-                "text": itemMenu.harga,
+                "text": itemMenu.harga.toString(),
                 "size": "sm",
                 "align": "end",
                 "color": "#222222"
