@@ -70,11 +70,12 @@ var self = {
       break;
       case 'orderFood.chooseMenu':
       var warung = parameters.warung;
+      console.log(JSON.stringify(body));
       if (parameters.kategori === '') {
         return flex.kategori(replyToken, warung);
       } else {
         if (parameters.menu === '') {
-          return flex.menu(replyToken, warung, parameters.kategori)
+          return flex.menu(replyToken, warung, parameters.kategori);
           // return template.food(replyToken, 'menu', warung);
         } else {
           if (parameters.jumlah === ''){

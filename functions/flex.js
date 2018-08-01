@@ -446,7 +446,6 @@ var self = {
         flexMsg.contents.contents.unshift(kategori);
         jmlKat++;
       }
-      console.log(JSON.stringify(flexMsg));
       return client.replyMessage(replyToken, flexMsg);
       process.exit();
     }, function (errorObject) {
@@ -538,7 +537,7 @@ var self = {
         };
         flexMsg.contents.contents.unshift(flexMenu);
       }
-      console.log(flexMsg);
+      console.log(JSON.stringify(flexMsg));
       return client.replyMessage(replyToken, flexMsg);
       process.exit();
     }, function (errorObject) {
