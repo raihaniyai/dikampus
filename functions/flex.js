@@ -465,7 +465,7 @@ var self = {
         };
         for (var menu in itemKat) {
           var itemMenu = itemKat[menu];
-          var flexMenu = [{
+          var flexMenu = {
             "type": "box",
             "layout": "baseline",
             "contents": [
@@ -485,14 +485,14 @@ var self = {
                 "color": "#222222"
               }
             ]
-          },
-          {
-            "type": "text",
-            "text": itemMenu.deskripsi,
-            "wrap": true,
-            "color": "#aaaaaa",
-            "size": "xxs"
-          }];
+          };
+          // {
+          //   "type": "text",
+          //   "text": itemMenu.deskripsi,
+          //   "wrap": true,
+          //   "color": "#aaaaaa",
+          //   "size": "xxs"
+          // };
           kategori.body.contents.push(flexMenu);
           jmlMenu++;
           if (jmlMenu < 3) {
