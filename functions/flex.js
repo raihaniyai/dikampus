@@ -111,7 +111,7 @@ var self = {
                     "color": "#0B5ED7",
                     "action": {
                       "type": "uri",
-                      "label": "Order",
+                      "label": "PESAN",
                       "uri": url
                     }
                   },
@@ -291,7 +291,7 @@ var self = {
                   },
                   {
                     "type": "text",
-                    "text": "NOTES",
+                    "text": "CATATAN",
                     "size": "sm",
                     "color": "#555555"
                   }
@@ -311,7 +311,7 @@ var self = {
                     "color": "#0B5ED7",
                     "action": {
                       "type": "uri",
-                      "label": "Order",
+                      "label": "PESAN",
                       "uri": url
                     }
                   }
@@ -539,6 +539,132 @@ var self = {
           };
           flexMsg.contents.contents.unshift(flexMenu);
         }
+      }
+      return client.replyMessage(replyToken, flexMsg);
+      process.exit();
+    }, function (errorObject) {
+      console.log("The read failed: " + errorObject.code);
+    });
+  },
+  warung: function (replyToken, warung, kategori) {
+    var db = bot.database;
+    var client = bot.client;
+    var ref = db.ref("warung");
+    ref.once("value", function(snapshot) {
+      data = snapshot.val();
+      var flexMsg = {
+        "type": "flex",
+        "altText": "Rekomendasi Warung",
+        "contents": {
+          "type": "carousel",
+          "contents": []
+        }
+      };
+      var jmlWarung = 0;
+      for (var warung in data) {
+        var itemWarung = data[warung];
+        var flexWarung = {
+          "type": "bubble",
+          "hero": {
+            "type": "image",
+            "url": itemWarung.thumbnail,
+            "size": "full",
+            "aspectRatio": "20:13",
+            "aspectMode": "cover",
+            "action": {
+              "type": "uri",
+              "uri": "http://linecorp.com/"
+            }
+          },
+          "body": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "text",
+                "text": warung,
+                "weight": "bold",
+                "size": "xl"
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "margin": "lg",
+                "spacing": "sm",
+                "contents": [
+                  {
+                    "type": "box",
+                    "layout": "baseline",
+                    "spacing": "sm",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": "Alamat",
+                        "color": "#aaaaaa",
+                        "size": "sm",
+                        "flex": 1
+                      },
+                      {
+                        "type": "text",
+                        "text": itemWarung.alamat,
+                        "wrap": true,
+                        "color": "#666666",
+                        "size": "sm",
+                        "flex": 4
+                      }
+                    ]
+                  },
+                  {
+                    "type": "box",
+                    "layout": "baseline",
+                    "spacing": "sm",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": "Buka",
+                        "color": "#aaaaaa",
+                        "size": "sm",
+                        "flex": 1
+                      },
+                      {
+                        "type": "text",
+                        "text": itemWarung.jamBuka,
+                        "wrap": true,
+                        "color": "#666666",
+                        "size": "sm",
+                        "flex": 4
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "footer": {
+            "type": "box",
+            "layout": "vertical",
+            "spacing": "sm",
+            "contents": [
+              {
+                "type": "button",
+                "style": "link",
+                "color": "#0B5ED7",
+                "height": "sm",
+                "action": {
+                  "type": "uri",
+                  "label": "Pilih Warung",
+                  "uri": "https://linecorp.com"
+                }
+              },
+              {
+                "type": "spacer",
+                "size": "sm"
+              }
+            ],
+            "flex": 0
+          }
+        }
+        flexMsg.contents.contents.unshift(flexWarung);
       }
       return client.replyMessage(replyToken, flexMsg);
       process.exit();
