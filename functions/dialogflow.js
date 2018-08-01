@@ -185,7 +185,7 @@ var self = {
           userRef.once("value", function(snapshot) {
             var idTransaksi = snapshot.val();
             console.log(idTransaksi);
-            var transRef = db.ref("transaksi/" + idTransaksi);
+            var transRef = db.ref("transaksi/makanan" + idTransaksi);
             transRef.child('waktu').set(date);
             transRef.child('alamat').set(parameters.alamat);
             // Sending invoice to user
@@ -221,7 +221,7 @@ var self = {
         userRef.once("value", function(snapshot) {
           var idTransaksi = snapshot.val();
           // Add notes to saved transaction database
-          var newRef = db.ref("transaksi/"+idTransaksi);
+          var newRef = db.ref("transaksi/makanan"+idTransaksi);
           var post = newRef.child('note').set(parameters.note);
           return flex.orderNote(replyToken, idTransaksi, dataWarung, note);
           process.exit();

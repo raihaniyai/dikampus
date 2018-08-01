@@ -7,9 +7,10 @@ var self = {
     var ref = db.ref("transaksi/makanan/"+idTransaksi);
     ref.once("value", function(snapshot) {
       data = snapshot.val();
+      console.log(data);
       var pesanan = {};
       var text = "Pesen ";
-      for (menu in data.pesanan) {
+      for (var menu in data.pesanan) {
         text += menu + " " + data.pesanan[menu].jumlah + ", "
       }
       text += "kirim ke " + data.alamat;
