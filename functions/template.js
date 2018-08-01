@@ -21,7 +21,7 @@ var self = {
           }
         };
         for(var i in data) {
-          var deskripsi = item.alamat + "\n" + item.jamBuka
+          var deskripsi = item.jamBuka
           var item = data[i];
           message.template.columns.push({
             "thumbnailImageUrl": item.thumbnail,
