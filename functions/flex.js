@@ -32,7 +32,7 @@ var self = {
             "contents": [
               {
                 "type": "text",
-                "text": "RECEIPT",
+                "text": "INVOICE",
                 "weight": "bold",
                 "color": "#1DB446",
                 "size": "sm"
@@ -178,7 +178,13 @@ var self = {
       flexMsg.contents.body.contents[4].contents[1+jmlData].contents.push(showTotal);
       flexMsg.contents.body.contents[4].contents[3+jmlData].contents.push(showAlamat);
       console.log(JSON.stringify(flexMsg));
-      return client.replyMessage(replyToken, flexMsg);
+      return client.replyMessage(replyToken, [
+        {
+          "type": "text",
+          "text": `Berikut invoice pemesanan kakak 􀰂􀄦wink􏿿`
+        },
+        flexMsg
+      ]);
       process.exit();
     }, function (errorObject) {
       console.log("The read failed: " + errorObject.code);
@@ -217,7 +223,7 @@ var self = {
             "contents": [
               {
                 "type": "text",
-                "text": "RECEIPT",
+                "text": "INVOICE",
                 "weight": "bold",
                 "color": "#1DB446",
                 "size": "sm"
@@ -376,7 +382,13 @@ var self = {
       flexMsg.contents.body.contents[4].contents[1+jmlData].contents.push(showTotal);
       flexMsg.contents.body.contents[4].contents[3+jmlData].contents.push(showAlamat);
       flexMsg.contents.body.contents[5].contents.push(showNote);
-      return client.replyMessage(replyToken , flexMsg);
+      r  return client.replyMessage(replyToken, [
+          {
+            "type": "text",
+          "text": `Terima kasih telah memesan 􀰂􀄥excited􏿿 \nSilakan tap tombol Pesan untuk melanjutkan transaksi`
+          },
+          flexMsg
+        ]);
       process.exit();
     }, function (errorObject) {
       console.log("The read failed: " + errorObject.code);
@@ -445,10 +457,16 @@ var self = {
             });
           }
         }
-        flexMsg.contents.contents.unshift(kategori);
+        flexMsg.contents.contents.push(kategori);
         jmlKat++;
       }
-      return client.replyMessage(replyToken, flexMsg);
+      return client.replyMessage(replyToken, [
+      {
+        "type": "text",
+        "text": `Ini menu di ${warung} 􀰂􀄤smiling􏿿`
+      },
+      flexMsg
+      ]);
       process.exit();
     }, function (errorObject) {
       console.log("The read failed: " + errorObject.code);
@@ -491,7 +509,7 @@ var self = {
                   "text": menu,
                   "wrap": true,
                   "weight": "bold",
-                  "size": "xl"
+                  "size": "lg"
                 },
                 {
                   "type": "text",
@@ -512,9 +530,8 @@ var self = {
                     {
                       "type": "text",
                       "text": "Rp " + itemMenu.harga.toString(),
-                      "size" : "lg",
-                      "wrap": true,
-                      "weight": "bold"
+                      "size" : "md",
+                      "wrap": true
                     }
                   ]
                 }
@@ -537,10 +554,16 @@ var self = {
               ]
             }
           };
-          flexMsg.contents.contents.unshift(flexMenu);
+          flexMsg.contents.contents.push(flexMenu);
         }
       }
-      return client.replyMessage(replyToken, flexMsg);
+      return client.replyMessage(replyToken, [
+      {
+        "type": "text",
+        "text": `Ini daftar menu ${kategori} yang ada di ${warung} 􀰂􀄤smiling􏿿`
+      },
+      flexMsg
+      ]);
       process.exit();
     }, function (errorObject) {
       console.log("The read failed: " + errorObject.code);
@@ -664,9 +687,15 @@ var self = {
             "flex": 0
           }
         }
-        flexMsg.contents.contents.unshift(flexWarung);
+        flexMsg.contents.contents.push(flexWarung);
       }
-      return client.replyMessage(replyToken, flexMsg);
+      return client.replyMessage(replyToken,[
+        {
+        "type": "text",
+        "text": `Ini rekomendasi warung dari Dika 􀰂􀄥excited􏿿`
+        },
+        flexMsg
+      ]);
       process.exit();
     }, function (errorObject) {
       console.log("The read failed: " + errorObject.code);

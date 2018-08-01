@@ -80,7 +80,7 @@ var self = {
           if (parameters.jumlah === ''){
             return client.replyMessage(replyToken, {
               "type": "text",
-              "text": "Mau pesen "+parameters.menu+" berapa banyak kak?",
+              "text": "Mau pesen "+parameters.menu+" berapa banyak kak? 􀰂􀄫content􏿿",
               "quickReply": {
                 "items": [
                   {
@@ -144,7 +144,7 @@ var self = {
                 "altText": "Ada tambahan lain?",
                 "template": {
                   "type": "confirm",
-                  "text": "Ada tambahan lain ga nih kak?",
+                  "text": "Ada tambahan lain ga nih kak? 􀰂􀄤smiling􏿿",
                   "actions": [
                     {
                       "type": "message",
@@ -168,11 +168,11 @@ var self = {
       }
       break;
       case 'orderFood.next':
-      return replyText(replyToken, "Mau dikirim kemana nih kak?");
+      return replyText(replyToken, "Mau dikirim kemana nih kak? 􀰂􀄤smiling􏿿");
       break;
       case 'orderFood.alamat':
       if (parameters.alamat === '') {
-        return replyText(replyToken, "Mau dikirim kemana nih kak?");
+        return replyText(replyToken, "Mau dikirim kemana nih kak? 􀰂􀄤smiling􏿿");
       } else {
         var date = new Date();
         date = date.toLocaleString('id-ID');
