@@ -455,7 +455,7 @@ var self = {
                 "style": "link",
                 "color": "#0B5ED7",
                 "action": {
-                  "type": "text",
+                  "type": "message",
                   "label": "Lihat Menu",
                   "message": kat
                 }
