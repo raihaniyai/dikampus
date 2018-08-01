@@ -484,6 +484,7 @@ var self = {
                 "align": "end",
                 "color": "#222222"
               }
+            ]
           };
           var deskripsiMenu = {
             "type": "text",
