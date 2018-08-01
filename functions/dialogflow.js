@@ -144,7 +144,7 @@ var self = {
                 "altText": "Ada tambahan lain?",
                 "template": {
                   "type": "confirm",
-                  "text": "Ada tambahan lain ga nih kak? 􀰂􀄤smiling􏿿",
+                  "text": "Ada tambahan lain ga nih kak?",
                   "actions": [
                     {
                       "type": "message",

@@ -420,7 +420,7 @@ var self = {
             "contents": [
               {
                 "type": "text",
-                "text": "kat",
+                "text": kat,
                 "weight": "bold",
                 "color": "#222222",
                 "size": "lg"
@@ -429,7 +429,7 @@ var self = {
           },
           "hero": {
             "type": "image",
-            "url": "itemKat.thumbnail",
+            "url": itemKat.thumbnail,
             "size": "full",
             "aspectRatio": "20:13",
             "aspectMode": "cover",
@@ -462,7 +462,7 @@ var self = {
                 "action": {
                   "type": "message",
                   "label": "Lihat Semua",
-                  "text": "kat"
+                  "text": kat
                 }
               }
             ]
