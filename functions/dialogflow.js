@@ -79,15 +79,63 @@ var self = {
           // return template.food(replyToken, 'menu', warung);
         } else {
           if (parameters.jumlah === ''){
-            return replyText(replyToken, "Mau pesen "+parameters.menu+" berapa banyak kak?");
+            return client.replyMessage(replyToken, {
+              "type": "text",
+              "text": "Mau pesen "+parameters.menu+" berapa banyak kak?",
+              "quickReply": {
+                "items": [
+                  {
+                    "type": "action",
+                    "action": {
+                      "type": "message",
+                      "label": "1",
+                      "text": "1"
+                    }
+                  },
+                  {
+                    "type": "action",
+                    "action": {
+                      "type": "message",
+                      "label": "2",
+                      "text": "2"
+                    }
+                  },
+                  {
+                    "type": "action",
+                    "action": {
+                      "type": "message",
+                      "label": "3",
+                      "text": "3"
+                    }
+                  },
+                  {
+                    "type": "action",
+                    "action": {
+                      "type": "message",
+                      "label": "4",
+                      "text": "4"
+                    }
+                  },
+                  {
+                    "type": "action",
+                    "action": {
+                      "type": "message",
+                      "label": "5",
+                      "text": "5"
+                    }
+                  },
+                ]
+              }
+            });
           } else {
             var ref = db.ref("user/activeTransaction/"+source.userId);
             ref.once("value", function(snapshot) {
               var idTransaksi = snapshot.val();
-              var warungRef = db.ref("warung/"+warung)
+              var warungRef = db.ref("warung/"+warung+"/menu")
               warungRef.once("value", function(snapshot) {
                 var dataWarung = snapshot.val();
-                var harga = dataWarung.menu[parameters.menu].harga;
+                var kategori = parameters.kategori;
+                var harga = dataWarung.kategori.harga;
                 var orderRef = db.ref("transaksi/"+idTransaksi+"/pesanan");
                 orderRef.child(parameters.menu).set({'jumlah' : parameters.jumlah, 'harga' : harga});
               }, function (errorObject) {
