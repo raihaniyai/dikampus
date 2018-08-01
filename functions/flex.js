@@ -188,7 +188,7 @@ var self = {
   orderNote: function (replyToken, idTransaksi, dataWarung, note) {
     var db = bot.database;
     var client = bot.client;
-    var ref = db.ref("transaksi/"+idTransaksi);
+    var ref = db.ref("transaksi/makanan/"+idTransaksi);
 
     ref.once("value", function(snapshot) {
       data = snapshot.val();
