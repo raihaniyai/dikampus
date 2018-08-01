@@ -457,7 +457,7 @@ var self = {
                 "action": {
                   "type": "message",
                   "label": "Lihat Menu",
-                  "message": kat
+                  "text": kat
                 }
               }
             ]
