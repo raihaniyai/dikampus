@@ -133,8 +133,6 @@ var self = {
               var warungRef = db.ref("warung/"+warung+"/menu")
               warungRef.once("value", function(snapshot) {
                 var dataWarung = snapshot.val();
-                console.log(dataWarung);
-                // var harga = dataWarung.kategori[parameters.menu].harga;
                 var harga = dataWarung[parameters.kategori][parameters.menu].harga;
                 var orderRef = db.ref("transaksi/"+idTransaksi+"/pesanan");
                 orderRef.child(parameters.menu).set({'jumlah' : parameters.jumlah, 'harga' : harga});

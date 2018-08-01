@@ -4,7 +4,7 @@ var self = {
   order: function (replyToken, idTransaksi, dataWarung) {
     var db = bot.database;
     var client = bot.client;
-    var ref = db.ref("transaksi/"+idTransaksi);
+    var ref = db.ref("transaksi/makanan/"+idTransaksi);
     ref.once("value", function(snapshot) {
       data = snapshot.val();
       var pesanan = {};
