@@ -406,7 +406,7 @@ var self = {
             "contents": [
               {
                 "type": "text",
-                "text": "Paket Bento + Nasi",
+                "text": kat,
                 "weight": "bold",
                 "color": "#222222",
                 "size": "lg"
@@ -415,7 +415,7 @@ var self = {
           },
           "hero": {
             "type": "image",
-            "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_2_restaurant.png",
+            "url": item.thumbnail,
             "size": "full",
             "aspectRatio": "20:13",
             "aspectMode": "cover",
