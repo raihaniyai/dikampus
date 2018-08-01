@@ -537,6 +537,7 @@ var self = {
         };
         flexMsg.contents.contents.unshift(flexMenu);
       }
+      console.log(flexMsg);
       return client.replyMessage(replyToken, flexMsg);
       process.exit();
     }, function (errorObject) {

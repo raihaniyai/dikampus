@@ -74,7 +74,7 @@ var self = {
         return flex.kategori(replyToken, warung);
       } else {
         if (parameters.menu === '') {
-          return flex.menu(replyToken, warung, kategori)
+          return flex.menu(replyToken, warung, parameters.kategori)
           // return template.food(replyToken, 'menu', warung);
         } else {
           if (parameters.jumlah === ''){
