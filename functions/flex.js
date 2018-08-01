@@ -506,9 +506,9 @@ var self = {
           }
         }
         flexMsg.contents.contents.unshift(kategori);
-        console.log(kategori);
         jmlKat++;
       }
+      console.log(JSON.stringify(flexMsg));
       return client.replyMessage(replyToken, flexMsg);
       process.exit();
     }, function (errorObject) {
