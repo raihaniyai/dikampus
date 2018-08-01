@@ -21,8 +21,8 @@ var self = {
           }
         };
         for(var i in data) {
-          var deskripsi = item.jamBuka
           var item = data[i];
+          var deskripsi = item.jamBuka
           message.template.columns.push({
             "thumbnailImageUrl": item.thumbnail,
             "imageBackgroundColor": "#FFFFFF",
