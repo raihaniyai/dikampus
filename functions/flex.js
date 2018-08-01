@@ -651,9 +651,9 @@ var self = {
                 "color": "#0B5ED7",
                 "height": "sm",
                 "action": {
-                  "type": "uri",
+                  "type": "message",
                   "label": "Pilih Warung",
-                  "uri": "https://linecorp.com"
+                  "text": warung
                 }
               },
               {
