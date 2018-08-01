@@ -470,72 +470,74 @@ var self = {
       for (var menu in data) {
         var itemMenu = data[menu];
         console.log(menu + ":" + itemMenu);
-        var flexMenu = {
-          "type": "bubble",
-          "hero": {
-            "type": "image",
-            "size": "full",
-            "aspectRatio": "20:13",
-            "aspectMode": "cover",
-            "url": itemMenu.thumbnail
-          },
-          "body": {
-            "type": "box",
-            "layout": "vertical",
-            "spacing": "sm",
-            "contents": [
-              {
-                "type": "text",
-                "text": menu,
-                "wrap": true,
-                "weight": "bold",
-                "size": "xl"
-              },
-              {
-                "type": "text",
-                "text": itemMenu.deskripsi,
-                "wrap": true,
-                "color": "#aaaaaa",
-                "size": "xxs"
-              },
-              {
-                "type": "separator",
-                "margin": "lg"
-              },
-              {
-                "type": "box",
-                "layout": "baseline",
-                "margin": "lg",
-                "contents": [
-                  {
-                    "type": "text",
-                    "text": "Rp " + itemMenu.harga.toString(),
-                    "size" : "lg",
-                    "wrap": true,
-                    "weight": "bold"
-                  }
-                ]
-              }
-            ]
-          },
-          "footer": {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-              {
-                "type": "button",
-                "style": "link",
-                "color": "#0B5ED7",
-                "action": {
-                  "type": "message",
-                  "label": "+ Tambahkan",
-                  "text": menu
+        if (menu !== "thumbnail") {
+          var flexMenu = {
+            "type": "bubble",
+            "hero": {
+              "type": "image",
+              "size": "full",
+              "aspectRatio": "20:13",
+              "aspectMode": "cover",
+              "url": itemMenu.thumbnail
+            },
+            "body": {
+              "type": "box",
+              "layout": "vertical",
+              "spacing": "sm",
+              "contents": [
+                {
+                  "type": "text",
+                  "text": menu,
+                  "wrap": true,
+                  "weight": "bold",
+                  "size": "xl"
+                },
+                {
+                  "type": "text",
+                  "text": itemMenu.deskripsi,
+                  "wrap": true,
+                  "color": "#aaaaaa",
+                  "size": "xxs"
+                },
+                {
+                  "type": "separator",
+                  "margin": "lg"
+                },
+                {
+                  "type": "box",
+                  "layout": "baseline",
+                  "margin": "lg",
+                  "contents": [
+                    {
+                      "type": "text",
+                      "text": "Rp " + itemMenu.harga.toString(),
+                      "size" : "lg",
+                      "wrap": true,
+                      "weight": "bold"
+                    }
+                  ]
                 }
-              }
-            ]
-          }
-        };
-        flexMsg.contents.contents.unshift(flexMenu);
+              ]
+            },
+            "footer": {
+              "type": "box",
+              "layout": "vertical",
+              "contents": [
+                {
+                  "type": "button",
+                  "style": "link",
+                  "color": "#0B5ED7",
+                  "action": {
+                    "type": "message",
+                    "label": "+ Tambahkan",
+                    "text": menu
+                  }
+                }
+              ]
+            }
+          };
+          flexMsg.contents.contents.unshift(flexMenu);
+        }
       }
       console.log(JSON.stringify(flexMsg));
       return client.replyMessage(replyToken, flexMsg);
