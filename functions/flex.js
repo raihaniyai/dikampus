@@ -465,7 +465,7 @@ var self = {
         };
         for (var menu in itemKat) {
           var itemMenu = itemKat[menu];
-          var flexMenu = {
+          var flexMenu = [{
             "type": "box",
             "layout": "baseline",
             "contents": [
@@ -492,7 +492,7 @@ var self = {
             "wrap": true,
             "color": "#aaaaaa",
             "size": "xxs"
-          };
+          }];
           kategori.body.contents.push(flexMenu);
           jmlMenu++;
           if (jmlMenu < 3) {
