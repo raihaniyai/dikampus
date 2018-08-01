@@ -465,38 +465,38 @@ var self = {
         };
         for (var menu in itemKat) {
           var itemMenu = itemKat[menu];
-          console.log(itemMenu);
-          console.log("--------------");
-          var flexMenu = {
-            "type": "box",
-            "layout": "baseline",
-            "contents": [
-              {
-                "type": "text",
-                "text": menu,
-                "weight": "bold",
-                "size": "sm",
-                "margin": "sm",
-                "flex": 0
-              },
-              {
-                "type": "text",
-                "text": itemMenu.harga.toString(),
-                "size": "sm",
-                "align": "end",
-                "color": "#222222"
-              }
-            ]
-          };
-          var deskripsiMenu = {
-            "type": "text",
-            "text": itemMenu.deskripsi,
-            "wrap": true,
-            "color": "#aaaaaa",
-            "size": "xxs"
-          };
-          kategori.body.contents[0].contents.push(flexMenu);
-          kategori.body.contents[0].contents.push(deskripsiMenu);
+          if (menu !== 'thumbnail') {
+            var flexMenu = {
+              "type": "box",
+              "layout": "baseline",
+              "contents": [
+                {
+                  "type": "text",
+                  "text": menu,
+                  "weight": "bold",
+                  "size": "sm",
+                  "margin": "sm",
+                  "flex": 0
+                },
+                {
+                  "type": "text",
+                  "text": itemMenu.harga.toString(),
+                  "size": "sm",
+                  "align": "end",
+                  "color": "#222222"
+                }
+              ]
+            };
+            var deskripsiMenu = {
+              "type": "text",
+              "text": itemMenu.deskripsi,
+              "wrap": true,
+              "color": "#aaaaaa",
+              "size": "xxs"
+            };
+            kategori.body.contents[0].contents.push(flexMenu);
+            kategori.body.contents[0].contents.push(deskripsiMenu);
+          }
           jmlMenu++;
           if (jmlMenu >= 3) {
             break;
