@@ -65,7 +65,7 @@ var self = {
         var idTransaksi = post.key;
         var userRef = db.ref("user/activeTransaction");
         userRef.child(source.userId).set(idTransaksi);
-        return template.food(replyToken, 'menu', warung);
+        return flex.kategori(replyToken, warung);
       }
       break;
       case 'orderFood.chooseMenu':
