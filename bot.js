@@ -76,10 +76,36 @@ function handleEvent(event) {
     break;
     case 'follow':
     return client.getProfile(event.source.userId)
-    .then((profile) => replyText(
+    .then((profile) => client.replyMessage(event.replyToken, [
+      {
+      "type": "text",
+      "text": "Hello, ${profile.displayName}! 􀰂􀄦wink􏿿"
+      },
+      {
+      "type": "text",
+      "text": "Kenalin namaku Dika 😄, \naku bisa pesenin makanan 🍽️ kesukaanmu di sekitar Telkom University loh!"
+      },
+      {
+        "type": "text",
+        "text": "Kalau kamu lagi laper bilang \"Laper\" aja ya, ga usah malu 􀰂􀄥excited􏿿",
+        "quickReply": {
+          "items": [
+            {
+              "type": "action",
+              "action": {
+                "type": "message",
+                "label": "Laper",
+                "text": "Laper"
+              }
+            }
+          ]
+        }
+      }
+
+    ]);(
       event.replyToken,
       [
-        `Hello, ${profile.displayName}!`,
+        `Hello, ${profile.displayName}! 􀰂􀄦wink􏿿`,
         `Kenalin namaku Dika 😄, \naku bisa pesenin makanan 🍽️ kesukaanmu di sekitar Telkom University loh!`,
         `Kalau kamu laper bilang "Laper" aja ya, ga usah malu :)`,
       ]
@@ -90,8 +116,9 @@ function handleEvent(event) {
     break;
     case 'join':
     return replyText(event.replyToken, [
-      `Kenalin namaku Dika 😄, \naku bisa pesenin makanan 🍽️ kesukaanmu di sekitar Telkom University loh!`,
-      `Kalau pada laper bilang "Laper" aja ya, ga usah malu :)`,
+      `Kenalin namaku Dika 􀰂􀄤smiling􏿿 \naku bisa pesenin makanan 🍽️ kesukaanmu di sekitar Telkom University loh!`,
+      `Kalau pada laper bilang "Laper" aja ya, ga usah malu 􀰂􀄥excited􏿿`,
+
     ]);
     break;
     case 'leave':
@@ -107,8 +134,6 @@ function handleEvent(event) {
     }else if (data === 'leftRoom'){
       return replyText(event.replyToken, 'Dika pamit left multichat dulu yaa')
       .then(() => client.leaveRoom(event.source.roomId));
-    }else{
-      return replyText(event.replyToken, `Got postback: ${data}`);
     }
     break;
     case 'beacon':
