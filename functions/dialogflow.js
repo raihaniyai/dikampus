@@ -53,7 +53,7 @@ var self = {
     switch (action) {
       case 'orderFood':
       if (parameters.warung === '') {
-        return template.food(replyToken, 'warung', null);
+        return flex.warung(replyToken);
       } else {
         var warung = parameters.warung;
         transaksi  = {

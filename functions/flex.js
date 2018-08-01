@@ -546,7 +546,7 @@ var self = {
       console.log("The read failed: " + errorObject.code);
     });
   },
-  warung: function (replyToken, warung, kategori) {
+  warung: function (replyToken) {
     var db = bot.database;
     var client = bot.client;
     var ref = db.ref("warung");
