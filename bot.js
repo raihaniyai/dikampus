@@ -79,15 +79,15 @@ function handleEvent(event) {
     .then((profile) => client.replyMessage(event.replyToken, [
       {
       "type": "text",
-      "text": `Hello, ${profile.displayName}! 􀰂􀄦wink􏿿`
+      "text": `Hello, kak ${profile.displayName}! 􀰂􀄦wink􏿿`
       },
       {
       "type": "text",
-      "text": `Kenalin namaku Dika 􀰂􀄤smiling􏿿 \naku bisa pesenin makanan 🍽️ kesukaanmu di sekitar Telkom University loh!`
+      "text": `Kenalin namaku Dika 􀰂􀄤smiling􏿿 mahasiswa Telyu.\nAku bisa pesenin makanan 🍽️ ke warung yang ada di sekitar Telkom University loh!`
       },
       {
         "type": "text",
-        "text": "Kalau kamu lagi laper bilang \"Laper\" aja ya, ga usah malu 􀰂􀄥excited􏿿",
+        "text": `Kalau kak ${profile.displayName} lagi laper bilang \"Laper\" aja ya, ga usah malu 􀰂􀄥excited􏿿`,
         "quickReply": {
           "items": [
             {

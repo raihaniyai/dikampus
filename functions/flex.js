@@ -412,7 +412,62 @@ var self = {
       for (var kat in data) {
         var jmlMenu = 0;
         var itemKat = data[kat];
-        var kategori = {"type":"bubble","header":{"type":"box","layout":"horizontal","contents":[{"type":"text","text":kat,"weight":"bold","color":"#222222","size":"lg"}]},"hero":{"type":"image","url":itemKat.thumbnail,"size":"full","aspectRatio":"20:13","aspectMode":"cover","action":{"type":"uri","uri":"https://linecorp.com"}},"body":{"type":"box","layout":"vertical","spacing":"md","action":{"type":"uri","uri":"https://linecorp.com"},"contents":[{"type":"box","layout":"vertical","spacing":"sm","contents":[]}]},"footer":{"type":"box","layout":"vertical","contents":[{"type":"button","style":"link","color":"#0B5ED7","action":{"type":"message","label":"Lihat Menu","text":kat}}]}};
+        var kategori = {
+          "type": "bubble",
+          "header": {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "text",
+                "text": "kat",
+                "weight": "bold",
+                "color": "#222222",
+                "size": "lg"
+              }
+            ]
+          },
+          "hero": {
+            "type": "image",
+            "url": "itemKat.thumbnail",
+            "size": "full",
+            "aspectRatio": "20:13",
+            "aspectMode": "cover",
+            "action": {
+              "type": "message",
+              "text": kat
+            }
+          },
+          "body": {
+            "type": "box",
+            "layout": "vertical",
+            "spacing": "md",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "vertical",
+                "spacing": "sm",
+                "contents": []
+              }
+            ]
+          },
+          "footer": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "button",
+                "style": "link",
+                "color": "#0B5ED7",
+                "action": {
+                  "type": "message",
+                  "label": "Lihat Semua",
+                  "text": "kat"
+                }
+              }
+            ]
+          }
+        }
         for (var menu in itemKat) {
           var itemMenu = itemKat[menu];
           if (menu !== 'thumbnail') {
@@ -497,12 +552,20 @@ var self = {
               "size": "full",
               "aspectRatio": "20:13",
               "aspectMode": "cover",
-              "url": itemMenu.thumbnail
+              "url": itemMenu.thumbnail,
+              "action": {
+                "type": "message",
+                "text": warung
+              }
             },
             "body": {
               "type": "box",
               "layout": "vertical",
               "spacing": "sm",
+              "action": {
+                "type": "message",
+                "text": warung
+              },
               "contents": [
                 {
                   "type": "text",
@@ -595,13 +658,17 @@ var self = {
             "aspectRatio": "20:13",
             "aspectMode": "cover",
             "action": {
-              "type": "uri",
-              "uri": "http://linecorp.com/"
+              "type": "message",
+              "text": warung
             }
           },
           "body": {
             "type": "box",
             "layout": "vertical",
+            "action": {
+              "type": "message",
+              "text": warung
+            },
             "contents": [
               {
                 "type": "text",
