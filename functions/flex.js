@@ -493,7 +493,7 @@ var self = {
             "color": "#aaaaaa",
             "size": "xxs"
           }];
-          kategori.body.contents.push(flexMenu);
+          kategori.body.contents[0].contents.push(flexMenu);
           jmlMenu++;
           if (jmlMenu < 3) {
             break;
