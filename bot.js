@@ -101,8 +101,7 @@ function handleEvent(event) {
           ]
         }
       }
-
-    ]);
+    ]));
     break;
     case 'unfollow':
     return console.log(`Unfollowed this bot: ${JSON.stringify(event)}`);
