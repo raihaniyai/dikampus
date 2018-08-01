@@ -70,49 +70,52 @@ var self = {
       break;
       case 'orderFood.chooseMenu':
       var warung = parameters.warung;
-      if (parameters.menu === '') {
-        return template.food(replyToken, 'menu', warung);
+      if (parameters.kategori === '') {
+        return flex.kategori(replyToken, warung);
       } else {
-        if (parameters.jumlah === ''){
-          return replyText(replyToken, "Mau pesen "+parameters.menu+" berapa banyak kak?");
+        if (parameters.menu === '') {
+          return template.food(replyToken, 'menu', warung);
         } else {
-          var ref = db.ref("user/activeTransaction/"+source.userId);
-          ref.once("value", function(snapshot) {
-            var idTransaksi = snapshot.val();
-            var warungRef = db.ref("warung/"+warung)
-            warungRef.once("value", function(snapshot) {
-              var dataWarung = snapshot.val();
-              var harga = dataWarung.menu[parameters.menu].harga;
-              var orderRef = db.ref("transaksi/"+idTransaksi+"/pesanan");
-              orderRef.child(parameters.menu).set({'jumlah' : parameters.jumlah, 'harga' : harga});
-            }, function (errorObject) {
-              console.log("The read failed: " + errorObject.code);
-            });
-            return client.replyMessage(replyToken, {
-              "type": "template",
-              "altText": "Ada tambahan lain?",
-              "template": {
+          if (parameters.jumlah === ''){
+            return replyText(replyToken, "Mau pesen "+parameters.menu+" berapa banyak kak?");
+          } else {
+            var ref = db.ref("user/activeTransaction/"+source.userId);
+            ref.once("value", function(snapshot) {
+              var idTransaksi = snapshot.val();
+              var warungRef = db.ref("warung/"+warung)
+              warungRef.once("value", function(snapshot) {
+                var dataWarung = snapshot.val();
+                var harga = dataWarung.menu[parameters.menu].harga;
+                var orderRef = db.ref("transaksi/"+idTransaksi+"/pesanan");
+                orderRef.child(parameters.menu).set({'jumlah' : parameters.jumlah, 'harga' : harga});
+              }, function (errorObject) {
+                console.log("The read failed: " + errorObject.code);
+              });
+              return client.replyMessage(replyToken, {
+                "type": "template",
+                "altText": "Ada tambahan lain?",
+                "template": {
                   "type": "confirm",
                   "text": "Ada tambahan lain ga nih kak?",
                   "actions": [
-                      {
-                        "type": "message",
-                        "label": "Ada",
-                        "text": "Ada"
-                      },
-                      {
-                        "type": "message",
-                        "label": "Tidak Ada",
-                        "text": "Tidak Ada"
-                      }
+                    {
+                      "type": "message",
+                      "label": "Ada",
+                      "text": "Ada"
+                    },
+                    {
+                      "type": "message",
+                      "label": "Tidak Ada",
+                      "text": "Tidak Ada"
+                    }
                   ]
-              }
+                }
+              });
+              process.exit();
+            }, function (errorObject) {
+              console.log("The read failed: " + errorObject.code);
             });
-            process.exit();
-          }, function (errorObject) {
-            console.log("The read failed: " + errorObject.code);
-          });
-
+          }
         }
       }
       break;
