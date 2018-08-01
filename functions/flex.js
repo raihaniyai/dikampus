@@ -496,7 +496,7 @@ var self = {
           kategori.body.contents[0].contents.push(flexMenu);
           kategori.body.contents[0].contents.push(deskripsiMenu);
           jmlMenu++;
-          if (jmlMenu < 3) {
+          if (jmlMenu >= 3) {
             break;
           } else {
             kategori.body.contents[0].contents.push({
