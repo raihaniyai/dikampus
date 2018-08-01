@@ -382,7 +382,7 @@ var self = {
       flexMsg.contents.body.contents[4].contents[1+jmlData].contents.push(showTotal);
       flexMsg.contents.body.contents[4].contents[3+jmlData].contents.push(showAlamat);
       flexMsg.contents.body.contents[5].contents.push(showNote);
-      r  return client.replyMessage(replyToken, [
+      return client.replyMessage(replyToken, [
           {
             "type": "text",
           "text": `Terima kasih telah memesan 􀰂􀄥excited􏿿 \nSilakan tap tombol Pesan untuk melanjutkan transaksi`
