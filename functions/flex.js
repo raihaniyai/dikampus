@@ -469,7 +469,6 @@ var self = {
       var jmlMenu = 0;
       for (var menu in data) {
         var itemMenu = data[menu];
-        console.log(menu + ":" + itemMenu);
         if (menu !== "thumbnail") {
           var flexMenu = {
             "type": "bubble",
@@ -539,7 +538,6 @@ var self = {
           flexMsg.contents.contents.unshift(flexMenu);
         }
       }
-      console.log(JSON.stringify(flexMsg));
       return client.replyMessage(replyToken, flexMsg);
       process.exit();
     }, function (errorObject) {

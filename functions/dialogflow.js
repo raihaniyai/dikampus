@@ -70,7 +70,6 @@ var self = {
       break;
       case 'orderFood.chooseMenu':
       var warung = parameters.warung;
-      console.log(JSON.stringify(body));
       if (parameters.kategori === '') {
         return flex.kategori(replyToken, warung);
       } else {
@@ -135,7 +134,7 @@ var self = {
               warungRef.once("value", function(snapshot) {
                 var dataWarung = snapshot.val();
                 var kategori = parameters.kategori;
-                var harga = dataWarung.kategori.harga;
+                var harga = dataWarung.kategori[parameters.menu].harga;
                 var orderRef = db.ref("transaksi/"+idTransaksi+"/pesanan");
                 orderRef.child(parameters.menu).set({'jumlah' : parameters.jumlah, 'harga' : harga});
               }, function (errorObject) {
