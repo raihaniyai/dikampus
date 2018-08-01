@@ -391,78 +391,14 @@ var self = {
         "altText": "Kategori di " + warung,
         "contents": {
           "type": "carousel",
-          "contents": [
-          ]
+          "contents": []
         }
       };
       var jmlKat = 0;
       for (var kat in data) {
         var jmlMenu = 0;
         var itemKat = data[kat];
-        var kategori = {
-          "type": "bubble",
-          "header": {
-            "type": "box",
-            "layout": "horizontal",
-            "contents": [
-              {
-                "type": "text",
-                "text": kat,
-                "weight": "bold",
-                "color": "#222222",
-                "size": "lg"
-              }
-            ]
-          },
-          "hero": {
-            "type": "image",
-            "url": itemKat.thumbnail,
-            "size": "full",
-            "aspectRatio": "20:13",
-            "aspectMode": "cover",
-            "action": {
-              "type": "uri",
-              "uri": "https://linecorp.com"
-            }
-          },
-          "body": {
-            "type": "box",
-            "layout": "vertical",
-            "spacing": "md",
-            "action": {
-              "type": "uri",
-              "uri": "https://linecorp.com"
-            },
-            "contents": [
-              {
-                "type": "box",
-                "layout": "vertical",
-                "spacing": "sm",
-                "contents": []
-              }
-            ]
-          },
-          "footer": {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-              {
-                "type": "spacer",
-                "size": "xxl"
-              },
-              {
-                "type": "button",
-                "style": "link",
-                "color": "#0B5ED7",
-                "action": {
-                  "type": "message",
-                  "label": "Lihat Menu",
-                  "text": kat
-                }
-              }
-            ]
-          }
-        };
+        var kategori = {"type":"bubble","header":{"type":"box","layout":"horizontal","contents":[{"type":"text","text":kat,"weight":"bold","color":"#222222","size":"lg"}]},"hero":{"type":"image","url":itemKat.thumbnail,"size":"full","aspectRatio":"20:13","aspectMode":"cover","action":{"type":"uri","uri":"https://linecorp.com"}},"body":{"type":"box","layout":"vertical","spacing":"md","action":{"type":"uri","uri":"https://linecorp.com"},"contents":[{"type":"box","layout":"vertical","spacing":"sm","contents":[]}]},"footer":{"type":"box","layout":"vertical","contents":[{"type":"button","style":"link","color":"#0B5ED7","action":{"type":"message","label":"Lihat Menu","text":kat}}]}};
         for (var menu in itemKat) {
           var itemMenu = itemKat[menu];
           if (menu !== 'thumbnail') {
@@ -511,6 +447,96 @@ var self = {
         jmlKat++;
       }
       console.log(JSON.stringify(flexMsg));
+      return client.replyMessage(replyToken, flexMsg);
+      process.exit();
+    }, function (errorObject) {
+      console.log("The read failed: " + errorObject.code);
+    });
+  },
+  menu: function (replyToken, warung, kategori) {
+    var db = bot.database;
+    var client = bot.client;
+    var ref = db.ref("warung/"+warung+"/menu/"+kategori);
+    ref.once("value", function(snapshot) {
+      data = snapshot.val();
+      var flexMsg = {
+        "type": "flex",
+        "altText": "Menu Kategori " + kategori,
+        "contents": {
+          "type": "carousel",
+          "contents": []
+        }
+      };
+      var jmlMenu = 0;
+      for (var menu in data) {
+        var itemMenu = data[menu];
+        var flexMenu = {
+          "type": "bubble",
+          "hero": {
+            "type": "image",
+            "size": "full",
+            "aspectRatio": "20:13",
+            "aspectMode": "cover",
+            "url": itemMenu.thumbnail
+          },
+          "body": {
+            "type": "box",
+            "layout": "vertical",
+            "spacing": "sm",
+            "contents": [
+              {
+                "type": "text",
+                "text": menu,
+                "wrap": true,
+                "weight": "bold",
+                "size": "xl"
+              },
+              {
+                "type": "text",
+                "text": itemMenu.deskripsi,
+                "wrap": true,
+                "color": "#aaaaaa",
+                "size": "xxs"
+              },
+              {
+                "type": "separator",
+                "margin": "lg"
+              },
+              {
+                "type": "box",
+                "layout": "baseline",
+                "margin": "lg",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "Rp " + itemMenu.harga.toString(),
+                    "size" : "lg",
+                    "wrap": true,
+                    "weight": "bold"
+                  }
+                ]
+              }
+            ]
+          },
+          "footer": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "button",
+                "style": "link",
+                "color": "#0B5ED7",
+                "action": {
+                  "type": "message",
+                  "label": "+ Tambahkan",
+                  "text": menu
+                }
+              }
+            ]
+          }
+        };
+        flexMsg.contents.contents.unshift(flexMenu);
+      }
       return client.replyMessage(replyToken, flexMsg);
       process.exit();
     }, function (errorObject) {

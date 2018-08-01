@@ -74,7 +74,8 @@ var self = {
         return flex.kategori(replyToken, warung);
       } else {
         if (parameters.menu === '') {
-          return template.food(replyToken, 'menu', warung);
+          return flex.menu(replyToken, warung, kategori)
+          // return template.food(replyToken, 'menu', warung);
         } else {
           if (parameters.jumlah === ''){
             return replyText(replyToken, "Mau pesen "+parameters.menu+" berapa banyak kak?");
