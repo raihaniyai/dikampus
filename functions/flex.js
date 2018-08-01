@@ -465,6 +465,8 @@ var self = {
         };
         for (var menu in itemKat) {
           var itemMenu = itemKat[menu];
+          console.log(itemMenu);
+          console.log("--------------");
           var flexMenu = {
             "type": "box",
             "layout": "baseline",
