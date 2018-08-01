@@ -134,8 +134,8 @@ var self = {
               warungRef.once("value", function(snapshot) {
                 var dataWarung = snapshot.val();
                 console.log(dataWarung);
-                var kategori = parameters.kategori;
-                var harga = dataWarung.kategori[parameters.menu].harga;
+                // var harga = dataWarung.kategori[parameters.menu].harga;
+                var harga = dataWarung[parameters.kategori][parameters.menu].harga;
                 var orderRef = db.ref("transaksi/"+idTransaksi+"/pesanan");
                 orderRef.child(parameters.menu).set({'jumlah' : parameters.jumlah, 'harga' : harga});
               }, function (errorObject) {
