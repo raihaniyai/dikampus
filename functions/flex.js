@@ -555,7 +555,7 @@ var self = {
               "url": itemMenu.thumbnail,
               "action": {
                 "type": "message",
-                "text": warung
+                "text": menu
               }
             },
             "body": {
