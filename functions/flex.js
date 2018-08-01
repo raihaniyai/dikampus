@@ -465,7 +465,6 @@ var self = {
         };
         for (var menu in itemKat) {
           var itemMenu = itemKat[menu];
-          console.log(itemMenu);
           var flexMenu = [{
             "type": "box",
             "layout": "baseline",
@@ -499,7 +498,7 @@ var self = {
           if (jmlMenu < 3) {
             break;
           } else {
-            kategori.body.contents.push({
+            kategori.body.contents[0].contents.push({
               "type": "separator",
               "margin": "lg"
             });
