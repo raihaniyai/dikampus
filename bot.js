@@ -79,11 +79,11 @@ function handleEvent(event) {
     .then((profile) => client.replyMessage(event.replyToken, [
       {
       "type": "text",
-      "text": "Hello, ${profile.displayName}! 􀰂􀄦wink􏿿"
+      "text": `Hello, ${profile.displayName}! 􀰂􀄦wink􏿿`
       },
       {
       "type": "text",
-      "text": "Kenalin namaku Dika 😄, \naku bisa pesenin makanan 🍽️ kesukaanmu di sekitar Telkom University loh!"
+      "text": `Kenalin namaku Dika 😄, \naku bisa pesenin makanan 🍽️ kesukaanmu di sekitar Telkom University loh!`
       },
       {
         "type": "text",
@@ -102,14 +102,7 @@ function handleEvent(event) {
         }
       }
 
-    ]);(
-      event.replyToken,
-      [
-        `Hello, ${profile.displayName}! 􀰂􀄦wink􏿿`,
-        `Kenalin namaku Dika 😄, \naku bisa pesenin makanan 🍽️ kesukaanmu di sekitar Telkom University loh!`,
-        `Kalau kamu laper bilang "Laper" aja ya, ga usah malu :)`,
-      ]
-    ));
+    ]);
     break;
     case 'unfollow':
     return console.log(`Unfollowed this bot: ${JSON.stringify(event)}`);
