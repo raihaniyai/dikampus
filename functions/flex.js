@@ -639,8 +639,10 @@ var self = {
   warung: function (replyToken, warung) {
     var db = bot.database;
     var client = bot.client;
+    var isFirst = true;
     var ref = db.ref("warung");
     if (warung !== null) {
+      isFirst = false;
       ref = ref.orderByKey().startAt(warung);
     }
     ref.once("value", function(snapshot) {
@@ -793,7 +795,7 @@ var self = {
         jmlWarung++;
         flexMsg.contents.contents.push(flexWarung);
       }
-      if (warung !== null) {
+      if (!isFirst) {
         return client.replyMessage(replyToken, flexMsg);
       } else {
         return client.replyMessage(replyToken,[
