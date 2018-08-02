@@ -536,7 +536,7 @@ var self = {
     var client = bot.client;
     var isFirst = true;
     var ref = db.ref("warung/"+warung+"/menu/"+kategori);
-    if (res !== null) {
+    if (res) {
       isFirst = false;
       ref = ref.orderByKey().startAt(res);
     }
@@ -659,6 +659,7 @@ var self = {
           jmlMenu++;
         }
       }
+      console.log(flexMsg);
       if (isFirst) {
         return client.replyMessage(replyToken, [
           {
@@ -669,7 +670,6 @@ var self = {
         ]);
       } else {
         return client.replyMessage(replyToken, flexMsg);
-
       }
       process.exit();
     }, function (errorObject) {
