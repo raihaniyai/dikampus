@@ -223,11 +223,9 @@ var self = {
             historyRef = historyRef.orderByValue().equalTo(parameters.alamat);
             historyRef.on("value", function(snapshot) {
               if (!snapshot.val()) {
-                historyRef.push(parameters.alamat);
+                var ref = db.ref("user/history/"+source.userId+"/alamat");
+                ref.push(parameters.alamat);
               }
-              process.exit();
-            }, function (errorObject) {
-              console.log("The read failed: " + errorObject.code);
             });
             // Sending invoice to user
             return flex.order(replyToken, idTransaksi, dataWarung);
