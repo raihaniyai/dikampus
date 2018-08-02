@@ -10,6 +10,12 @@ var self = {
       var warung = res.warung;
       return flex.warung(replyToken, warung);
       break;
+      case 'menu':
+      var warung = res.warung;
+      var kategori = res.kategori;
+      var menu = res.menu;
+      return flex.menu(replyToken, warung, kategori, menu);
+      break;
     }
   }
 };

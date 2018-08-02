@@ -74,7 +74,7 @@ var self = {
         return flex.kategori(replyToken, warung);
       } else {
         if (parameters.menu === '') {
-          return flex.menu(replyToken, warung, parameters.kategori);
+          return flex.menu(replyToken, warung, parameters.kategori, null);
         } else {
           if (parameters.jumlah === ''){
             return client.replyMessage(replyToken, {
@@ -219,8 +219,14 @@ var self = {
             var transRef = db.ref("transaksi/makanan/" + idTransaksi);
             transRef.child('waktu').set(date);
             transRef.child('alamat').set(parameters.alamat);
-            var historyRef = db.ref("user/history/"+source.userId);
-            historyRef.child('alamat').push(parameters.alamat);
+            var historyRef = db.ref("user/history/"+source.userId+"/alamat");
+            historyRef = historyRef.orderByValue().equalTo(parameters.alamat);
+            historyRef.on("value", function(snapshot) {
+              if (!snapshot.val()) {
+                historyRef.push(parameters.alamat);
+              }
+              process.exit();
+            });
             // Sending invoice to user
             return flex.order(replyToken, idTransaksi, dataWarung);
             process.exit();

@@ -531,10 +531,15 @@ var self = {
       console.log("The read failed: " + errorObject.code);
     });
   },
-  menu: function (replyToken, warung, kategori) {
+  menu: function (replyToken, warung, kategori, res) {
     var db = bot.database;
     var client = bot.client;
+    var isFirst = true;
     var ref = db.ref("warung/"+warung+"/menu/"+kategori);
+    if (res !== null) {
+      isFirst = false;
+      ref = ref.orderByKey().startAt(res);
+    }
     ref.once("value", function(snapshot) {
       data = snapshot.val();
       var flexMsg = {
@@ -545,10 +550,39 @@ var self = {
           "contents": []
         }
       };
-      var jmlMenu = 0;
+      var jmlMenu = 1;
       for (var menu in data) {
         var itemMenu = data[menu];
         if (menu !== "thumbnail") {
+          if (jmlMenu > 9) {
+            var lainnya = {
+              "type": "bubble",
+              "body": {
+                "type": "box",
+                "layout": "vertical",
+                "spacing": "sm",
+                "action": {
+                   "type":"postback",
+                   "label":"Menu Lainnya",
+                   "data":"data=menu&warung="+warung+"&kategori="+kategori+"&menu="+menu;
+                },
+                "contents": [
+                  {
+                    "type": "button",
+                    "flex": 1,
+                    "gravity": "center",
+                    "action": {
+                       "type":"postback",
+                       "label":"Menu Lainnya",
+                       "data":"data=menu&warung="+warung+"&kategori="+kategori+"&menu="+menu;
+                    }
+                  }
+                ]
+              }
+            };
+            flexMsg.contents.contents.push(lainnya);
+            break;
+          }
           var flexMenu = {
             "type": "bubble",
             "hero": {
@@ -622,15 +656,21 @@ var self = {
             }
           };
           flexMsg.contents.contents.push(flexMenu);
+          jmlMenu++;
         }
       }
-      return client.replyMessage(replyToken, [
-      {
-        "type": "text",
-        "text": `Ini daftar menu ${kategori} yang ada di ${warung} 􀰂􀄤smiling􏿿`
-      },
-      flexMsg
-      ]);
+      if (isFirst) {
+        return client.replyMessage(replyToken, [
+          {
+            "type": "text",
+            "text": `Ini daftar menu ${kategori} yang ada di ${warung} 􀰂􀄤smiling􏿿`
+          },
+          flexMsg
+        ]);
+      } else {
+        return client.replyMessage(replyToken, flexMsg);
+
+      }
       process.exit();
     }, function (errorObject) {
       console.log("The read failed: " + errorObject.code);
