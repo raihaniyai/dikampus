@@ -632,10 +632,13 @@ var self = {
       console.log("The read failed: " + errorObject.code);
     });
   },
-  warung: function (replyToken) {
+  warung: function (replyToken, warung) {
     var db = bot.database;
     var client = bot.client;
     var ref = db.ref("warung");
+    if (warung !== null) {
+      ref = ref.orderByKey().startAt(warung);
+    }
     ref.once("value", function(snapshot) {
       data = snapshot.val();
       var flexMsg = {
@@ -662,9 +665,10 @@ var self = {
                   "flex": 1,
                   "gravity": "center",
                   "action": {
-                    "type": "uri",
-                    "label": "See more",
-                    "uri": "https://linecorp.com"
+                     "type":"postback",
+                     "label":"Lainnya",
+                     "data":"data=warung&warung="+warung,
+                     "text":"Buy"
                   }
                 }
               ]

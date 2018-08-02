@@ -4,6 +4,7 @@ const line = require('@line/bot-sdk');
 const express = require('express');
 const firebase = require("firebase-admin");
 const dialogflow = require('./functions/dialogflow.js');
+const postback = require('./functions/postback.js');
 require('dotenv').config();
 
 // service account key for firebase
@@ -126,6 +127,14 @@ function handleEvent(event) {
     }else if (data === 'leftRoom'){
       return replyText(event.replyToken, 'Dika pamit left multichat dulu yaa')
       .then(() => client.leaveRoom(event.source.roomId));
+    }else if (data.startsWith("data=")) {
+      var res = {};
+      var vars = data.split("&");
+      for(i=0; i < vars.length; i++){
+        var str = vars[i].split("=");
+        res[str[0]] = str[1];
+      }
+      return postback.response(event.replyToken, res);
     }
     break;
     case 'beacon':
