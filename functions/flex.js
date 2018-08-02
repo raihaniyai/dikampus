@@ -763,6 +763,28 @@ var self = {
                         "flex": 4
                       }
                     ]
+                  },
+                  {
+                    "type": "box",
+                    "layout": "baseline",
+                    "spacing": "sm",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": "Ongkir",
+                        "color": "#aaaaaa",
+                        "size": "sm",
+                        "flex": 1
+                      },
+                      {
+                        "type": "text",
+                        "text": itemWarung.ongkir,
+                        "wrap": true,
+                        "color": "#666666",
+                        "size": "sm",
+                        "flex": 4
+                      }
+                    ]
                   }
                 ]
               }

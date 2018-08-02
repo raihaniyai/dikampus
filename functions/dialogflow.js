@@ -167,7 +167,34 @@ var self = {
       }
       break;
       case 'orderFood.next':
-      return replyText(replyToken, "Mau dikirim kemana nih kak? 􀰂􀄤smiling􏿿");
+      var historyRef = db.ref("user/history/"+source.userId+"/alamat");
+      historyRef.on("value", function(snapshot) {
+        var alamat = snapshot.val();
+        if (alamat) {
+          var response = {
+            "type": "text",
+            "text": "Mau dikirim kemana nih kak? 􀰂􀄤smiling􏿿",
+            "quickReply": {
+              "items": []
+            }
+          };
+          for (var res in alamat) {
+            var address = {
+              "type": "action",
+              "action": {
+                "type": "message",
+                "label": alamat[res],
+                "text": alamat[res]
+              }
+            }
+            response.quickReply.items.push(address);
+            return client.replyMessage(replyToken, response);
+          }
+        } else {
+            return replyText(replyToken, "Mau dikirim kemana nih kak? 􀰂􀄤smiling􏿿");
+        }
+        process.exit();
+      });
       break;
       case 'orderFood.alamat':
       if (parameters.alamat === '') {
@@ -186,6 +213,8 @@ var self = {
             var transRef = db.ref("transaksi/makanan/" + idTransaksi);
             transRef.child('waktu').set(date);
             transRef.child('alamat').set(parameters.alamat);
+            var historyRef = db.ref("user/history/"+source.userId);
+            historyRef.child('alamat').push(parameters.alamat);
             // Sending invoice to user
             return flex.order(replyToken, idTransaksi, dataWarung);
             process.exit();
