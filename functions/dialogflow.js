@@ -180,15 +180,20 @@ var self = {
             }
           };
           for (var res in alamat) {
+            var label = alamat[res];
+            if (label.length > 20) {
+              label = label.substring(0,17);
+              label += "...";
+            }
             var address = {
               "type": "action",
               "action": {
                 "type": "message",
-                "label": alamat[res],
+                "label": hasil,
                 "text": alamat[res]
               }
             }
-            response.quickReply.items.push(address);
+            response.quickReply.items.unshift(address);
           }
           return client.replyMessage(replyToken, response);
         } else {
