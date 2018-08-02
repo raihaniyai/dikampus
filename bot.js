@@ -130,7 +130,7 @@ function handleEvent(event) {
     }else if (data.startsWith("data=")) {
       var res = {};
       var vars = data.split("&");
-      for(i=0; i < vars.length; i++){
+      for(var i=0; i < vars.length; i++){
         var str = vars[i].split("=");
         res[str[0]] = str[1];
       }

@@ -667,8 +667,7 @@ var self = {
                   "action": {
                      "type":"postback",
                      "label":"Warung Lainnya",
-                     "data":"data=warung&warung="+warung,
-                     "text":"Buy"
+                     "data":"data=warung&warung="+warung
                   }
                 }
               ]
