@@ -564,7 +564,7 @@ var self = {
                 "action": {
                    "type":"postback",
                    "label":"Menu Lainnya",
-                   "data":"data=menu&warung="+warung+"&kategori="+kategori+"&menu="+menu;
+                   "data":"data=menu&warung="+warung+"&kategori="+kategori+"&menu="+menu
                 },
                 "contents": [
                   {
@@ -574,7 +574,7 @@ var self = {
                     "action": {
                        "type":"postback",
                        "label":"Menu Lainnya",
-                       "data":"data=menu&warung="+warung+"&kategori="+kategori+"&menu="+menu;
+                       "data":"data=menu&warung="+warung+"&kategori="+kategori+"&menu="+menu
                     }
                   }
                 ]
