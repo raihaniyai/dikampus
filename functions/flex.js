@@ -442,6 +442,10 @@ var self = {
             "type": "box",
             "layout": "vertical",
             "spacing": "md",
+            "action": {
+              "type": "message",
+              "text": kat
+            },
             "contents": [
               {
                 "type": "box",
@@ -659,6 +663,11 @@ var self = {
               "type": "box",
               "layout": "vertical",
               "spacing": "sm",
+              "action": {
+                 "type":"postback",
+                 "label":"Warung Lainnya",
+                 "data":"data=warung&warung="+warung
+              },
               "contents": [
                 {
                   "type": "button",
@@ -784,13 +793,17 @@ var self = {
         jmlWarung++;
         flexMsg.contents.contents.push(flexWarung);
       }
-      return client.replyMessage(replyToken,[
-        {
-        "type": "text",
-        "text": `Ini rekomendasi warung dari Dika 􀰂􀄥excited􏿿`
-        },
-        flexMsg
-      ]);
+      if (warung !== null) {
+        return client.replyMessage(replyToken, flexMsg);
+      } else {
+        return client.replyMessage(replyToken,[
+          {
+            "type": "text",
+            "text": `Ini rekomendasi warung dari Dika 􀰂􀄥excited􏿿`
+          },
+          flexMsg
+        ]);
+      }
       process.exit();
     }, function (errorObject) {
       console.log("The read failed: " + errorObject.code);
