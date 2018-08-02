@@ -168,6 +168,7 @@ var self = {
       break;
       case 'orderFood.next':
       var historyRef = db.ref("user/history/"+source.userId+"/alamat");
+      historyRef = historyRef.limitToLast(3);
       historyRef.on("value", function(snapshot) {
         var alamat = snapshot.val();
         if (alamat) {
@@ -188,8 +189,8 @@ var self = {
               }
             }
             response.quickReply.items.push(address);
-            return client.replyMessage(replyToken, response);
           }
+          return client.replyMessage(replyToken, response);
         } else {
             return replyText(replyToken, "Mau dikirim kemana nih kak? 􀰂􀄤smiling􏿿");
         }
