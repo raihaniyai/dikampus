@@ -431,7 +431,7 @@ var self = {
             "type": "image",
             "url": itemKat.thumbnail,
             "size": "full",
-            "aspectRatio": "20:13",
+            "aspectRatio": "1:1",
             "aspectMode": "cover",
             "action": {
               "type": "message",
@@ -588,7 +588,7 @@ var self = {
             "hero": {
               "type": "image",
               "size": "full",
-              "aspectRatio": "20:13",
+              "aspectRatio": "1:1",
               "aspectMode": "cover",
               "url": itemMenu.thumbnail,
               "action": {
@@ -733,7 +733,7 @@ var self = {
             "type": "image",
             "url": itemWarung.thumbnail,
             "size": "full",
-            "aspectRatio": "20:13",
+            "aspectRatio": "1:1",
             "aspectMode": "cover",
             "action": {
               "type": "message",
