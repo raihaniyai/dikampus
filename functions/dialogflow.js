@@ -225,10 +225,12 @@ var self = {
               if (!snapshot.val()) {
                 historyRef.push(parameters.alamat);
               }
-              // Sending invoice to user
-              return flex.order(replyToken, idTransaksi, dataWarung);
               process.exit();
+            }, function (errorObject) {
+              console.log("The read failed: " + errorObject.code);
             });
+            // Sending invoice to user
+            return flex.order(replyToken, idTransaksi, dataWarung);
             process.exit();
           });
         });
