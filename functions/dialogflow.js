@@ -75,7 +75,6 @@ var self = {
       } else {
         if (parameters.menu === '') {
           return flex.menu(replyToken, warung, parameters.kategori);
-          // return template.food(replyToken, 'menu', warung);
         } else {
           if (parameters.jumlah === ''){
             return client.replyMessage(replyToken, {

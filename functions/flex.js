@@ -385,7 +385,7 @@ var self = {
       return client.replyMessage(replyToken, [
           {
             "type": "text",
-          "text": `Terima kasih telah memesan 􀰂􀄥excited􏿿 \nSilakan tap tombol Pesan untuk melanjutkan transaksi`
+          "text": `Terima kasih telah memesan via Dikampus 􀰂􀄥excited􏿿 \nSilakan tap tombol Pesan untuk melanjutkan transaksi`
           },
           flexMsg
         ]);
@@ -564,7 +564,7 @@ var self = {
               "spacing": "sm",
               "action": {
                 "type": "message",
-                "text": warung
+                "text": menu
               },
               "contents": [
                 {
@@ -646,9 +646,32 @@ var self = {
           "contents": []
         }
       };
-      var jmlWarung = 0;
+      var jmlWarung = 1;
       for (var warung in data) {
         var itemWarung = data[warung];
+        if (jmlWarung > 9) {
+          var lainnya = {
+            "type": "bubble",
+            "body": {
+              "type": "box",
+              "layout": "vertical",
+              "spacing": "sm",
+              "contents": [
+                {
+                  "type": "button",
+                  "flex": 1,
+                  "gravity": "center",
+                  "action": {
+                    "type": "uri",
+                    "label": "See more",
+                    "uri": "https://linecorp.com"
+                  }
+                }
+              ]
+            }
+          };
+          break;
+        }
         var flexWarung = {
           "type": "bubble",
           "hero": {
@@ -754,6 +777,7 @@ var self = {
             "flex": 0
           }
         }
+        jmlWarung++;
         flexMsg.contents.contents.push(flexWarung);
       }
       return client.replyMessage(replyToken,[
