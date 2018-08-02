@@ -189,7 +189,7 @@ var self = {
               "type": "action",
               "action": {
                 "type": "message",
-                "label": hasil,
+                "label": label,
                 "text": alamat[res]
               }
             }
