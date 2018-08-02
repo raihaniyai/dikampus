@@ -666,7 +666,7 @@ var self = {
                   "gravity": "center",
                   "action": {
                      "type":"postback",
-                     "label":"Lainnya",
+                     "label":"Warung Lainnya",
                      "data":"data=warung&warung="+warung,
                      "text":"Buy"
                   }
@@ -674,6 +674,7 @@ var self = {
               ]
             }
           };
+          flexMsg.contents.contents.push(lainnya);
           break;
         }
         var flexWarung = {
