@@ -471,58 +471,49 @@ var self = {
             }
           }
           var jmlMenu = 0;
-          try {
-            snapshot.forEach(function(data){
-              var menu = data.key;
-              var dataMenu = data.val();
-              var resMenu = {};
-              resMenu[menu] = dataMenu;
-              var itemMenu = resMenu[menu];
-              console.log(itemMenu);
-              if (menu !== 'thumbnail' && menu !== 'priority') {
-                var flexMenu = {
-                  "type": "box",
-                  "layout": "baseline",
-                  "contents": [
-                    {
-                      "type": "text",
-                      "text": menu,
-                      "weight": "bold",
-                      "size": "sm",
-                      "margin": "sm",
-                      "flex": 0
-                    },
-                    {
-                      "type": "text",
-                      "text": itemMenu.harga.toString(),
-                      "size": "sm",
-                      "align": "end",
-                      "color": "#222222"
-                    }
-                  ]
-                };
-                var deskripsiMenu = {
-                  "type": "text",
-                  "text": itemMenu.deskripsi,
-                  "wrap": true,
-                  "color": "#aaaaaa",
-                  "size": "xxs"
-                };
-                flexKategori.body.contents[0].contents.unshift(deskripsiMenu);
-                flexKategori.body.contents[0].contents.unshift(flexMenu);
-                jmlMenu++;
-                if (jmlMenu >= 3) {
-                  throw BreakException;
-                } else {
-                  flexKategori.body.contents[0].contents.push({
-                    "type": "separator",
-                    "margin": "lg"
-                  });
-                }
+          for (var menu in itemKategori) {
+            var itemMenu = itemKategori[menu];
+            if (menu !== 'thumbnail' && menu !== 'priority') {
+              var flexMenu = {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": menu,
+                    "weight": "bold",
+                    "size": "sm",
+                    "margin": "sm",
+                    "flex": 0
+                  },
+                  {
+                    "type": "text",
+                    "text": itemMenu.harga.toString(),
+                    "size": "sm",
+                    "align": "end",
+                    "color": "#222222"
+                  }
+                ]
+              };
+              var deskripsiMenu = {
+                "type": "text",
+                "text": itemMenu.deskripsi,
+                "wrap": true,
+                "color": "#aaaaaa",
+                "size": "xxs"
+              };
+              flexKategori.body.contents[0].contents.push(flexMenu);
+              flexKategori.body.contents[0].contents.push(deskripsiMenu);
+              jmlMenu++;
+              if (jmlMenu >= 3) {
+                break;
+              } else {
+                flexKategori.body.contents[0].contents.push({
+                  "type": "separator",
+                  "margin": "lg"
+                });
               }
-            });
-          } catch (e) {
-            if (e !== BreakException) throw e;
+            }
           }
           flexMsg.contents.contents.unshift(flexKategori);
           jmlKat++;
