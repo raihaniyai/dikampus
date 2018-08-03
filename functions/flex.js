@@ -505,14 +505,14 @@ var self = {
               flexKategori.body.contents[0].contents.push(flexMenu);
               flexKategori.body.contents[0].contents.push(deskripsiMenu);
               jmlMenu++;
-            }
-            if (jmlMenu >= 3) {
-              break;
-            } else {
-              flexKategori.body.contents[0].contents.push({
-                "type": "separator",
-                "margin": "lg"
-              });
+              if (jmlMenu >= 3) {
+                break;
+              } else {
+                flexKategori.body.contents[0].contents.push({
+                  "type": "separator",
+                  "margin": "lg"
+                });
+              }
             }
           }
           flexMsg.contents.contents.unshift(flexKategori);
