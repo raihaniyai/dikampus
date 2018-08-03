@@ -539,6 +539,7 @@ var self = {
     if (res) {
       isFirst = false;
       ref = ref.startAt(res);
+      console.log(res);
     }
     ref.on("value", function(snapshot) {
       var flexMsg = {
