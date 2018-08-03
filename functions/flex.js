@@ -557,7 +557,6 @@ var self = {
           if (!isFirst) {
             if (menu == menus) isFound = true;
             if (isFound) res[menu] = dataMenu;
-            }
           } else {
             res[menu]= dataMenu;
           }
