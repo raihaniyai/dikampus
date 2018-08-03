@@ -7,7 +7,6 @@ var self = {
     var ref = db.ref("transaksi/makanan/"+idTransaksi);
     ref.once("value", function(snapshot) {
       data = snapshot.val();
-      console.log(data);
       var pesanan = {};
       var text = "Pesen ";
       for (var menu in data.pesanan) {
@@ -177,7 +176,6 @@ var self = {
       ref.child('totalHarga').set(totalHarga);
       flexMsg.contents.body.contents[4].contents[1+jmlData].contents.push(showTotal);
       flexMsg.contents.body.contents[4].contents[3+jmlData].contents.push(showAlamat);
-      console.log(JSON.stringify(flexMsg));
       return client.replyMessage(replyToken, [
         {
           "type": "text",
@@ -186,8 +184,6 @@ var self = {
         flexMsg
       ]);
       process.exit();
-    }, function (errorObject) {
-      console.log("The read failed: " + errorObject.code);
     });
 
   },
@@ -390,8 +386,6 @@ var self = {
           flexMsg
         ]);
       process.exit();
-    }, function (errorObject) {
-      console.log("The read failed: " + errorObject.code);
     });
   },
   kategori: function (replyToken, warung) {
@@ -527,8 +521,6 @@ var self = {
       flexMsg
       ]);
       process.exit();
-    }, function (errorObject) {
-      console.log("The read failed: " + errorObject.code);
     });
   },
   menu: function (replyToken, warung, kategori, res) {
@@ -659,7 +651,6 @@ var self = {
           jmlMenu++;
         }
       }
-      console.log(flexMsg);
       if (isFirst) {
         return client.replyMessage(replyToken, [
           {
@@ -672,8 +663,6 @@ var self = {
         return client.replyMessage(replyToken, flexMsg);
       }
       process.exit();
-    }, function (errorObject) {
-      console.log("The read failed: " + errorObject.code);
     });
   },
   warung: function (replyToken, warung) {
@@ -686,7 +675,6 @@ var self = {
       ref = ref.orderByKey().startAt(warung);
     }
     ref.once("value", function(snapshot) {
-      data = snapshot.val();
       var flexMsg = {
         "type": "flex",
         "altText": "Rekomendasi Warung",
@@ -696,8 +684,12 @@ var self = {
         }
       };
       var jmlWarung = 1;
-      for (var warung in data) {
-        var itemWarung = data[warung];
+      snapshot.forEach(function(data){
+        var warung = data.key;
+        var dataWarung = data.val();
+        var res = {};
+        res[warung] = dataWarung;
+        var itemWarung = res[warung];
         if (jmlWarung > 9) {
           var lainnya = {
             "type": "bubble",
@@ -706,9 +698,9 @@ var self = {
               "layout": "vertical",
               "spacing": "sm",
               "action": {
-                 "type":"postback",
-                 "label":"Warung Lainnya",
-                 "data":"data=warung&warung="+warung
+                "type":"postback",
+                "label":"Warung Lainnya",
+                "data":"data=warung&warung="+warung
               },
               "contents": [
                 {
@@ -716,9 +708,9 @@ var self = {
                   "flex": 1,
                   "gravity": "center",
                   "action": {
-                     "type":"postback",
-                     "label":"Warung Lainnya",
-                     "data":"data=warung&warung="+warung
+                    "type":"postback",
+                    "label":"Warung Lainnya",
+                    "data":"data=warung&warung="+warung
                   }
                 }
               ]
@@ -856,7 +848,7 @@ var self = {
         }
         jmlWarung++;
         flexMsg.contents.contents.push(flexWarung);
-      }
+      });
       if (!isFirst) {
         return client.replyMessage(replyToken, flexMsg);
       } else {
@@ -869,12 +861,7 @@ var self = {
         ]);
       }
       process.exit();
-    }, function (errorObject) {
-      console.log("The read failed: " + errorObject.code);
     });
-  },
-  bar: function () {
-    console.log("function bar");
   }
 };
 
