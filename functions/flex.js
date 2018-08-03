@@ -473,8 +473,7 @@ var self = {
           var jmlMenu = 0;
           for (var menu in itemKategori) {
             var itemMenu = itemKategori[menu];
-            console.log(JSON.stringify(itemMenu));
-            if (menu !== 'thumbnail') {
+            if (menu !== 'thumbnail' || menu !== 'priority') {
               var flexMenu = {
                 "type": "box",
                 "layout": "baseline",
@@ -554,8 +553,7 @@ var self = {
       var jmlMenu = 1;
       for (var menu in data) {
         var itemMenu = data[menu];
-        if (menu !== "thumbnail") {
-          console.log(itemMenu);
+        if (menu !== 'thumbnail' || menu !== 'priority') {
           if (jmlMenu > 9) {
             var lainnya = {
               "type": "bubble",
