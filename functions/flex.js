@@ -401,6 +401,7 @@ var self = {
           "contents": []
         }
       };
+      var BreakException = {};
       var jmlKat = 1;
       try {
         snapshot.forEach(function(data){
