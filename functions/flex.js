@@ -669,10 +669,10 @@ var self = {
     var db = bot.database;
     var client = bot.client;
     var isFirst = true;
-    var ref = db.ref("warung");
+    var ref = db.ref("warung").orderByChild("priority");
     if (warung !== null) {
       isFirst = false;
-      ref = ref.orderByKey().startAt(warung);
+      ref = ref.orderByKey().orderByChild("priority").startAt(warung);
     }
     ref.on("value", function(snapshot) {
       var flexMsg = {
@@ -688,7 +688,6 @@ var self = {
       try {
         snapshot.forEach(function(data){
           var warung = data.key;
-          console.log(warung);
           var dataWarung = data.val();
           var res = {};
           res[warung] = dataWarung;
