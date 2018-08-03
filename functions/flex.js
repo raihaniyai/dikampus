@@ -541,7 +541,6 @@ var self = {
       ref = ref.startAt(res);
     }
     ref.on("value", function(snapshot) {
-      data = snapshot.val();
       var flexMsg = {
         "type": "flex",
         "altText": "Menu Kategori " + kategori,
@@ -558,6 +557,7 @@ var self = {
           var dataMenu = data.val();
           var res = {};
           res[menu]= dataMenu;
+          console.log(res);
           var itemMenu = res[menu];
           if (menu !== 'thumbnail' && menu !== 'priority') {
             if (jmlMenu > 9) {
