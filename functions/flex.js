@@ -677,6 +677,7 @@ var self = {
           flexMsg
         ]);
       } else {
+        console.log(flexMsg);
         return client.replyMessage(replyToken, flexMsg);
       }
       process.exit();
