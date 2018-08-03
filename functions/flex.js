@@ -405,9 +405,12 @@ var self = {
       var jmlKat = 1;
       try {
         snapshot.forEach(function(data){
-          var jmlMenu = 0;
-          var itemKat = data[kat];
-          var kategori = {
+          var kategori = data.key;
+          var dataKategori = data.val();
+          var res = {};
+          res[kategori] = dataKategori;
+          var itemKategori = res[kategori];
+          var flexKategori = {
             "type": "bubble",
             "header": {
               "type": "box",
@@ -415,7 +418,7 @@ var self = {
               "contents": [
                 {
                   "type": "text",
-                  "text": kat,
+                  "text": kategori,
                   "weight": "bold",
                   "color": "#222222",
                   "size": "lg"
@@ -424,13 +427,13 @@ var self = {
             },
             "hero": {
               "type": "image",
-              "url": itemKat.thumbnail,
+              "url": itemKategori.thumbnail,
               "size": "full",
               "aspectRatio": "1:1",
               "aspectMode": "cover",
               "action": {
                 "type": "message",
-                "text": kat
+                "text": kategori
               }
             },
             "body": {
@@ -439,7 +442,7 @@ var self = {
               "spacing": "md",
               "action": {
                 "type": "message",
-                "text": kat
+                "text": kategori
               },
               "contents": [
                 {
@@ -461,14 +464,15 @@ var self = {
                   "action": {
                     "type": "message",
                     "label": "Lihat Semua",
-                    "text": kat
+                    "text": kategori
                   }
                 }
               ]
             }
           }
-          for (var menu in itemKat) {
-            var itemMenu = itemKat[menu];
+          var jmlMenu = 0;
+          for (var menu in itemKategori) {
+            var itemMenu = itemKategori[menu];
             if (menu !== 'thumbnail') {
               var flexMenu = {
                 "type": "box",
@@ -498,20 +502,20 @@ var self = {
                 "color": "#aaaaaa",
                 "size": "xxs"
               };
-              kategori.body.contents[0].contents.push(flexMenu);
-              kategori.body.contents[0].contents.push(deskripsiMenu);
+              flexKategori.body.contents[0].contents.push(flexMenu);
+              flexKategori.body.contents[0].contents.push(deskripsiMenu);
             }
             jmlMenu++;
             if (jmlMenu >= 3) {
               break;
             } else {
-              kategori.body.contents[0].contents.push({
+              flexKategori.body.contents[0].contents.push({
                 "type": "separator",
                 "margin": "lg"
               });
             }
           }
-          flexMsg.contents.contents.unshift(kategori);
+          flexMsg.contents.contents.unshift(flexKategori);
           jmlKat++;
         });
       } catch (e) {
