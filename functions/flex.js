@@ -409,6 +409,7 @@ var self = {
           var dataKategori = data.val();
           var res = {};
           res[kategori] = dataKategori;
+          console.log(JSON.stringify(res));
           var itemKategori = res[kategori];
           var flexKategori = {
             "type": "bubble",
@@ -554,6 +555,7 @@ var self = {
       for (var menu in data) {
         var itemMenu = data[menu];
         if (menu !== "thumbnail") {
+          console.log(itemMenu);
           if (jmlMenu > 9) {
             var lainnya = {
               "type": "bubble",
