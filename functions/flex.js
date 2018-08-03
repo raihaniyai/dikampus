@@ -538,7 +538,7 @@ var self = {
     var ref = db.ref("warung/"+warung+"/menu/"+kategori).orderByChild('priority');
     if (res) {
       isFirst = false;
-      ref = ref.orderByKey().startAt(res);
+      ref = ref.startAt(res);
     }
     ref.on("value", function(snapshot) {
       data = snapshot.val();
@@ -661,7 +661,7 @@ var self = {
                 ]
               }
             };
-            flexMsg.contents.contents.push(flexMenu);
+            flexMsg.contents.contents.unshift(flexMenu);
             jmlMenu++;
           }
         });
@@ -689,7 +689,7 @@ var self = {
     var ref = db.ref("warung").orderByChild("priority");
     if (warung !== null) {
       isFirst = false;
-      ref = ref.orderByKey().orderByChild("priority").startAt(warung);
+      ref = ref.orderByChild("priority").startAt(warung);
     }
     ref.on("value", function(snapshot) {
       var flexMsg = {
