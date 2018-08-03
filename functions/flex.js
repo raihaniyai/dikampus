@@ -675,6 +675,7 @@ var self = {
       ref = ref.orderByKey().startAt(warung);
     }
     ref.once("value", function(snapshot) {
+      data = snapshot.val();
       var flexMsg = {
         "type": "flex",
         "altText": "Rekomendasi Warung",
@@ -684,12 +685,8 @@ var self = {
         }
       };
       var jmlWarung = 1;
-      snapshot.forEach(function(data){
-        var warung = data.key;
-        var dataWarung = data.val();
-        var res = {};
-        res[warung] = dataWarung;
-        var itemWarung = res[warung];
+      for (var warung in data) {
+        var itemWarung = data[warung];
         if (jmlWarung > 9) {
           var lainnya = {
             "type": "bubble",
@@ -698,9 +695,9 @@ var self = {
               "layout": "vertical",
               "spacing": "sm",
               "action": {
-                "type":"postback",
-                "label":"Warung Lainnya",
-                "data":"data=warung&warung="+warung
+                 "type":"postback",
+                 "label":"Warung Lainnya",
+                 "data":"data=warung&warung="+warung
               },
               "contents": [
                 {
@@ -708,9 +705,9 @@ var self = {
                   "flex": 1,
                   "gravity": "center",
                   "action": {
-                    "type":"postback",
-                    "label":"Warung Lainnya",
-                    "data":"data=warung&warung="+warung
+                     "type":"postback",
+                     "label":"Warung Lainnya",
+                     "data":"data=warung&warung="+warung
                   }
                 }
               ]
@@ -848,7 +845,7 @@ var self = {
         }
         jmlWarung++;
         flexMsg.contents.contents.push(flexWarung);
-      });
+      }
       if (!isFirst) {
         return client.replyMessage(replyToken, flexMsg);
       } else {
