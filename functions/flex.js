@@ -409,7 +409,6 @@ var self = {
           var dataKategori = data.val();
           var res = {};
           res[kategori] = dataKategori;
-          console.log(JSON.stringify(res));
           var itemKategori = res[kategori];
           var flexKategori = {
             "type": "bubble",
@@ -474,6 +473,7 @@ var self = {
           var jmlMenu = 0;
           for (var menu in itemKategori) {
             var itemMenu = itemKategori[menu];
+            console.log(JSON.stringify(itemMenu));
             if (menu !== 'thumbnail') {
               var flexMenu = {
                 "type": "box",
