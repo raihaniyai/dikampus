@@ -849,7 +849,7 @@ var self = {
             }
           }
           jmlWarung++;
-          flexMsg.contents.contents.push(flexWarung);
+          flexMsg.contents.contents.unshift(flexWarung);
         });
       } catch (e) {
         if (e !== BreakException) throw e;
