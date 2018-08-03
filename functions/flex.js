@@ -535,12 +535,12 @@ var self = {
     var db = bot.database;
     var client = bot.client;
     var isFirst = true;
-    var ref = db.ref("warung/"+warung+"/menu/"+kategori);
+    var ref = db.ref("warung/"+warung+"/menu/"+kategori).orderByChild('priority');
     if (res) {
       isFirst = false;
       ref = ref.orderByKey().startAt(res);
     }
-    ref.once("value", function(snapshot) {
+    ref.on("value", function(snapshot) {
       data = snapshot.val();
       var flexMsg = {
         "type": "flex",
@@ -550,114 +550,123 @@ var self = {
           "contents": []
         }
       };
+      var BreakException = {};
       var jmlMenu = 1;
-      for (var menu in data) {
-        var itemMenu = data[menu];
-        if (menu !== 'thumbnail' && menu !== 'priority') {
-          if (jmlMenu > 9) {
-            var lainnya = {
+      try {
+        snapshot.forEach(function(data){
+          var menu = data.key;
+          var dataMenu = data.val();
+          var res = {};
+          res[menu]= dataMenu;
+          var itemMenu = res[menu];
+          if (menu !== 'thumbnail' && menu !== 'priority') {
+            if (jmlMenu > 9) {
+              var lainnya = {
+                "type": "bubble",
+                "body": {
+                  "type": "box",
+                  "layout": "vertical",
+                  "spacing": "sm",
+                  "action": {
+                    "type":"postback",
+                    "label":"Menu Lainnya",
+                    "data":"data=menu&warung="+warung+"&kategori="+kategori+"&menu="+menu
+                  },
+                  "contents": [
+                    {
+                      "type": "button",
+                      "flex": 1,
+                      "gravity": "center",
+                      "action": {
+                        "type":"postback",
+                        "label":"Menu Lainnya",
+                        "data":"data=menu&warung="+warung+"&kategori="+kategori+"&menu="+menu
+                      }
+                    }
+                  ]
+                }
+              };
+              flexMsg.contents.contents.push(lainnya);
+              throw BreakException;
+            }
+            var flexMenu = {
               "type": "bubble",
+              "hero": {
+                "type": "image",
+                "size": "full",
+                "aspectRatio": "1:1",
+                "aspectMode": "cover",
+                "url": itemMenu.thumbnail,
+                "action": {
+                  "type": "message",
+                  "text": menu
+                }
+              },
               "body": {
                 "type": "box",
                 "layout": "vertical",
                 "spacing": "sm",
                 "action": {
-                   "type":"postback",
-                   "label":"Menu Lainnya",
-                   "data":"data=menu&warung="+warung+"&kategori="+kategori+"&menu="+menu
+                  "type": "message",
+                  "text": menu
                 },
                 "contents": [
                   {
+                    "type": "text",
+                    "text": menu,
+                    "wrap": true,
+                    "weight": "bold",
+                    "size": "lg"
+                  },
+                  {
+                    "type": "text",
+                    "text": itemMenu.deskripsi,
+                    "wrap": true,
+                    "color": "#aaaaaa",
+                    "size": "xxs"
+                  },
+                  {
+                    "type": "separator",
+                    "margin": "lg"
+                  },
+                  {
+                    "type": "box",
+                    "layout": "baseline",
+                    "margin": "lg",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": "Rp " + itemMenu.harga.toString(),
+                        "size" : "md",
+                        "wrap": true
+                      }
+                    ]
+                  }
+                ]
+              },
+              "footer": {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
                     "type": "button",
-                    "flex": 1,
-                    "gravity": "center",
+                    "style": "link",
+                    "color": "#0B5ED7",
                     "action": {
-                       "type":"postback",
-                       "label":"Menu Lainnya",
-                       "data":"data=menu&warung="+warung+"&kategori="+kategori+"&menu="+menu
+                      "type": "message",
+                      "label": "+ Tambahkan",
+                      "text": menu
                     }
                   }
                 ]
               }
             };
-            flexMsg.contents.contents.push(lainnya);
-            break;
+            flexMsg.contents.contents.push(flexMenu);
+            jmlMenu++;
           }
-          var flexMenu = {
-            "type": "bubble",
-            "hero": {
-              "type": "image",
-              "size": "full",
-              "aspectRatio": "1:1",
-              "aspectMode": "cover",
-              "url": itemMenu.thumbnail,
-              "action": {
-                "type": "message",
-                "text": menu
-              }
-            },
-            "body": {
-              "type": "box",
-              "layout": "vertical",
-              "spacing": "sm",
-              "action": {
-                "type": "message",
-                "text": menu
-              },
-              "contents": [
-                {
-                  "type": "text",
-                  "text": menu,
-                  "wrap": true,
-                  "weight": "bold",
-                  "size": "lg"
-                },
-                {
-                  "type": "text",
-                  "text": itemMenu.deskripsi,
-                  "wrap": true,
-                  "color": "#aaaaaa",
-                  "size": "xxs"
-                },
-                {
-                  "type": "separator",
-                  "margin": "lg"
-                },
-                {
-                  "type": "box",
-                  "layout": "baseline",
-                  "margin": "lg",
-                  "contents": [
-                    {
-                      "type": "text",
-                      "text": "Rp " + itemMenu.harga.toString(),
-                      "size" : "md",
-                      "wrap": true
-                    }
-                  ]
-                }
-              ]
-            },
-            "footer": {
-              "type": "box",
-              "layout": "vertical",
-              "contents": [
-                {
-                  "type": "button",
-                  "style": "link",
-                  "color": "#0B5ED7",
-                  "action": {
-                    "type": "message",
-                    "label": "+ Tambahkan",
-                    "text": menu
-                  }
-                }
-              ]
-            }
-          };
-          flexMsg.contents.contents.push(flexMenu);
-          jmlMenu++;
-        }
+        });
+      } catch (e) {
+        if (e !== BreakException) throw e;
       }
       if (isFirst) {
         return client.replyMessage(replyToken, [
