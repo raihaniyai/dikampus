@@ -474,6 +474,9 @@ var self = {
           for (var menu in itemKategori) {
             var itemMenu = itemKategori[menu];
             if (menu !== 'thumbnail' && menu !== 'priority') {
+              if (jmlMenu >= 3) {
+                break;
+              }
               var flexMenu = {
                 "type": "box",
                 "layout": "baseline",
@@ -506,14 +509,10 @@ var self = {
               flexKategori.body.contents[0].contents.push(deskripsiMenu);
             }
             jmlMenu++;
-            if (jmlMenu >= 3) {
-              break;
-            } else {
-              flexKategori.body.contents[0].contents.push({
-                "type": "separator",
-                "margin": "lg"
-              });
-            }
+            flexKategori.body.contents[0].contents.push({
+              "type": "separator",
+              "margin": "lg"
+            });
           }
           flexMsg.contents.contents.unshift(flexKategori);
           jmlKat++;
