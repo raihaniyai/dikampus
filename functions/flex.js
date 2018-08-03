@@ -535,8 +535,12 @@ var self = {
     var db = bot.database;
     var client = bot.client;
     var isFirst = true;
+    var isFound = true;
     var ref = db.ref("warung/"+warung+"/menu/"+kategori).orderByChild('priority');
-    if (menus) isFirst = false;
+    if (menus) {
+      isFirst = false;
+      isFound = false;
+    }
     ref.on("value", function(snapshot) {
       var flexMsg = {
         "type": "flex",
@@ -546,14 +550,13 @@ var self = {
           "contents": []
         }
       };
-      var isFound = false;
       var BreakException = {};
       var jmlMenu = 1;
-      var res = {};
       try {
         snapshot.forEach(function(data){
           var menu = data.key;
           var dataMenu = data.val();
+          var res = {};
           if (!isFirst) {
             if (menu == menus) isFound = true;
             if (isFound) res[menu] = dataMenu;
@@ -561,7 +564,7 @@ var self = {
             res[menu]= dataMenu;
           }
           var itemMenu = res[menu];
-          if (menu !== 'thumbnail' && menu !== 'priority') {
+          if (menu !== 'thumbnail' && menu !== 'priority' && isFound) {
             if (jmlMenu > 9) {
               var lainnya = {
                 "type": "bubble",
