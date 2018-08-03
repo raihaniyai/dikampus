@@ -477,7 +477,7 @@ var self = {
               var dataMenu = data.val();
               var resMenu = {};
               resMenu[menu] = dataMenu;
-              var itemMenu = itemMenu[menu];
+              var itemMenu = resMenu[menu];
               if (menu !== 'thumbnail' && menu !== 'priority') {
                 var flexMenu = {
                   "type": "box",
