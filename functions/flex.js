@@ -191,7 +191,6 @@ var self = {
     var db = bot.database;
     var client = bot.client;
     var ref = db.ref("transaksi/makanan/"+idTransaksi);
-
     ref.once("value", function(snapshot) {
       data = snapshot.val();
       var pesanan = {};
@@ -391,8 +390,8 @@ var self = {
   kategori: function (replyToken, warung) {
     var db = bot.database;
     var client = bot.client;
-    var ref = db.ref("warung/"+warung+"/menu");
-    ref.once("value", function(snapshot) {
+    var ref = db.ref("warung/"+warung+"/menu").orderByChild('priority');
+    ref.on("value", function(snapshot) {
       data = snapshot.val();
       var flexMsg = {
         "type": "flex",
@@ -402,116 +401,120 @@ var self = {
           "contents": []
         }
       };
-      var jmlKat = 0;
-      for (var kat in data) {
-        var jmlMenu = 0;
-        var itemKat = data[kat];
-        var kategori = {
-          "type": "bubble",
-          "header": {
-            "type": "box",
-            "layout": "horizontal",
-            "contents": [
-              {
-                "type": "text",
-                "text": kat,
-                "weight": "bold",
-                "color": "#222222",
-                "size": "lg"
-              }
-            ]
-          },
-          "hero": {
-            "type": "image",
-            "url": itemKat.thumbnail,
-            "size": "full",
-            "aspectRatio": "1:1",
-            "aspectMode": "cover",
-            "action": {
-              "type": "message",
-              "text": kat
-            }
-          },
-          "body": {
-            "type": "box",
-            "layout": "vertical",
-            "spacing": "md",
-            "action": {
-              "type": "message",
-              "text": kat
-            },
-            "contents": [
-              {
-                "type": "box",
-                "layout": "vertical",
-                "spacing": "sm",
-                "contents": []
-              }
-            ]
-          },
-          "footer": {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-              {
-                "type": "button",
-                "style": "link",
-                "color": "#0B5ED7",
-                "action": {
-                  "type": "message",
-                  "label": "Lihat Semua",
-                  "text": kat
-                }
-              }
-            ]
-          }
-        }
-        for (var menu in itemKat) {
-          var itemMenu = itemKat[menu];
-          if (menu !== 'thumbnail') {
-            var flexMenu = {
+      var jmlKat = 1;
+      try {
+        snapshot.forEach(function(data){
+          var jmlMenu = 0;
+          var itemKat = data[kat];
+          var kategori = {
+            "type": "bubble",
+            "header": {
               "type": "box",
-              "layout": "baseline",
+              "layout": "horizontal",
               "contents": [
                 {
                   "type": "text",
-                  "text": menu,
+                  "text": kat,
                   "weight": "bold",
-                  "size": "sm",
-                  "margin": "sm",
-                  "flex": 0
-                },
-                {
-                  "type": "text",
-                  "text": itemMenu.harga.toString(),
-                  "size": "sm",
-                  "align": "end",
-                  "color": "#222222"
+                  "color": "#222222",
+                  "size": "lg"
                 }
               ]
-            };
-            var deskripsiMenu = {
-              "type": "text",
-              "text": itemMenu.deskripsi,
-              "wrap": true,
-              "color": "#aaaaaa",
-              "size": "xxs"
-            };
-            kategori.body.contents[0].contents.push(flexMenu);
-            kategori.body.contents[0].contents.push(deskripsiMenu);
+            },
+            "hero": {
+              "type": "image",
+              "url": itemKat.thumbnail,
+              "size": "full",
+              "aspectRatio": "1:1",
+              "aspectMode": "cover",
+              "action": {
+                "type": "message",
+                "text": kat
+              }
+            },
+            "body": {
+              "type": "box",
+              "layout": "vertical",
+              "spacing": "md",
+              "action": {
+                "type": "message",
+                "text": kat
+              },
+              "contents": [
+                {
+                  "type": "box",
+                  "layout": "vertical",
+                  "spacing": "sm",
+                  "contents": []
+                }
+              ]
+            },
+            "footer": {
+              "type": "box",
+              "layout": "vertical",
+              "contents": [
+                {
+                  "type": "button",
+                  "style": "link",
+                  "color": "#0B5ED7",
+                  "action": {
+                    "type": "message",
+                    "label": "Lihat Semua",
+                    "text": kat
+                  }
+                }
+              ]
+            }
           }
-          jmlMenu++;
-          if (jmlMenu >= 3) {
-            break;
-          } else {
-            kategori.body.contents[0].contents.push({
-              "type": "separator",
-              "margin": "lg"
-            });
+          for (var menu in itemKat) {
+            var itemMenu = itemKat[menu];
+            if (menu !== 'thumbnail') {
+              var flexMenu = {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": menu,
+                    "weight": "bold",
+                    "size": "sm",
+                    "margin": "sm",
+                    "flex": 0
+                  },
+                  {
+                    "type": "text",
+                    "text": itemMenu.harga.toString(),
+                    "size": "sm",
+                    "align": "end",
+                    "color": "#222222"
+                  }
+                ]
+              };
+              var deskripsiMenu = {
+                "type": "text",
+                "text": itemMenu.deskripsi,
+                "wrap": true,
+                "color": "#aaaaaa",
+                "size": "xxs"
+              };
+              kategori.body.contents[0].contents.push(flexMenu);
+              kategori.body.contents[0].contents.push(deskripsiMenu);
+            }
+            jmlMenu++;
+            if (jmlMenu >= 3) {
+              break;
+            } else {
+              kategori.body.contents[0].contents.push({
+                "type": "separator",
+                "margin": "lg"
+              });
+            }
           }
-        }
-        flexMsg.contents.contents.push(kategori);
-        jmlKat++;
+          flexMsg.contents.contents.unshift(kategori);
+          jmlKat++;
+        });
+      } catch (e) {
+        if (e !== BreakException) throw e;
       }
       return client.replyMessage(replyToken, [
       {
