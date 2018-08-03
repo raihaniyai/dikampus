@@ -674,7 +674,7 @@ var self = {
       isFirst = false;
       ref = ref.orderByKey().startAt(warung);
     }
-    ref.once("value", function(snapshot) {
+    ref.on("value", function(snapshot) {
       var flexMsg = {
         "type": "flex",
         "altText": "Rekomendasi Warung",
@@ -688,6 +688,7 @@ var self = {
       try {
         snapshot.forEach(function(data){
           var warung = data.key;
+          console.log(warung);
           var dataWarung = data.val();
           var res = {};
           res[warung] = dataWarung;
