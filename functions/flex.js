@@ -507,11 +507,11 @@ var self = {
                   "color": "#aaaaaa",
                   "size": "xxs"
                 };
-                flexKategori.body.contents[0].contents.push(flexMenu);
-                flexKategori.body.contents[0].contents.push(deskripsiMenu);
+                flexKategori.body.contents[0].contents.unshift(deskripsiMenu);
+                flexKategori.body.contents[0].contents.unshift(flexMenu);
                 jmlMenu++;
                 if (jmlMenu >= 3) {
-                  break;
+                  throw BreakException;
                 } else {
                   flexKategori.body.contents[0].contents.push({
                     "type": "separator",
