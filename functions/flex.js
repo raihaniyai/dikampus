@@ -473,7 +473,7 @@ var self = {
           var jmlMenu = 0;
           for (var menu in itemKategori) {
             var itemMenu = itemKategori[menu];
-            if (menu !== 'thumbnail' && menu !== 'priority') {
+            if (menu !== 'thumbnail' && menu !== 'priority' && menu !== 'kategoriCounter') {
               var flexMenu = {
                 "type": "box",
                 "layout": "baseline",
@@ -564,7 +564,7 @@ var self = {
             res[menu]= dataMenu;
           }
           var itemMenu = res[menu];
-          if (menu !== 'thumbnail' && menu !== 'priority' && isFound) {
+          if (menu !== 'thumbnail' && menu !== 'priority' && isFound && menu !== "kategoriCounter") {
             if (jmlMenu > 9) {
               var lainnya = {
                 "type": "bubble",
