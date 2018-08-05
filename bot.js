@@ -201,6 +201,9 @@ function handleText(message, replyToken, source) {
   }
 }
 
+var staticFile = require('path').join(__dirname,'/public');
+app.use(express.static(staticFile));
+
 // listen on port
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
