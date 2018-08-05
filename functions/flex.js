@@ -515,7 +515,7 @@ var self = {
               }
             }
           }
-          flexMsg.contents.contents.unshift(flexKategori);
+          flexMsg.contents.contents.push(flexKategori);
           jmlKat++;
         });
       } catch (e) {
@@ -666,7 +666,7 @@ var self = {
                 ]
               }
             };
-            flexMsg.contents.contents.unshift(flexMenu);
+            flexMsg.contents.contents.push(flexMenu);
             jmlMenu++;
           }
         });
@@ -872,7 +872,7 @@ var self = {
             }
           }
           jmlWarung++;
-          flexMsg.contents.contents.unshift(flexWarung);
+          flexMsg.contents.contents.push(flexWarung);
         });
       } catch (e) {
         if (e !== BreakException) throw e;
