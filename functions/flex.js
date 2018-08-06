@@ -718,7 +718,7 @@ var self = {
             if (warung == warungs) isFound = true;
             if (isFound) res[warung] = dataWarung;
           } else {
-            res[menu]= dataMenu;
+            res[warung]= dataWarung;
           }
           res[warung] = dataWarung;
           var itemWarung = res[warung];
