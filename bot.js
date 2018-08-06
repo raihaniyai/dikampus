@@ -76,6 +76,11 @@ function handleEvent(event) {
     }
     break;
     case 'follow':
+    var updateRef = db.ref("statistik/adders");
+    updateRef.transaction(function(adders) {
+      // If node/clicks has never been set, currentRank will be `null`.
+      return (adders || 0) + 1;
+    });
     return client.getProfile(event.source.userId)
     .then((profile) => client.replyMessage(event.replyToken, [
       {
@@ -105,9 +110,19 @@ function handleEvent(event) {
     ]));
     break;
     case 'unfollow':
+    var updateRef = db.ref("statistik/adders");
+    updateRef.transaction(function(adders) {
+      // If node/clicks has never been set, currentRank will be `null`.
+      return (adders) - 1;
+    });
     return console.log(`Unfollowed this bot: ${JSON.stringify(event)}`);
     break;
     case 'join':
+    var updateRef = db.ref("statistik/groups");
+    updateRef.transaction(function(groups) {
+      // If node/clicks has never been set, currentRank will be `null`.
+      return (groups || 0) + 1;
+    });
     return replyText(event.replyToken, [
       `Kenalin namaku Dika 􀰂􀄤smiling􏿿 \naku bisa pesenin makanan 🍽️ kesukaanmu di sekitar Telkom University loh!`,
       `Kalau pada laper bilang "Laper" aja ya, ga usah malu 􀰂􀄥excited􏿿`,
@@ -115,6 +130,11 @@ function handleEvent(event) {
     ]);
     break;
     case 'leave':
+    var updateRef = db.ref("statistik/groups");
+    updateRef.transaction(function(groups) {
+      // If node/clicks has never been set, currentRank will be `null`.
+      return (groups) - 1;
+    });
     return console.log(`Left: ${JSON.stringify(event)}`);
     break;
     case 'postback':

@@ -4,6 +4,11 @@ var self = {
   order: function (replyToken, idTransaksi, dataWarung) {
     var db = bot.database;
     var client = bot.client;
+    var updateRef = db.ref("statistik/transaksi");
+    updateRef.transaction(function(transCounter) {
+      // If node/clicks has never been set, currentRank will be `null`.
+      return (transCounter || 0) + 1;
+    });
     var ref = db.ref("transaksi/makanan/"+idTransaksi);
     ref.once("value", function(snapshot) {
       data = snapshot.val();
