@@ -391,7 +391,7 @@ var self = {
     var db = bot.database;
     var client = bot.client;
     var updateRef = db.ref("warung/warungCounter");
-    updateRef.transaction(function(currentClicks) {
+    updateRef.transaction(function(warungCounter) {
       // If node/clicks has never been set, currentRank will be `null`.
       return (warungCounter || 0) + 1;
     });
