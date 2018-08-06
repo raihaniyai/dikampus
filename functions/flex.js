@@ -390,7 +390,7 @@ var self = {
   kategori: function (replyToken, warung) {
     var db = bot.database;
     var client = bot.client;
-    var updateRef = db.ref("warung/warungCounter");
+    var updateRef = db.ref("warung/"+warung+"/warungCounter");
     updateRef.transaction(function(warungCounter) {
       // If node/clicks has never been set, currentRank will be `null`.
       return (warungCounter || 0) + 1;
