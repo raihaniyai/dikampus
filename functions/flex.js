@@ -696,7 +696,7 @@ var self = {
     var ref = db.ref("warung").orderByChild("priority");
     if (warungs) {
       isFirst = false;
-      isFound = false
+      isFound = false;
     }
     ref.on("value", function(snapshot) {
       var flexMsg = {
@@ -720,7 +720,6 @@ var self = {
           } else {
             res[warung]= dataWarung;
           }
-          res[warung] = dataWarung;
           var itemWarung = res[warung];
           if (jmlWarung > 9) {
             var lainnya = {
