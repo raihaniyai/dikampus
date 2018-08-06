@@ -77,6 +77,11 @@ var self = {
           return flex.menu(replyToken, warung, parameters.kategori, null);
         } else {
           if (parameters.jumlah === ''){
+            var updateRef = db.ref("warung/"+warung+"/menu/"+parameters.kategori+"/"+parameters.menu+"/menuCounter");
+            updateRef.transaction(function(menuCounter) {
+              // If node/clicks has never been set, currentRank will be `null`.
+              return (menuCounter || 0) + 1;
+            });
             return client.replyMessage(replyToken, {
               "type": "text",
               "text": "Mau pesen "+parameters.menu+" berapa banyak kak? 􀰂􀄫content􏿿",

@@ -541,6 +541,11 @@ var self = {
     var client = bot.client;
     var isFirst = true;
     var isFound = true;
+    var updateRef = db.ref("warung/"+warung+"/menu/"+kategori+"/kategoriCounter");
+    updateRef.transaction(function(kategoriCounter) {
+      // If node/clicks has never been set, currentRank will be `null`.
+      return (kategoriCounter || 0) + 1;
+    });
     var ref = db.ref("warung/"+warung+"/menu/"+kategori).orderByChild('priority');
     if (menus) {
       isFirst = false;
