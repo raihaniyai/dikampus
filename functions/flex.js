@@ -721,6 +721,7 @@ var self = {
             res[warung]= dataWarung;
           }
           var itemWarung = res[warung];
+          console.log(warung + ": " +itemWarung);
           if (jmlWarung > 9) {
             var lainnya = {
               "type": "bubble",
