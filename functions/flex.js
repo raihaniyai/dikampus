@@ -10,9 +10,9 @@ var self = {
       var pesanan = {};
       var text = "Pesen ";
       for (var menu in data.pesanan) {
-        text += menu + " " + data.pesanan[menu].jumlah + ", "
+        text += menu + " " + data.pesanan[menu].jumlah + " (buah), "
       }
-      text += "kirim ke " + data.alamat;
+      text += "kirim ke " + data.alamat + "\n\n(dipesan via Dikampus)";
       text = encodeURIComponent(text);
       var url = "https://api.whatsapp.com/send?phone="+dataWarung.nomorWarung+"&text="+text;
       var flexMsg = {
@@ -196,10 +196,10 @@ var self = {
       var pesanan = {};
       var text = "Pesen ";
       for (menu in data.pesanan) {
-        text += menu + " " + data.pesanan[menu].jumlah + ", "
+        text += menu + " " + data.pesanan[menu].jumlah + " (buah), "
       }
       text += note + ", ";
-      text += "kirim ke " + data.alamat;
+      text += "kirim ke " + data.alamat + "\n\n(dipesan via Dikampus)";
       text = encodeURIComponent(text);
       var url = "https://api.whatsapp.com/send?phone="+dataWarung.nomorWarung+"&text="+text;
       var flexMsg = {
@@ -390,6 +390,11 @@ var self = {
   kategori: function (replyToken, warung) {
     var db = bot.database;
     var client = bot.client;
+    var updateRef = db.ref("warung/warungCounter");
+    updateRef.transaction(function(currentClicks) {
+      // If node/clicks has never been set, currentRank will be `null`.
+      return (warungCounter || 0) + 1;
+    });
     var ref = db.ref("warung/"+warung+"/menu").orderByChild('priority');
     ref.on("value", function(snapshot) {
       data = snapshot.val();
