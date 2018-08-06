@@ -688,14 +688,15 @@ var self = {
       process.exit();
     });
   },
-  warung: function (replyToken, warung) {
+  warung: function (replyToken, warungs) {
     var db = bot.database;
     var client = bot.client;
     var isFirst = true;
+    var isFound = true;
     var ref = db.ref("warung").orderByChild("priority");
-    if (warung !== null) {
+    if (warungs) {
       isFirst = false;
-      ref = ref.orderByChild("priority").startAt(warung);
+      isFound = false
     }
     ref.on("value", function(snapshot) {
       var flexMsg = {
@@ -713,6 +714,12 @@ var self = {
           var warung = data.key;
           var dataWarung = data.val();
           var res = {};
+          if (!isFirst) {
+            if (warung == warungs) isFound = true;
+            if (isFound) res[warung] = dataWarung;
+          } else {
+            res[menu]= dataMenu;
+          }
           res[warung] = dataWarung;
           var itemWarung = res[warung];
           if (jmlWarung > 9) {
