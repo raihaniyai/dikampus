@@ -507,11 +507,11 @@ var self = {
               }
             }
           }
-          flexKategori.body.contents[1].contents.push({
+          flexKategori.body.contents[1].contents.unshift({
             "type": "separator",
             "margin": "sm"
           });
-          flexKategori.body.contents[1].contents.push({
+          flexKategori.body.contents[1].contents.unshift({
                 "type": "text",
                 "text": "Harga mulai dari : Rp " + hargaMin + " - Rp " + hargaMax,
                 "wrap": true,
