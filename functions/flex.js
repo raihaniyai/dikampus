@@ -493,7 +493,7 @@ var self = {
                     "flex": 0
                   }
                 ]
-              },
+              };
               flexKategori.body.contents[0].contents.push(flexMenu);
               jmlMenu++;
               if (jmlMenu >= 3) {
