@@ -511,7 +511,7 @@ var self = {
             "type": "separator",
             "margin": "sm"
           });
-          flexKategori.body.contents[0].contents.push({
+          flexKategori.body.contents[1].contents.push({
                 "type": "text",
                 "text": "Harga mulai dari : Rp " + hargaMin + " - Rp " + hargaMax,
                 "wrap": true,
