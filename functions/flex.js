@@ -6,7 +6,6 @@ var self = {
     var client = bot.client;
     var updateRef = db.ref("statistik/transaksi");
     updateRef.transaction(function(transCounter) {
-      // If node/clicks has never been set, currentRank will be `null`.
       return (transCounter || 0) + 1;
     });
     var ref = db.ref("transaksi/makanan/"+idTransaksi);
@@ -15,7 +14,7 @@ var self = {
       var pesanan = {};
       var text = "Pesen ";
       for (var menu in data.pesanan) {
-        text += menu + " " + data.pesanan[menu].jumlah + " (buah), "
+        text += menu + " (" + data.pesanan[menu].jumlah + "), "
       }
       text += "kirim ke " + data.alamat + "\n\n(dipesan via Dikampus)";
       text = encodeURIComponent(text);
@@ -201,7 +200,7 @@ var self = {
       var pesanan = {};
       var text = "Pesen ";
       for (menu in data.pesanan) {
-        text += menu + " " + data.pesanan[menu].jumlah + " (buah), "
+        text += menu + " (" + data.pesanan[menu].jumlah + "), "
       }
       text += note + ", ";
       text += "kirim ke " + data.alamat + "\n\n(dipesan via Dikampus)";
@@ -397,7 +396,6 @@ var self = {
     var client = bot.client;
     var updateRef = db.ref("warung/"+warung+"/warungCounter");
     updateRef.transaction(function(warungCounter) {
-      // If node/clicks has never been set, currentRank will be `null`.
       return (warungCounter || 0) + 1;
     });
     var ref = db.ref("warung/"+warung+"/menu").orderByChild('priority');
@@ -422,19 +420,6 @@ var self = {
           var itemKategori = res[kategori];
           var flexKategori = {
             "type": "bubble",
-            "header": {
-              "type": "box",
-              "layout": "horizontal",
-              "contents": [
-                {
-                  "type": "text",
-                  "text": kategori,
-                  "weight": "bold",
-                  "color": "#222222",
-                  "size": "lg"
-                }
-              ]
-            },
             "hero": {
               "type": "image",
               "url": itemKategori.thumbnail,
@@ -455,6 +440,14 @@ var self = {
                 "text": kategori
               },
               "contents": [
+                {
+                  "type": "text",
+                  "text": kategori,
+                  "weight": "bold",
+                  "size": "sm",
+                  "margin": "sm",
+                  "flex": 0
+                },
                 {
                   "type": "box",
                   "layout": "vertical",
@@ -481,50 +474,50 @@ var self = {
             }
           }
           var jmlMenu = 0;
+          var hargaMax = 0;
+          var hargaMin = 10000000;
           for (var menu in itemKategori) {
             var itemMenu = itemKategori[menu];
             if (menu !== 'thumbnail' && menu !== 'priority' && menu !== 'kategoriCounter') {
-              var flexMenu = {
+              var flexMenu =  {
                 "type": "box",
-                "layout": "baseline",
+                "layout": "horizontal",
+                "margin" : "xxl",
                 "contents": [
                   {
                     "type": "text",
                     "text": menu,
-                    "weight": "bold",
+                    "weight": "regular",
                     "size": "sm",
                     "margin": "sm",
                     "flex": 0
-                  },
-                  {
-                    "type": "text",
-                    "text": itemMenu.harga.toString(),
-                    "size": "sm",
-                    "align": "end",
-                    "color": "#222222"
                   }
                 ]
-              };
-              var deskripsiMenu = {
-                "type": "text",
-                "text": itemMenu.deskripsi,
-                "wrap": true,
-                "color": "#aaaaaa",
-                "size": "xxs"
-              };
+              },
               flexKategori.body.contents[0].contents.push(flexMenu);
-              flexKategori.body.contents[0].contents.push(deskripsiMenu);
               jmlMenu++;
               if (jmlMenu >= 3) {
                 break;
-              } else {
-                flexKategori.body.contents[0].contents.push({
-                  "type": "separator",
-                  "margin": "lg"
-                });
+              }
+              if (itemMenu.harga > hargaMax) {
+                hargaMax = itemMenu.harga;
+              }
+              if (itemMenu.harga < hargaMin) {
+                hargaMin = itemMenu.harga;
               }
             }
           }
+          flexKategori.body.contents[0].contents.push({
+            "type": "separator",
+            "margin": "sm"
+          });
+          flexKategori.body.contents[0].contents.push({
+                "type": "text",
+                "text": "Harga mulai dari : Rp " + hargaMin + " - Rp " + hargaMax,
+                "wrap": true,
+                "color": "#aaaaaa",
+                "size": "xxs"
+              });
           flexMsg.contents.contents.push(flexKategori);
           jmlKat++;
         });
@@ -548,7 +541,6 @@ var self = {
     var isFound = true;
     var updateRef = db.ref("warung/"+warung+"/menu/"+kategori+"/kategoriCounter");
     updateRef.transaction(function(kategoriCounter) {
-      // If node/clicks has never been set, currentRank will be `null`.
       return (kategoriCounter || 0) + 1;
     });
     var ref = db.ref("warung/"+warung+"/menu/"+kategori).orderByChild('priority');
