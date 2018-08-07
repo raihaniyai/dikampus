@@ -494,7 +494,7 @@ var self = {
                   }
                 ]
               };
-              flexKategori.body.contents[0].contents.push(flexMenu);
+              flexKategori.body.contents[1].contents.push(flexMenu);
               jmlMenu++;
               if (jmlMenu >= 3) {
                 break;
@@ -507,7 +507,7 @@ var self = {
               }
             }
           }
-          flexKategori.body.contents[0].contents.push({
+          flexKategori.body.contents[1].contents.push({
             "type": "separator",
             "margin": "sm"
           });
