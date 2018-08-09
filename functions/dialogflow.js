@@ -294,7 +294,7 @@ var self = {
         response = body.result.fulfillment.messages[0].payload.line;
         return client.replyMessage(replyToken, {
           "type": "text",
-          "text": response,
+          "text": "Ada catatan tambahan apa kak? 􀰂􀄫content􏿿\nKakak bisa bilang kayak gini, \"Sambelnya banyakin ya a\"",
           "quickReply": {
             "items": [
               {
