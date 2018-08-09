@@ -12,11 +12,11 @@ var self = {
     ref.once("value", function(snapshot) {
       data = snapshot.val();
       var pesanan = {};
-      var text = "Pesen ";
+      var text = "(dipesan via Dikampus)\n\nPesen ";
       for (var menu in data.pesanan) {
         text += menu + " (" + data.pesanan[menu].jumlah + "), "
       }
-      text += "kirim ke " + data.alamat + "\n\n(dipesan via Dikampus)";
+      text += "kirim ke " + data.alamat;
       text = encodeURIComponent(text);
       var url = "https://api.whatsapp.com/send?phone="+dataWarung.nomorWarung+"&text="+text;
       var flexMsg = {
@@ -198,12 +198,12 @@ var self = {
     ref.once("value", function(snapshot) {
       data = snapshot.val();
       var pesanan = {};
-      var text = "Pesen ";
+      var text = "(dipesan via Dikampus)\n\nPesen ";
       for (menu in data.pesanan) {
         text += menu + " (" + data.pesanan[menu].jumlah + "), "
       }
       text += note + ", ";
-      text += "kirim ke " + data.alamat + "\n\n(dipesan via Dikampus)";
+      text += "kirim ke " + data.alamat;
       text = encodeURIComponent(text);
       var url = "https://api.whatsapp.com/send?phone="+dataWarung.nomorWarung+"&text="+text;
       var flexMsg = {

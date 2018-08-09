@@ -240,107 +240,62 @@ var self = {
       break;
 
       case 'Note':
-      if (body.result.fulfillment.speech !== "") {
-        response = body.result.fulfillment.speech;
-        return replyText(replyToken, {
-          "type": "text",
-          "text": response,
-          "quickReply": {
-            "items": [
-              {
-                "type": "action",
-                "action": {
-                  "type": "message",
-                  "label": "Uang saya 20 ribu",
-                  "text": "Uang saya 20 ribu"
-                }
-              },
-              {
-                "type": "action",
-                "action": {
-                  "type": "message",
-                  "label": "Uang saya 50 ribu",
-                  "text": "Uang saya 50 ribu"
-                }
-              },
-              {
-                "type": "action",
-                "action": {
-                  "type": "message",
-                  "label": "Uang saya 100 ribu",
-                  "text": "Uang saya 100 ribu"
-                }
-              },
-              {
-                "type": "action",
-                "action": {
-                  "type": "message",
-                  "label": "Level 1",
-                  "text": "Level 1"
-                }
-              },
-              {
-                "type": "action",
-                "action": {
-                  "type": "message",
-                  "label": "Level 2",
-                  "text": "Level 2"
-                }
-              },
-            ]
-          }
-        });
-      } else {
-        response = body.result.fulfillment.messages[0].payload.line;
-        return client.replyMessage(replyToken, {
-          "type": "text",
-          "text": "Ada catatan tambahan apa kak? 􀰂􀄫content􏿿\nKakak bisa bilang kayak gini, \"Sambelnya banyakin ya a\"",
-          "quickReply": {
-            "items": [
-              {
-                "type": "action",
-                "action": {
-                  "type": "message",
-                  "label": "Uang saya 20 ribu",
-                  "text": "Uang saya 20 ribu"
-                }
-              },
-              {
-                "type": "action",
-                "action": {
-                  "type": "message",
-                  "label": "Uang saya 50 ribu",
-                  "text": "Uang saya 50 ribu"
-                }
-              },
-              {
-                "type": "action",
-                "action": {
-                  "type": "message",
-                  "label": "Uang saya 100 ribu",
-                  "text": "Uang saya 100 ribu"
-                }
-              },
-              {
-                "type": "action",
-                "action": {
-                  "type": "message",
-                  "label": "Level 1",
-                  "text": "Level 1"
-                }
-              },
-              {
-                "type": "action",
-                "action": {
-                  "type": "message",
-                  "label": "Level 2",
-                  "text": "Level 2"
-                }
-              },
-            ]
-          }
-        });
-      }
+      return client.replyMessage(replyToken, {
+        "type": "text",
+        "text": "Ada catatan tambahan apa kak? 􀰂􀄫content􏿿\nKakak bisa bilang kayak gini, \"Sambelnya banyakin ya a\"",
+        "quickReply": {
+          "items": [
+            {
+              "type": "action",
+              "action": {
+                "type": "message",
+                "label": "Uang saya 20 ribu",
+                "text": "Uang saya 20 ribu"
+              }
+            },
+            {
+              "type": "action",
+              "action": {
+                "type": "message",
+                "label": "Uang saya 50 ribu",
+                "text": "Uang saya 50 ribu"
+              }
+            },
+            {
+              "type": "action",
+              "action": {
+                "type": "message",
+                "label": "Uang saya 100 ribu",
+                "text": "Uang saya 100 ribu"
+              }
+            },
+            {
+              "type": "action",
+              "action": {
+                "type": "message",
+                "label": "Level 1",
+                "text": "Level 1"
+              }
+            },
+            {
+              "type": "action",
+              "action": {
+                "type": "message",
+                "label": "Level 2",
+                "text": "Level 2"
+              }
+            },
+            {
+              "type": "action",
+              "action": {
+                "type": "message",
+                "label": "Level 3",
+                "text": "Level 3"
+              }
+            }
+          ]
+        }
+      });
       break;
 
       case 'Note.Done':
