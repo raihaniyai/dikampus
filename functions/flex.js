@@ -499,6 +499,11 @@ var self = {
               if (jmlMenu >= 3) {
                 break;
               }
+            }
+          }
+          for (var menu in itemKategori) {
+            var itemMenu = itemKategori[menu];
+            if (menu !== 'thumbnail' && menu !== 'priority' && menu !== 'kategoriCounter') {
               if (itemMenu.harga > hargaMax) {
                 hargaMax = itemMenu.harga;
               }
