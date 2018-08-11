@@ -12,7 +12,7 @@ var self = {
     ref.once("value", function(snapshot) {
       data = snapshot.val();
       var pesanan = {};
-      var text = "[Dipesan via @Dikampus.id]\n\nPesen ";
+      var text = "[dipesan via dikampus.id]\n\nPesen ";
       for (var menu in data.pesanan) {
         text += menu + " (" + data.pesanan[menu].jumlah + "), "
       }
@@ -198,7 +198,7 @@ var self = {
     ref.once("value", function(snapshot) {
       data = snapshot.val();
       var pesanan = {};
-      var text = "[Dipesan via @Dikampus.id]\n\nPesen ";
+      var text = "[dipesan via dikampus.id]\n\nPesen ";
       for (menu in data.pesanan) {
         text += menu + " (" + data.pesanan[menu].jumlah + "), "
       }
