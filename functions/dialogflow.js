@@ -231,7 +231,7 @@ var self = {
                 ref.push(parameters.alamat);
               }
             });
-            var userRef = db.ref("user/"+source.userId+"/transCounter");
+            var userRef = db.ref("user/history/"+source.userId+"/transCounter");
             userRef.transaction(function(transCounter) {
               return (transCounter || 0) + 1;
             });
