@@ -194,6 +194,7 @@ var self = {
   orderNote: function (replyToken, idTransaksi, dataWarung, note) {
     var db = bot.database;
     var client = bot.client;
+    var replyText = bot.replyText;
     var ref = db.ref("transaksi/makanan/"+idTransaksi);
     ref.once("value", function(snapshot) {
       data = snapshot.val();
@@ -702,7 +703,7 @@ var self = {
           return client.replyMessage(replyToken, flexMsg);
         }
       } else {
-        return client.replyText(replyToken, "Kategori itu gaada kak di warung ini");
+        return replyText(replyToken, "Kategori itu gaada kak di warung ini");
       }
       process.exit();
     });
