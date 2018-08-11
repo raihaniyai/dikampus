@@ -545,6 +545,7 @@ var self = {
   menu: function (replyToken, warung, kategori, menus) {
     var db = bot.database;
     var client = bot.client;
+    var replyText = bot.replyText;
     var isFirst = true;
     var isFound = true;
     var updateRef = db.ref("warung/"+warung+"/menu/"+kategori+"/kategoriCounter");
