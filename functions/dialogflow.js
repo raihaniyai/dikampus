@@ -231,6 +231,10 @@ var self = {
                 ref.push(parameters.alamat);
               }
             });
+            var userRef = db.ref("user/"+source.userId+"/transCounter");
+            userRef.transaction(function(transCounter) {
+              return (transCounter || 0) + 1;
+            });
             // Sending invoice to user
             return flex.order(replyToken, idTransaksi, dataWarung);
             process.exit();

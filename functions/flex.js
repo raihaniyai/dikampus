@@ -8,10 +8,6 @@ var self = {
     updateRef.transaction(function(transCounter) {
       return (transCounter) + 1;
     });
-    var userRef = db.ref("user/"+source.userId+"/transCounter");
-    userRef.transaction(function(transCounter) {
-      return (transCounter || 0) + 1;
-    });
     var ref = db.ref("transaksi/makanan/"+idTransaksi);
     ref.once("value", function(snapshot) {
       data = snapshot.val();
