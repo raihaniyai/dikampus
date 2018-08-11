@@ -83,52 +83,59 @@ var self = {
                 return (menuCounter) + 1;
               }
             });
-            return client.replyMessage(replyToken, {
-              "type": "text",
-              "text": "Mau pesen "+parameters.menu+" berapa banyak kak? 􀰂􀄫content􏿿",
-              "quickReply": {
-                "items": [
-                  {
-                    "type": "action",
-                    "action": {
-                      "type": "message",
-                      "label": "1",
-                      "text": "1"
-                    }
-                  },
-                  {
-                    "type": "action",
-                    "action": {
-                      "type": "message",
-                      "label": "2",
-                      "text": "2"
-                    }
-                  },
-                  {
-                    "type": "action",
-                    "action": {
-                      "type": "message",
-                      "label": "3",
-                      "text": "3"
-                    }
-                  },
-                  {
-                    "type": "action",
-                    "action": {
-                      "type": "message",
-                      "label": "4",
-                      "text": "4"
-                    }
-                  },
-                  {
-                    "type": "action",
-                    "action": {
-                      "type": "message",
-                      "label": "5",
-                      "text": "5"
-                    }
-                  },
-                ]
+            var ref = db.ref("warung/"+warung+"/menu/"+parameters.kategori+"/"+parameters.menu);
+            ref.on("value", function(snapshot) {
+              if (snapshot.val()) {
+                return client.replyMessage(replyToken, {
+                  "type": "text",
+                  "text": "Mau pesen "+parameters.menu+" berapa banyak kak? 􀰂􀄫content􏿿",
+                  "quickReply": {
+                    "items": [
+                      {
+                        "type": "action",
+                        "action": {
+                          "type": "message",
+                          "label": "1",
+                          "text": "1"
+                        }
+                      },
+                      {
+                        "type": "action",
+                        "action": {
+                          "type": "message",
+                          "label": "2",
+                          "text": "2"
+                        }
+                      },
+                      {
+                        "type": "action",
+                        "action": {
+                          "type": "message",
+                          "label": "3",
+                          "text": "3"
+                        }
+                      },
+                      {
+                        "type": "action",
+                        "action": {
+                          "type": "message",
+                          "label": "4",
+                          "text": "4"
+                        }
+                      },
+                      {
+                        "type": "action",
+                        "action": {
+                          "type": "message",
+                          "label": "5",
+                          "text": "5"
+                        }
+                      },
+                    ]
+                  }
+                });
+              } else {
+                return replyText(replyToken, "Menunya gaada kak")
               }
             });
           } else {
@@ -141,8 +148,6 @@ var self = {
                 var harga = dataWarung[parameters.kategori][parameters.menu].harga;
                 var orderRef = db.ref("transaksi/makanan/"+idTransaksi+"/pesanan");
                 orderRef.child(parameters.menu).set({'jumlah' : parameters.jumlah, 'harga' : harga});
-              }, function (errorObject) {
-                console.log("The read failed: " + errorObject.code);
               });
               return client.replyMessage(replyToken, {
                 "type": "template",

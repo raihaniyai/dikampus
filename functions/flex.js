@@ -12,7 +12,7 @@ var self = {
     ref.once("value", function(snapshot) {
       data = snapshot.val();
       var pesanan = {};
-      var text = "[dipesan via dikampus.id]\n\nPesen ";
+      var text = "[ dipesan via dikampus.id ]\n\nPesen ";
       for (var menu in data.pesanan) {
         text += menu + " (" + data.pesanan[menu].jumlah + "), "
       }
@@ -198,7 +198,7 @@ var self = {
     ref.once("value", function(snapshot) {
       data = snapshot.val();
       var pesanan = {};
-      var text = "[dipesan via dikampus.id]\n\nPesen ";
+      var text = "[ dipesan via dikampus.id ]\n\nPesen ";
       for (menu in data.pesanan) {
         text += menu + " (" + data.pesanan[menu].jumlah + "), "
       }
@@ -558,147 +558,151 @@ var self = {
       isFound = false;
     }
     ref.on("value", function(snapshot) {
-      var flexMsg = {
-        "type": "flex",
-        "altText": "Menu Kategori " + kategori,
-        "contents": {
-          "type": "carousel",
-          "contents": []
-        }
-      };
-      var BreakException = {};
-      var jmlMenu = 1;
-      try {
-        snapshot.forEach(function(data){
-          var menu = data.key;
-          var dataMenu = data.val();
-          var res = {};
-          if (!isFirst) {
-            if (menu == menus) isFound = true;
-            if (isFound) res[menu] = dataMenu;
-          } else {
-            res[menu]= dataMenu;
+      if (snapshot.val()) {
+        var flexMsg = {
+          "type": "flex",
+          "altText": "Menu Kategori " + kategori,
+          "contents": {
+            "type": "carousel",
+            "contents": []
           }
-          var itemMenu = res[menu];
-          if (menu !== 'thumbnail' && menu !== 'priority' && isFound && menu !== "kategoriCounter") {
-            if (jmlMenu > 9) {
-              var lainnya = {
+        };
+        var BreakException = {};
+        var jmlMenu = 1;
+        try {
+          snapshot.forEach(function(data){
+            var menu = data.key;
+            var dataMenu = data.val();
+            var res = {};
+            if (!isFirst) {
+              if (menu == menus) isFound = true;
+              if (isFound) res[menu] = dataMenu;
+            } else {
+              res[menu]= dataMenu;
+            }
+            var itemMenu = res[menu];
+            if (menu !== 'thumbnail' && menu !== 'priority' && isFound && menu !== "kategoriCounter") {
+              if (jmlMenu > 9) {
+                var lainnya = {
+                  "type": "bubble",
+                  "body": {
+                    "type": "box",
+                    "layout": "vertical",
+                    "spacing": "sm",
+                    "action": {
+                      "type":"postback",
+                      "label":"Menu Lainnya",
+                      "data":"data=menu&warung="+warung+"&kategori="+kategori+"&menu="+menu
+                    },
+                    "contents": [
+                      {
+                        "type": "button",
+                        "flex": 1,
+                        "gravity": "center",
+                        "action": {
+                          "type":"postback",
+                          "label":"Menu Lainnya",
+                          "data":"data=menu&warung="+warung+"&kategori="+kategori+"&menu="+menu
+                        }
+                      }
+                    ]
+                  }
+                };
+                flexMsg.contents.contents.push(lainnya);
+                throw BreakException;
+              }
+              var flexMenu = {
                 "type": "bubble",
+                "hero": {
+                  "type": "image",
+                  "size": "full",
+                  "aspectRatio": "1:1",
+                  "aspectMode": "cover",
+                  "url": itemMenu.thumbnail,
+                  "action": {
+                    "type": "message",
+                    "text": menu
+                  }
+                },
                 "body": {
                   "type": "box",
                   "layout": "vertical",
                   "spacing": "sm",
                   "action": {
-                    "type":"postback",
-                    "label":"Menu Lainnya",
-                    "data":"data=menu&warung="+warung+"&kategori="+kategori+"&menu="+menu
+                    "type": "message",
+                    "text": menu
                   },
                   "contents": [
                     {
+                      "type": "text",
+                      "text": menu,
+                      "wrap": true,
+                      "weight": "bold",
+                      "size": "lg"
+                    },
+                    {
+                      "type": "text",
+                      "text": itemMenu.deskripsi,
+                      "wrap": true,
+                      "color": "#aaaaaa",
+                      "size": "xxs"
+                    },
+                    {
+                      "type": "separator",
+                      "margin": "lg"
+                    },
+                    {
+                      "type": "box",
+                      "layout": "baseline",
+                      "margin": "lg",
+                      "contents": [
+                        {
+                          "type": "text",
+                          "text": "Rp " + itemMenu.harga.toString(),
+                          "size" : "md",
+                          "wrap": true
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "footer": {
+                  "type": "box",
+                  "layout": "vertical",
+                  "contents": [
+                    {
                       "type": "button",
-                      "flex": 1,
-                      "gravity": "center",
+                      "style": "link",
+                      "color": "#0B5ED7",
                       "action": {
-                        "type":"postback",
-                        "label":"Menu Lainnya",
-                        "data":"data=menu&warung="+warung+"&kategori="+kategori+"&menu="+menu
+                        "type": "message",
+                        "label": "+ Tambahkan",
+                        "text": menu
                       }
                     }
                   ]
                 }
               };
-              flexMsg.contents.contents.push(lainnya);
-              throw BreakException;
+              flexMsg.contents.contents.push(flexMenu);
+              jmlMenu++;
             }
-            var flexMenu = {
-              "type": "bubble",
-              "hero": {
-                "type": "image",
-                "size": "full",
-                "aspectRatio": "1:1",
-                "aspectMode": "cover",
-                "url": itemMenu.thumbnail,
-                "action": {
-                  "type": "message",
-                  "text": menu
-                }
-              },
-              "body": {
-                "type": "box",
-                "layout": "vertical",
-                "spacing": "sm",
-                "action": {
-                  "type": "message",
-                  "text": menu
-                },
-                "contents": [
-                  {
-                    "type": "text",
-                    "text": menu,
-                    "wrap": true,
-                    "weight": "bold",
-                    "size": "lg"
-                  },
-                  {
-                    "type": "text",
-                    "text": itemMenu.deskripsi,
-                    "wrap": true,
-                    "color": "#aaaaaa",
-                    "size": "xxs"
-                  },
-                  {
-                    "type": "separator",
-                    "margin": "lg"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "baseline",
-                    "margin": "lg",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "Rp " + itemMenu.harga.toString(),
-                        "size" : "md",
-                        "wrap": true
-                      }
-                    ]
-                  }
-                ]
-              },
-              "footer": {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                  {
-                    "type": "button",
-                    "style": "link",
-                    "color": "#0B5ED7",
-                    "action": {
-                      "type": "message",
-                      "label": "+ Tambahkan",
-                      "text": menu
-                    }
-                  }
-                ]
-              }
-            };
-            flexMsg.contents.contents.push(flexMenu);
-            jmlMenu++;
-          }
-        });
-      } catch (e) {
-        if (e !== BreakException) throw e;
-      }
-      if (isFirst) {
-        return client.replyMessage(replyToken, [
-          {
-            "type": "text",
-            "text": `Ini daftar menu ${kategori} yang ada di ${warung} 􀰂􀄤smiling􏿿`
-          },
-          flexMsg
-        ]);
+          });
+        } catch (e) {
+          if (e !== BreakException) throw e;
+        }
+        if (isFirst) {
+          return client.replyMessage(replyToken, [
+            {
+              "type": "text",
+              "text": `Ini daftar menu ${kategori} yang ada di ${warung} 􀰂􀄤smiling􏿿`
+            },
+            flexMsg
+          ]);
+        } else {
+          return client.replyMessage(replyToken, flexMsg);
+        }
       } else {
-        return client.replyMessage(replyToken, flexMsg);
+        return client.replyText(replyToken, "Kategori itu gaada kak di warung ini");
       }
       process.exit();
     });
