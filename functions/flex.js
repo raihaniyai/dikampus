@@ -394,10 +394,6 @@ var self = {
   kategori: function (replyToken, warung) {
     var db = bot.database;
     var client = bot.client;
-    var updateRef = db.ref("warung/"+warung+"/warungCounter");
-    updateRef.transaction(function(warungCounter) {
-      return (warungCounter) + 1;
-    });
     var ref = db.ref("warung/"+warung+"/menu").orderByChild('priority');
     ref.on("value", function(snapshot) {
       data = snapshot.val();
@@ -529,6 +525,12 @@ var self = {
       } catch (e) {
         if (e !== BreakException) throw e;
       }
+      var updateRef = db.ref("warung/"+warung+"/warungCounter");
+      updateRef.transaction(function(warungCounter) {
+        if (warungCounter) {
+          return (warungCounter) + 1;
+        }
+      });
       return client.replyMessage(replyToken, [
       {
         "type": "text",
@@ -544,10 +546,6 @@ var self = {
     var client = bot.client;
     var isFirst = true;
     var isFound = true;
-    var updateRef = db.ref("warung/"+warung+"/menu/"+kategori+"/kategoriCounter");
-    updateRef.transaction(function(kategoriCounter) {
-      return (kategoriCounter) + 1;
-    });
     var ref = db.ref("warung/"+warung+"/menu/"+kategori).orderByChild('priority');
     if (menus) {
       isFirst = false;
@@ -685,6 +683,12 @@ var self = {
       } catch (e) {
         if (e !== BreakException) throw e;
       }
+      var updateRef = db.ref("warung/"+warung+"/menu/"+kategori+"/kategoriCounter");
+      updateRef.transaction(function(kategoriCounter) {
+        if (kategoriCounter) {
+          return (kategoriCounter) + 1;
+        }
+      });
       if (isFirst) {
         return client.replyMessage(replyToken, [
           {
@@ -694,7 +698,6 @@ var self = {
           flexMsg
         ]);
       } else {
-        console.log(flexMsg);
         return client.replyMessage(replyToken, flexMsg);
       }
       process.exit();
