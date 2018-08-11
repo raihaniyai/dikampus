@@ -79,7 +79,7 @@ var self = {
           if (parameters.jumlah === ''){
             var updateRef = db.ref("warung/"+warung+"/menu/"+parameters.kategori+"/"+parameters.menu+"/menuCounter");
             updateRef.transaction(function(menuCounter) {
-              return (menuCounter || 0) + 1;
+              return (menuCounter) + 1;
             });
             return client.replyMessage(replyToken, {
               "type": "text",

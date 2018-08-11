@@ -6,7 +6,7 @@ var self = {
     var client = bot.client;
     var updateRef = db.ref("statistik/transaksi");
     updateRef.transaction(function(transCounter) {
-      return (transCounter || 0) + 1;
+      return (transCounter) + 1;
     });
     var ref = db.ref("transaksi/makanan/"+idTransaksi);
     ref.once("value", function(snapshot) {
@@ -396,7 +396,7 @@ var self = {
     var client = bot.client;
     var updateRef = db.ref("warung/"+warung+"/warungCounter");
     updateRef.transaction(function(warungCounter) {
-      return (warungCounter || 0) + 1;
+      return (warungCounter) + 1;
     });
     var ref = db.ref("warung/"+warung+"/menu").orderByChild('priority');
     ref.on("value", function(snapshot) {
@@ -546,7 +546,7 @@ var self = {
     var isFound = true;
     var updateRef = db.ref("warung/"+warung+"/menu/"+kategori+"/kategoriCounter");
     updateRef.transaction(function(kategoriCounter) {
-      return (kategoriCounter || 0) + 1;
+      return (kategoriCounter) + 1;
     });
     var ref = db.ref("warung/"+warung+"/menu/"+kategori).orderByChild('priority');
     if (menus) {
