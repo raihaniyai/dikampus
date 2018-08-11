@@ -546,6 +546,12 @@ var self = {
     var client = bot.client;
     var isFirst = true;
     var isFound = true;
+    var updateRef = db.ref("warung/"+warung+"/menu/"+kategori+"/kategoriCounter");
+    updateRef.transaction(function(kategoriCounter) {
+      if (kategoriCounter) {
+        return (kategoriCounter) + 1;
+      }
+    });
     var ref = db.ref("warung/"+warung+"/menu/"+kategori).orderByChild('priority');
     if (menus) {
       isFirst = false;
@@ -683,12 +689,6 @@ var self = {
       } catch (e) {
         if (e !== BreakException) throw e;
       }
-      var updateRef = db.ref("warung/"+warung+"/menu/"+kategori+"/kategoriCounter");
-      updateRef.transaction(function(kategoriCounter) {
-        if (kategoriCounter) {
-          return (kategoriCounter) + 1;
-        }
-      });
       if (isFirst) {
         return client.replyMessage(replyToken, [
           {
