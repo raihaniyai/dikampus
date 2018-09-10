@@ -735,6 +735,9 @@ var self = {
           var warung = data.key;
           var dataWarung = data.val();
           var res = {};
+          data.forEach(function(child){
+              console.log(child);
+          });
           if (!isFirst) {
             if (warung == warungs) isFound = true;
             if (isFound) res[warung] = dataWarung;
@@ -906,8 +909,6 @@ var self = {
       } catch (e) {
         if (e !== BreakException) throw e;
       }
-      console.log("PANJANG");
-      console.log(flexMsg);
       if (!isFirst) {
         return client.replyMessage(replyToken, flexMsg);
       } else {
