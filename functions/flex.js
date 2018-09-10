@@ -1,4 +1,5 @@
 const bot = require('./../bot.js');
+const analytics = require('./analytics.js');
 
 var self = {
   order: function (replyToken, idTransaksi, dataWarung) {
@@ -200,6 +201,7 @@ var self = {
       data = snapshot.val();
       var pesanan = {};
       var text = "[ dipesan via dikampus.id ]\n\nPesen ";
+      analytics.saveTransaction(idTransaksi, data);
       for (menu in data.pesanan) {
         text += menu + " (" + data.pesanan[menu].jumlah + "), "
       }
@@ -735,9 +737,6 @@ var self = {
           var warung = data.key;
           var dataWarung = data.val();
           var res = {};
-          data.forEach(function(child){
-              console.log(child);
-          });
           if (!isFirst) {
             if (warung == warungs) isFound = true;
             if (isFound) res[warung] = dataWarung;
