@@ -15,9 +15,13 @@ var self = {
         const db = bot.database;
         var refTransaksi = db.ref("warung/"+data.warung+"/transaksi/"+ idTransaksi);
         var total = 0;
-        data.pesanan.forEach((item)=>{
-            total += item.harga * item.jumlah;
-        });
+        
+        for(var key in data.pesanan){
+            if(data.pesanan.hasOwnProperty(key)){
+                total += data.pesanan[key].harga * data.pesanan[key].jumlah;
+            }
+        }
+        
         var data_transaksi = {
             'item' : data.pesanan,
             'total_price' : total,
