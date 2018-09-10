@@ -15,6 +15,7 @@ const db = bot.database;
 var self = {
     saveTransaction : function(idTransaksi, data){
         console.log("Data Transaksi");
+        console.log("ID"+ idTransaksi);
         console.log(data);
         var ref = db.ref("warung/"+data.warung+"/transaksi/"+ idTransaksi);
         var data_transaksi = {
