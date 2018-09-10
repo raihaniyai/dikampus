@@ -14,9 +14,13 @@ var self = {
     saveTransaction : function(idTransaksi, data){
         const db = bot.database;
         var refTransaksi = db.ref("warung/"+data.warung+"/transaksi/"+ idTransaksi);
+        var total = 0;
+        data.pesanan.forEach((item)=>{
+            total += item.harga * item.jumlah;
+        });
         var data_transaksi = {
             'item' : data.pesanan,
-            'total_price' : data.totalHarga,
+            'total_price' : total,
             'user' : data.user,
             'waktu' : data.waktu,
         };
