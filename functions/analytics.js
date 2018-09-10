@@ -14,13 +14,13 @@ const db = bot.database;
 
 var self = {
     saveTransaction : function(idTransaksi, data){
-        console.log("Saving Transaction");
+        console.log("Saving Transaction "+data.warung);
         var ref = db.ref("warung/"+data.warung+"/transaksi/"+ idTransaksi);
         var data_transaksi = {
-            'item' : data.pesanan,
-            'total_price' : data.totalHarga,
-            'user' : data.user,
-            'waktu' : data.waktu,
+            'item' : "data.pesanan",
+            'total_price' : "data.totalHarga",
+            'user' : "data.user",
+            'waktu' : "data.waktu",
         };
         ref.push(data_transaksi, function(error){
             if(error){
@@ -71,7 +71,21 @@ var self = {
         })
     },
     tes2: function(){
-        console.log("Function called from analytics");
+        console.log("Saving Transaction");
+        var ref = db.ref("warung/"+'data.warung'+"/transaksi/"+ 'idTransaksi');
+        var data_transaksi = {
+            'item' : 'data.pesanan',
+            'total_price' : 'data.totalHarga',
+            'user' : 'data.user',
+            'waktu' : 'data.waktu',
+        };
+        ref.push(data_transaksi, function(error){
+            if(error){
+                console.log("Error: "+error);
+            }else{
+                console.log("Transaction Saved")
+            }
+        });
     }
     
 };
