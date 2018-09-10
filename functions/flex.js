@@ -1,5 +1,4 @@
 const bot = require('./../bot.js');
-const analytics = require('./analytics.js');
 
 var self = {
   order: function (replyToken, idTransaksi, dataWarung) {
@@ -193,7 +192,6 @@ var self = {
 
   },
   orderNote: function (replyToken, idTransaksi, dataWarung, note) {
-    console.log("Node OrderNote");
     var db = bot.database;
     var client = bot.client;
     var replyText = bot.replyText;
@@ -202,9 +200,6 @@ var self = {
       data = snapshot.val();
       var pesanan = {};
       var text = "[ dipesan via dikampus.id ]\n\nPesen ";
-      console.log("orderNote");
-      console.log(data);
-      analytics.saveTransaction(idTransaksi, data);
       for (menu in data.pesanan) {
         text += menu + " (" + data.pesanan[menu].jumlah + "), "
       }

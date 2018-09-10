@@ -30,21 +30,16 @@ var self = {
     }, function (error, response, body){
       if (body.status.code === 200){
         if (body.result.action != ""){
-          console.log("fuck : 1");
           return self.handleAction(body, replyToken, source);
         }else{
           if (body.result.fulfillment.speech != "") {
-            console.log("fuck : 2");
             response = body.result.fulfillment.speech;
             return replyText(replyToken, response);
           } else {
-            console.log("fuck : 3");
             response = body.result.fulfillment.messages[0].payload.line;
             return client.replyMessage(replyToken, response);
           }
         }
-      }else{
-        console.log("Error cuyy "+ body.status.code);
       }
     });
   },
