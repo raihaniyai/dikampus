@@ -20,7 +20,7 @@ var self = {
             'user' : data.user,
             'waktu' : data.waktu,
         };
-        console.log(data_transaksi);
+        console.log(data);
         var tes = refTransaksi.push(data_transaksi, function(error){
             if(error){
                 console.log("Error: "+error);
