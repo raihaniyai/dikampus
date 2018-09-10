@@ -111,7 +111,6 @@ var self = {
                   {
                     "type": "button",
                     "style": "primary",
-                    "color": "#0B5ED7",
                     "action": {
                       "type": "uri",
                       "label": "PESAN",
@@ -314,7 +313,6 @@ var self = {
                   {
                     "type": "button",
                     "style": "primary",
-                    "color": "#0B5ED7",
                     "action": {
                       "type": "uri",
                       "label": "PESAN",
