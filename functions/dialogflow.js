@@ -18,7 +18,6 @@ var self = {
       sessions = source.roomId; break;
     }
     var body = {"query":message,"timezone":"Asia/Jakarta","lang":"id","sessionId":sessions,"resetContexts":false};
-    console.log(body);
     request({
       url: "https://api.dialogflow.com/v1/query?v=20170712",
       method: "POST",
@@ -31,12 +30,15 @@ var self = {
     }, function (error, response, body){
       if (body.status.code === 200){
         if (body.result.action != ""){
+          console.log("fuck : 1");
           return self.handleAction(body, replyToken, source);
         }else{
           if (body.result.fulfillment.speech != "") {
+            console.log("fuck : 2");
             response = body.result.fulfillment.speech;
             return replyText(replyToken, response);
           } else {
+            console.log("fuck : 3");
             response = body.result.fulfillment.messages[0].payload.line;
             return client.replyMessage(replyToken, response);
           }
