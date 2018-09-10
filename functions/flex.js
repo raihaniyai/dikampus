@@ -111,6 +111,7 @@ var self = {
                   {
                     "type": "button",
                     "style": "primary",
+                    "color": "#0B5ED7",
                     "action": {
                       "type": "uri",
                       "label": "PESAN",
@@ -313,6 +314,7 @@ var self = {
                   {
                     "type": "button",
                     "style": "primary",
+                    "color": "#0B5ED7",
                     "action": {
                       "type": "uri",
                       "label": "PESAN",
@@ -458,6 +460,7 @@ var self = {
                 {
                   "type": "button",
                   "style": "primary",
+                  "color": "#0B5ED7",
                   "action": {
                     "type": "message",
                     "label": "Lihat Semua",
@@ -672,6 +675,7 @@ var self = {
                     {
                       "type": "button",
                       "style": "primary",
+                      "color": "#0B5ED7",
                       "action": {
                         "type": "message",
                         "label": "+ Tambahkan",
@@ -879,6 +883,7 @@ var self = {
                   {
                     "type": "button",
                     "style": "primary",
+                    "color": "#0B5ED7",
                     "height": "sm",
                     "action": {
                       "type": "message",
