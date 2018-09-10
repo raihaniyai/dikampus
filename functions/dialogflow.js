@@ -40,6 +40,8 @@ var self = {
             return client.replyMessage(replyToken, response);
           }
         }
+      }else{
+        console.log("Error cuyy "+ body.status.code);
       }
     });
   },
