@@ -18,6 +18,7 @@ var self = {
       sessions = source.roomId; break;
     }
     var body = {"query":message,"timezone":"Asia/Jakarta","lang":"id","sessionId":sessions,"resetContexts":false};
+    console.log(body);
     request({
       url: "https://api.dialogflow.com/v1/query?v=20170712",
       method: "POST",
