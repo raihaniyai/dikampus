@@ -65,6 +65,9 @@ var self = {
                 }
             });
         })
+    },
+    tes2: function(){
+        console.log("Function called from analytics");
     }
     
 };
