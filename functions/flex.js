@@ -906,6 +906,8 @@ var self = {
       } catch (e) {
         if (e !== BreakException) throw e;
       }
+      console.log("PANJANG");
+      console.log(flexMsg);
       if (!isFirst) {
         return client.replyMessage(replyToken, flexMsg);
       } else {
