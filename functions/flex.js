@@ -457,7 +457,7 @@ var self = {
               "contents": [
                 {
                   "type": "button",
-                  "style": "link",
+                  "style": "primary",
                   "action": {
                     "type": "message",
                     "label": "Lihat Semua",
@@ -671,7 +671,7 @@ var self = {
                   "contents": [
                     {
                       "type": "button",
-                      "style": "link",
+                      "style": "primary",
                       "action": {
                         "type": "message",
                         "label": "+ Tambahkan",
@@ -878,7 +878,7 @@ var self = {
                 "contents": [
                   {
                     "type": "button",
-                    "style": "link",
+                    "style": "primary",
                     "height": "sm",
                     "action": {
                       "type": "message",
