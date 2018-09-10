@@ -193,6 +193,7 @@ var self = {
 
   },
   orderNote: function (replyToken, idTransaksi, dataWarung, note) {
+    console.log("Node OrderNote");
     var db = bot.database;
     var client = bot.client;
     var replyText = bot.replyText;
