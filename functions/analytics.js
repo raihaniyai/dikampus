@@ -13,7 +13,7 @@ const bot = require('./../bot.js');
 var self = {
     saveTransaction : function(idTransaksi, data){
         const db = bot.database;
-        var refTransaksi = db.ref("warung/"+data.warung+"/transaksi/"+ idTransaksi;);
+        var refTransaksi = db.ref("warung/"+data.warung+"/transaksi/"+ idTransaksi);
         var data_transaksi = {
             'item' : data.pesanan,
             'total_price' : data.totalHarga,
