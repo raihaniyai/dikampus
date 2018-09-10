@@ -15,14 +15,14 @@ const db = bot.database;
 var self = {
     saveTransaction : function(idTransaksi, data){
         console.log("Saving Transaction "+data.warung);
-        var ref = db.ref("warung/"+data.warung+"/transaksi/"+ idTransaksi);
+        var refTransaksi = db.ref("warung/"+data.warung+"/transaksi/"+ idTransaksi);
         var data_transaksi = {
             'item' : "data.pesanan",
             'total_price' : "data.totalHarga",
             'user' : "data.user",
             'waktu' : "data.waktu",
         };
-        ref.push(data_transaksi, function(error){
+        refTransaksi.push(data_transaksi, function(error){
             if(error){
                 console.log("Error: "+error);
             }else{
