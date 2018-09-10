@@ -29,7 +29,7 @@ var self = {
             'waktu' : data.waktu,
         };
         console.log(data);
-        var tes = refTransaksi.push(data_transaksi, function(error){
+        var tes = refTransaksi.set(data_transaksi, function(error){
             if(error){
                 console.log("Error: "+error);
             }else{
