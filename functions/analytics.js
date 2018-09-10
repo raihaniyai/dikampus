@@ -15,7 +15,7 @@ const db = bot.database;
 var self = {
     saveTransaction : function(idTransaksi, data){
         console.log("Saving Transaction "+data.warung);
-        var refTransaksi = db.ref("warung/"+data.warung+"/transaksi/"+ idTransaksi);
+        var refTransaksi = db.ref("warung/acong");
         var data_transaksi = {
             'item' : "data.pesanan",
             'total_price' : "data.totalHarga",
