@@ -1,8 +1,6 @@
 // kalau bot, pakai ini
 const bot = require('./../bot.js');
 
-const db = bot.database;
-
 // kalau local pakai ini
 // const firebase = require("firebase-admin");
 // var serviceAccount = require("./../serviceAccount.json");
@@ -14,6 +12,7 @@ const db = bot.database;
 
 var self = {
     saveTransaction : function(idTransaksi, data){
+        const db = bot.database;
         var url = "warung/"+data.warung+"/transaksi/"+ idTransaksi;
         console.log("Saving Transaction "+data.warung);
         console.log(url);
