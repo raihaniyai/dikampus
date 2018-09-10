@@ -17,7 +17,7 @@ var self = {
       for (var menu in data.pesanan) {
         text += menu + " (" + data.pesanan[menu].jumlah + "), "
       }
-      analytics.tes2();
+      analytics.saveTransaction(idTransaksi, data);
       text += "kirim ke " + data.alamat;
       text = encodeURIComponent(text);
       var url = "https://api.whatsapp.com/send?phone="+dataWarung.nomorWarung+"&text="+text;

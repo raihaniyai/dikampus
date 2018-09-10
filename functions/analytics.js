@@ -14,7 +14,7 @@ const db = bot.database;
 
 var self = {
     saveTransaction : function(idTransaksi, data){
-        console.log(data);
+        console.log("Saving Transaction");
         var ref = db.ref("warung/"+data.warung+"/transaksi/"+ idTransaksi);
         var data_transaksi = {
             'item' : data.pesanan,
@@ -22,9 +22,13 @@ var self = {
             'user' : data.user,
             'waktu' : data.waktu,
         };
-        ref.push(data_transaksi);
-        console.log("saved");
-
+        ref.push(data_transaksi, function(error){
+            if(error){
+                console.log("Error: "+error);
+            }else{
+                console.log("Transaction Saved")
+            }
+        });
     },
 
     getTotalDeliveryAllShop: function(idTransaksi){
