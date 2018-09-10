@@ -14,15 +14,18 @@ const db = bot.database;
 
 var self = {
     saveTransaction : function(idTransaksi, data){
+        var url = "warung/"+data.warung+"/transaksi/"+ idTransaksi;
         console.log("Saving Transaction "+data.warung);
-        var refTransaksi = db.ref("warung/acong");
+        console.log(url);
+        console.log(db);
+        var refTransaksi = db.ref(url);
         var data_transaksi = {
-            'item' : "data.pesanan",
-            'total_price' : "data.totalHarga",
-            'user' : "data.user",
-            'waktu' : "data.waktu",
+            'item' : data.pesanan,
+            'total_price' : data.totalHarga,
+            'user' : data.user,
+            'waktu' : data.waktu,
         };
-        refTransaksi.push(data_transaksi, function(error){
+        var tes = refTransaksi.push(data_transaksi, function(error){
             if(error){
                 console.log("Error: "+error);
             }else{
