@@ -1,4 +1,5 @@
 const bot = require('./../bot.js');
+const analytics = require('./analytics.js');
 
 var self = {
   order: function (replyToken, idTransaksi, dataWarung) {
@@ -16,6 +17,7 @@ var self = {
       for (var menu in data.pesanan) {
         text += menu + " (" + data.pesanan[menu].jumlah + "), "
       }
+      analytics.saveTransaction(idTransaksi, data);
       text += "kirim ke " + data.alamat;
       text = encodeURIComponent(text);
       var url = "https://api.whatsapp.com/send?phone="+dataWarung.nomorWarung+"&text="+text;
