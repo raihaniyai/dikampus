@@ -54,7 +54,7 @@ var self = {
         });
     },
 
-    visitCounter : function(namaWarung){
+    visitCounter : function(namaWarung, user){
         const db = bot.database;
         const time = new Date();
         let refCounter = db.ref("warung/"+namaWarung+"/analytic/visit");
