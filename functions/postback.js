@@ -8,7 +8,7 @@ var self = {
     switch (data) {
       case 'warung':
       var warung = res.warung;
-      return flex.warung(replyToken, warung, userId);
+      return flex.warung(replyToken, warung);
       break;
       case 'menu':
       var warung = res.warung;

@@ -54,13 +54,12 @@ var self = {
         });
     },
 
-    visitCounter : function(namaWarung, user){
+    visitCounter : function(namaWarung){
         const db = bot.database;
         const time = new Date();
         let refCounter = db.ref("warung/"+namaWarung+"/analytic/visit");
         refCounter.push().set({
-            'time' : time.toString(),  
-            'user' : user
+            'time' : time.toString()
         });
     },
 

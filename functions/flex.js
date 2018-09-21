@@ -709,7 +709,7 @@ var self = {
       process.exit();
     });
   },
-  warung: function (replyToken, warungs, userId) {
+  warung: function (replyToken, warungs) {
     var db = bot.database;
     var client = bot.client;
     var isFirst = true;
@@ -735,7 +735,7 @@ var self = {
           var warung = data.key;
           var dataWarung = data.val();
           var res = {};
-          analytics.visitCounter(warung, userId);
+          analytics.visitCounter(warung)
           if (!isFirst) {
             if (warung == warungs) isFound = true;
             if (isFound) res[warung] = dataWarung;

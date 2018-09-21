@@ -53,7 +53,7 @@ var self = {
     switch (action) {
       case 'orderFood':
       if (parameters.warung === '') {
-        return flex.warung(replyToken, null, source.userId);
+        return flex.warung(replyToken, null);
       } else {
         var warung = parameters.warung;
         transaksi  = {
