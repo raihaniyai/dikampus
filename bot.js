@@ -68,10 +68,10 @@ function handleEvent(event) {
     const message = event.message;
     switch (message.type) {
       case 'text':
-      return handleText(message, event.replyToken, event.source);
+      	return handleText(message, event.replyToken, event.source);
       break;
       default:
-      throw new Error(`Unknown message: ${JSON.stringify(message)}`);
+      	throw new Error(`Unknown message: ${JSON.stringify(message)}`);
       break;
     }
     break;
@@ -154,7 +154,7 @@ function handleEvent(event) {
         var str = vars[i].split("=");
         res[str[0]] = str[1];
       }
-      return postback.response(event.replyToken, res);
+      return postback.response(event.replyToken, res, event.source.userId);
     }
     break;
     case 'beacon':

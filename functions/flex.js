@@ -394,7 +394,7 @@ var self = {
       process.exit();
     });
   },
-  kategori: function (replyToken, warung) {
+  kategori: function (replyToken, warung, userID) {
     var db = bot.database;
     var client = bot.client;
     var ref = db.ref("warung/"+warung+"/menu").orderByChild('priority');
@@ -461,7 +461,7 @@ var self = {
               "contents": [
                 {
                   "type": "button",
-                  "style": "primary",
+                  "style": "link",
                   "color": "#0B5ED7",
                   "action": {
                     "type": "message",
@@ -534,6 +534,7 @@ var self = {
           return (warungCounter) + 1;
         }
       });
+      analytics.viewsCounter(warung, userID, "kategori");
       return client.replyMessage(replyToken, [
       {
         "type": "text",
@@ -544,7 +545,7 @@ var self = {
       process.exit();
     });
   },
-  menu: function (replyToken, warung, kategori, menus) {
+  menu: function (replyToken, warung, kategori, menus, userID) {
     var db = bot.database;
     var client = bot.client;
     var replyText = bot.replyText;
@@ -676,7 +677,7 @@ var self = {
                   "contents": [
                     {
                       "type": "button",
-                      "style": "primary",
+                      "style": "link",
                       "color": "#0B5ED7",
                       "action": {
                         "type": "message",
@@ -694,7 +695,9 @@ var self = {
         } catch (e) {
           if (e !== BreakException) throw e;
         }
+        
         if (isFirst) {
+          // analytics.viewsCounter(warung, userID, "item");
           return client.replyMessage(replyToken, [
             {
               "type": "text",
@@ -884,7 +887,7 @@ var self = {
                 "contents": [
                   {
                     "type": "button",
-                    "style": "primary",
+                    "style": "link",
                     "color": "#0B5ED7",
                     "height": "sm",
                     "action": {
