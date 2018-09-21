@@ -904,7 +904,7 @@ var self = {
                 "flex": 0
               }
             }
-            analytics.viewsCounter(warung, userId, "rekomendasi");
+            analytics.viewsRecommendedCounter(warung);
             flexMsg.contents.contents.push(flexWarung);
             jmlWarung++;
           }

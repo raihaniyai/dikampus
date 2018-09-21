@@ -50,6 +50,15 @@ var self = {
         refCounter.push(data);
     },
 
+    viewsRecommendedCounter : function(warung){
+        var updateRef = db.ref("warung/"+warung+"/warungRecommended");
+        updateRef.transaction(function(warungRecommended) {
+          if (warungRecommended) {
+            return (warungRecommended) + 1;
+          }
+        });
+    },
+
     visitCounter : function(namaWarung){
         const db = bot.database;
         const time = new Date();
