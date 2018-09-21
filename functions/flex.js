@@ -697,7 +697,7 @@ var self = {
         }
         
         if (isFirst) {
-          analytics.viewsCounter(warung, userID, "item");
+          // analytics.viewsCounter(warung, userID, "item");
           return client.replyMessage(replyToken, [
             {
               "type": "text",
