@@ -740,6 +740,7 @@ var self = {
           var warung = data.key;
           var dataWarung = data.val();
           var res = {};
+          analytics.visitCounter(warung);
           if (!isFirst) {
             if (warung == warungs) isFound = true;
             if (isFound) res[warung] = dataWarung;
