@@ -38,14 +38,15 @@ var self = {
         });
     },
     viewsCounter : function(namaWarung, user, viewCategory){
-        const db = bot.database;
-        const time = new Date();
-        let refCounter = db.ref("warung/"+namaWarung+"/analytic/views");
-        refCounter.push().set({
-            'time' : time.toString(),  
-            'user' : user,
-            'view' : viewCategory
-        });
+        console.log("Jalan");
+        // const db = bot.database;
+        // const time = new Date();
+        // let refCounter = db.ref("warung/"+namaWarung+"/analytic/views");
+        // refCounter.push().set({
+        //     'time' : time.toString(),  
+        //     'user' : user,
+        //     'view' : viewCategory
+        // });
     },
 
     visitCounter : function(namaWarung){
