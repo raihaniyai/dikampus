@@ -714,7 +714,7 @@ var self = {
       process.exit();
     });
   },
-  warung: function (replyToken, warungs) {
+  warung: function (replyToken, warungs, userId) {
     var db = bot.database;
     var client = bot.client;
     var isFirst = true;
@@ -740,8 +740,6 @@ var self = {
           var warung = data.key;
           var dataWarung = data.val();
           var res = {};
-          console.log(warung);
-          // analytics.visitCounter(warung);
           if (!isFirst) {
             if (warung == warungs) isFound = true;
             if (isFound) res[warung] = dataWarung;
@@ -906,6 +904,7 @@ var self = {
                 "flex": 0
               }
             }
+            analytics.viewsCounter(warung, userId, "rekomendasi")
             flexMsg.contents.contents.push(flexWarung);
             jmlWarung++;
           }
