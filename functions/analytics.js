@@ -1,6 +1,6 @@
 // kalau bot, pakai ini
 const bot = require('./../bot.js');
-
+const db = bot.database;
 // kalau local pakai ini
 // const firebase = require("firebase-admin");
 // var serviceAccount = require("./../serviceAccount.json");
@@ -12,7 +12,7 @@ const bot = require('./../bot.js');
 
 var self = {
     saveTransaction : function(idTransaksi, data){
-        const db = bot.database;
+        
         var refTransaksi = db.ref("warung/"+data.warung+"/transaksi/"+ idTransaksi);
         var total = 0;
         
