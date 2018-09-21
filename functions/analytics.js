@@ -38,7 +38,6 @@ var self = {
         });
     },
     viewsCounter : function(namaWarung, user, viewCategory){
-        console.log("Jalan");
         const db = bot.database;
         const time = new Date();
         let refCounter = db.ref("warung/"+namaWarung+"/analytic/views");
@@ -51,6 +50,7 @@ var self = {
     },
 
     viewsRecommendedCounter : function(warung){
+        const db = bot.database;
         var updateRef = db.ref("warung/"+warung+"/warungRecommended");
         updateRef.transaction(function(warungRecommended) {
           if (warungRecommended) {
