@@ -55,6 +55,8 @@ var self = {
         updateRef.transaction(function(warungRecommended) {
           if (warungRecommended) {
             return (warungRecommended) + 1;
+          }else{
+              return 0;
           }
         });
     },
