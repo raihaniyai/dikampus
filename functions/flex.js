@@ -534,7 +534,7 @@ var self = {
           return (warungCounter) + 1;
         }
       });
-      analytics.viewsCounter(warung, userID);
+      analytics.viewsCounter(warung, userID, "kategori");
       return client.replyMessage(replyToken, [
       {
         "type": "text",
