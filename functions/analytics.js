@@ -53,11 +53,7 @@ var self = {
         const db = bot.database;
         var updateRef = db.ref("warung/"+warung+"/warungRecommended");
         updateRef.transaction(function(warungRecommended) {
-          if (warungRecommended) {
-            return (warungRecommended) + 1;
-          }else{
-              return 0;
-          }
+            return (warungRecommended || 0) + 1;
         });
     },
 
