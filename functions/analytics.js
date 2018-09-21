@@ -40,12 +40,29 @@ var self = {
     viewsCounter : function(namaWarung, user, viewCategory){
         const db = bot.database;
         const time = new Date();
-        console.log(time);
         let refCounter = db.ref("warung/"+namaWarung+"/analytic/views");
+        let data = {
+                'time' : time.toString(),  
+                'user' : user,
+                'view' : viewCategory
+            };
+        refCounter.push(data);
+    },
+
+    viewsRecommendedCounter : function(warung){
+        const db = bot.database;
+        var updateRef = db.ref("warung/"+warung+"/warungRecommended");
+        updateRef.transaction(function(warungRecommended) {
+            return (warungRecommended || 0) + 1;
+        });
+    },
+
+    visitCounter : function(namaWarung){
+        const db = bot.database;
+        const time = new Date();
+        let refCounter = db.ref("warung/"+namaWarung+"/analytic/visit");
         refCounter.push().set({
-            'time' : time.toString(),  
-            'user' : user,
-            'view' : viewCategory
+            'time' : time.toString()
         });
     },
 

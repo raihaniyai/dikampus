@@ -1,6 +1,7 @@
 const bot = require('./../bot.js');
 const template = require('./template.js');
 const flex = require('./flex.js');
+const analytics = require('./analytics.js');
 
 var self = {
   response: function (message, replyToken, source) {
@@ -53,7 +54,7 @@ var self = {
     switch (action) {
       case 'orderFood':
       if (parameters.warung === '') {
-        return flex.warung(replyToken, null);
+        return flex.warung(replyToken, null, source.userId);
       } else {
         var warung = parameters.warung;
         transaksi  = {
@@ -65,6 +66,7 @@ var self = {
         var idTransaksi = post.key;
         var userRef = db.ref("user/activeTransaction");
         userRef.child(source.userId).set(idTransaksi);
+        analytics.viewsRecommendedCounter(warung);
         return flex.kategori(replyToken, warung, source.userId);
       }
       break;

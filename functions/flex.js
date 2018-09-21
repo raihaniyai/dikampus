@@ -395,6 +395,7 @@ var self = {
     });
   },
   kategori: function (replyToken, warung, userID) {
+    // analytics.viewsCounter(warung, userID, "visit");
     var db = bot.database;
     var client = bot.client;
     var ref = db.ref("warung/"+warung+"/menu").orderByChild('priority');
@@ -534,7 +535,7 @@ var self = {
           return (warungCounter) + 1;
         }
       });
-      analytics.viewsCounter(warung, userID, "kategori");
+      
       return client.replyMessage(replyToken, [
       {
         "type": "text",
@@ -546,6 +547,7 @@ var self = {
     });
   },
   menu: function (replyToken, warung, kategori, menus, userID) {
+    console.log("BETUL MENU");
     var db = bot.database;
     var client = bot.client;
     var replyText = bot.replyText;
@@ -714,7 +716,7 @@ var self = {
       process.exit();
     });
   },
-  warung: function (replyToken, warungs) {
+  warung: function (replyToken, warungs, userId) {
     var db = bot.database;
     var client = bot.client;
     var isFirst = true;
@@ -904,6 +906,7 @@ var self = {
                 "flex": 0
               }
             }
+            // analytics.viewsRecommendedCounter(warung);
             flexMsg.contents.contents.push(flexWarung);
             jmlWarung++;
           }
