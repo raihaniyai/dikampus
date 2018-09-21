@@ -42,11 +42,12 @@ var self = {
         const db = bot.database;
         const time = new Date();
         let refCounter = db.ref("warung/"+namaWarung+"/analytic/views");
-        // refCounter.push().set({
-        //     'time' : time.toString(),  
-        //     'user' : user,
-        //     'view' : viewCategory
-        // });
+        let data = {
+                'time' : time.toString(),  
+                'user' : user,
+                'view' : viewCategory
+            };
+        refCounter.push(data);
     },
 
     visitCounter : function(namaWarung){
