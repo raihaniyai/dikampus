@@ -904,7 +904,7 @@ var self = {
                 "flex": 0
               }
             }
-            analytics.viewsRecommendedCounter(warung);
+            // analytics.viewsRecommendedCounter(warung);
             flexMsg.contents.contents.push(flexWarung);
             jmlWarung++;
           }
