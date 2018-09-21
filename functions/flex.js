@@ -695,8 +695,9 @@ var self = {
         } catch (e) {
           if (e !== BreakException) throw e;
         }
-        analytics.viewsCounter(warung, userID, "item")
+        
         if (isFirst) {
+          analytics.viewsCounter(warung, userID, "item");
           return client.replyMessage(replyToken, [
             {
               "type": "text",
