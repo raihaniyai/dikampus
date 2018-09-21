@@ -528,7 +528,12 @@ var self = {
       } catch (e) {
         if (e !== BreakException) throw e;
       }
-
+      var updateRef = db.ref("warung/"+warung+"/warungCounter");
+      updateRef.transaction(function(warungCounter) {
+        if (warungCounter) {
+          return (warungCounter) + 1;
+        }
+      });
       analytics.viewsCounter(warung, userID, "kategori");
       return client.replyMessage(replyToken, [
       {
@@ -735,7 +740,6 @@ var self = {
           var warung = data.key;
           var dataWarung = data.val();
           var res = {};
-          analytics.visitCounter(warung)
           if (!isFirst) {
             if (warung == warungs) isFound = true;
             if (isFound) res[warung] = dataWarung;
