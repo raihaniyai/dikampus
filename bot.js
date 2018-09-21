@@ -154,7 +154,7 @@ function handleEvent(event) {
         var str = vars[i].split("=");
         res[str[0]] = str[1];
       }
-      return postback.response(event.replyToken, res);
+      return postback.response(event.replyToken, res, event.source.userId);
     }
     break;
     case 'beacon':

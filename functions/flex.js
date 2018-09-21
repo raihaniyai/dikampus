@@ -545,7 +545,7 @@ var self = {
       process.exit();
     });
   },
-  menu: function (replyToken, warung, kategori, menus) {
+  menu: function (replyToken, warung, kategori, menus, userID) {
     var db = bot.database;
     var client = bot.client;
     var replyText = bot.replyText;
