@@ -395,7 +395,7 @@ var self = {
     });
   },
   kategori: function (replyToken, warung, userID) {
-    analytics.viewsCounter(warung, userID, "visit");
+    // analytics.viewsCounter(warung, userID, "visit");
     var db = bot.database;
     var client = bot.client;
     var ref = db.ref("warung/"+warung+"/menu").orderByChild('priority');

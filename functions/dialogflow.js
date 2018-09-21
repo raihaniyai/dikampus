@@ -1,6 +1,7 @@
 const bot = require('./../bot.js');
 const template = require('./template.js');
 const flex = require('./flex.js');
+const analytics = require('./analytics.js');
 
 var self = {
   response: function (message, replyToken, source) {
@@ -65,6 +66,7 @@ var self = {
         var idTransaksi = post.key;
         var userRef = db.ref("user/activeTransaction");
         userRef.child(source.userId).set(idTransaksi);
+        analytics.viewsCounter(warung, source.userId, "visit");
         return flex.kategori(replyToken, warung, source.userId);
       }
       break;
