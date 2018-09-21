@@ -395,6 +395,7 @@ var self = {
     });
   },
   kategori: function (replyToken, warung, userID) {
+    console.log("BETUL KATEGORI");
     var db = bot.database;
     var client = bot.client;
     var ref = db.ref("warung/"+warung+"/menu").orderByChild('priority');
@@ -546,6 +547,7 @@ var self = {
     });
   },
   menu: function (replyToken, warung, kategori, menus, userID) {
+    console.log("BETUL MENU");
     var db = bot.database;
     var client = bot.client;
     var replyText = bot.replyText;
