@@ -394,7 +394,7 @@ var self = {
       process.exit();
     });
   },
-  kategori: function (replyToken, warung) {
+  kategori: function (replyToken, warung, userID) {
     var db = bot.database;
     var client = bot.client;
     var ref = db.ref("warung/"+warung+"/menu").orderByChild('priority');
@@ -534,6 +534,7 @@ var self = {
           return (warungCounter) + 1;
         }
       });
+      analytics.viewsCounter(warung, userID);
       return client.replyMessage(replyToken, [
       {
         "type": "text",

@@ -65,13 +65,13 @@ var self = {
         var idTransaksi = post.key;
         var userRef = db.ref("user/activeTransaction");
         userRef.child(source.userId).set(idTransaksi);
-        return flex.kategori(replyToken, warung);
+        return flex.kategori(replyToken, warung, source.userId);
       }
       break;
       case 'orderFood.chooseMenu':
       var warung = parameters.warung;
       if (parameters.kategori === '') {
-        return flex.kategori(replyToken, warung);
+        return flex.kategori(replyToken, warung, source.userId);
       } else {
         if (parameters.menu === '') {
           return flex.menu(replyToken, warung, parameters.kategori, null);

@@ -37,35 +37,14 @@ var self = {
             }
         });
     },
-
-    getTotalDeliveryAllShop: function(idTransaksi){
-        var ref = db.ref("transaksi/makanan/");
-        ref.once("value", function(snapshot){
-            var item = new Object();
-            // instantiate hashmap
-            snapshot.forEach(function(child){
-                var data = child.val();
-                if(typeof data.pesanan != "undefined"){
-                    item[data.warung] = new Object();
-                    var date = String(data.waktu).split(" ")[0];
-                    item[data.warung][date] = new Object();
-                    item[data.warung][date]['total_delivery'] = 0;
-                    item[data.warung][date]['total_item_terjual'] = 0;
-                    item[data.warung][date]['total_transaksi_idr'] = 0;
-                }
-            });
-            snapshot.forEach(function(child){
-                var data = child.val();
-                var date = String(data.waktu).split(" ")[0];
-                if(typeof data.pesanan != "undefined"){
-                    if(typeof item[data.warung][date] != "undefined")
-                    item[data.warung][date]['total_delivery'] += 1; 
-                }
-            });
-            console.log(item);
-            
-        })
+    viewsCounter : function(namaWarung, user){
+        var ref = db.ref("warung/"+namaWarung+"/analytic/views");
+        ref.push().set({
+            'time' : new Date(),  
+            'user' : user
+        });
     },
+
     tes: function(idTransaksi){
         var ref = db.ref("transaksi/makanan/");
         ref.once("value", function(snapshot){
