@@ -395,7 +395,7 @@ var self = {
     });
   },
   kategori: function (replyToken, warung, userID) {
-    console.log("BETUL KATEGORI");
+    analytics.viewsCounter(warung, userID, "visit");
     var db = bot.database;
     var client = bot.client;
     var ref = db.ref("warung/"+warung+"/menu").orderByChild('priority');
@@ -535,7 +535,7 @@ var self = {
           return (warungCounter) + 1;
         }
       });
-      analytics.viewsCounter(warung, userID, "visit");
+      
       return client.replyMessage(replyToken, [
       {
         "type": "text",
