@@ -38,8 +38,8 @@ var self = {
         });
     },
     viewsCounter : function(namaWarung, user){
-        var ref = db.ref("warung/"+namaWarung+"/analytic/views");
-        ref.push().set({
+        let refCounter = db.ref("warung/"+namaWarung+"/analytic/views");
+        refCounter.push().set({
             'time' : new Date(),  
             'user' : user
         });
