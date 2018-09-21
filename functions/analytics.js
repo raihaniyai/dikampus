@@ -1,6 +1,6 @@
 // kalau bot, pakai ini
 const bot = require('./../bot.js');
-const db = bot.database;
+
 // kalau local pakai ini
 // const firebase = require("firebase-admin");
 // var serviceAccount = require("./../serviceAccount.json");
@@ -12,7 +12,7 @@ const db = bot.database;
 
 var self = {
     saveTransaction : function(idTransaksi, data){
-        
+        const db = bot.database;
         var refTransaksi = db.ref("warung/"+data.warung+"/transaksi/"+ idTransaksi);
         var total = 0;
         
@@ -38,6 +38,7 @@ var self = {
         });
     },
     viewsCounter : function(namaWarung, user){
+        const db = bot.database;
         let refCounter = db.ref("warung/"+namaWarung+"/analytic/views");
         refCounter.push().set({
             'time' : new Date(),  
