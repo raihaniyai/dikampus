@@ -43,7 +43,7 @@ var self = {
         console.log(time);
         let refCounter = db.ref("warung/"+namaWarung+"/analytic/views");
         refCounter.push().set({
-            'time' : time,  
+            'time' : time.toString(),  
             'user' : user,
             'view' : viewCategory
         });
