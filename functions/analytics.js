@@ -39,9 +39,11 @@ var self = {
     },
     viewsCounter : function(namaWarung, user){
         const db = bot.database;
+        const time = new Date();
+        console.log(time);
         let refCounter = db.ref("warung/"+namaWarung+"/analytic/views");
         refCounter.push().set({
-            'time' : new Date(),  
+            'time' : time,  
             'user' : user
         });
     },
