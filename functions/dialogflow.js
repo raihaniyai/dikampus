@@ -66,7 +66,8 @@ var self = {
         var idTransaksi = post.key;
         var userRef = db.ref("user/activeTransaction");
         userRef.child(source.userId).set(idTransaksi);
-        analytics.viewsRecommendedCounter(warung);
+        // analytics.viewsRecommendedCounter(warung);
+        analytics.visitCounter(warung);
         return flex.kategori(replyToken, warung, source.userId);
       }
       break;
