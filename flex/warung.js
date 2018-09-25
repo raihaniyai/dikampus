@@ -1,5 +1,5 @@
 module.exports = {
-  flex: function (thumbnail, warung, alamat, harga) {
+  flex: function (thumbnail, warung, alamat, jamBuka, ongkir) {
     let flex = {
       "type": "bubble",
       "hero": {
