@@ -1,7 +1,12 @@
 const bot = require('./../bot.js');
 const analytics = require('./analytics.js');
+// Require Flex Message
+const invoice = require('./../flex/invoice.js');
+const kategori = require('./../flex/kategori.js');
+const menu = require('./../flex/menu.js');
+const warung = require('./../flex/warung.js');
 
-var self = {
+module.exports = {
   order: function (replyToken, idTransaksi, dataWarung) {
     var db = bot.database;
     var client = bot.client;
@@ -21,164 +26,20 @@ var self = {
       text += "kirim ke " + data.alamat;
       text = encodeURIComponent(text);
       var url = "https://api.whatsapp.com/send?phone="+dataWarung.nomorWarung+"&text="+text;
-      var flexMsg = {
-        "type": "flex",
-        "altText": "Invoice",
-        "contents": {
-          "type": "bubble",
-          "styles": {
-            "footer": {
-              "separator": true
-            }
-          },
-          "body": {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-              {
-                "type": "text",
-                "text": "INVOICE",
-                "weight": "bold",
-                "color": "#1DB446",
-                "size": "sm"
-              },
-              {
-                "type": "text",
-                "text": data.warung,
-                "weight": "bold",
-                "size": "xxl",
-                "margin": "md"
-              },
-              {
-                "type": "text",
-                "text": dataWarung.alamat,
-                "size": "xs",
-                "color": "#aaaaaa",
-                "wrap": true
-              },
-              {
-                "type": "separator",
-                "margin": "xxl"
-              },
-              {
-                "type": "box",
-                "layout": "vertical",
-                "margin": "xxl",
-                "spacing": "sm",
-                "contents": [
-                  {
-                    "type": "separator",
-                    "margin": "xxl"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "margin": "xxl",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "TOTAL",
-                        "size": "sm",
-                        "color": "#555555"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "separator",
-                    "margin": "xxl"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "vertical",
-                    "margin": "xxl",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "ALAMAT PENGIRIMAN",
-                        "size": "sm",
-                        "color": "#555555"
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                  {
-                    "type": "spacer",
-                    "size": "xl"
-                  },
-                  {
-                    "type": "button",
-                    "style": "primary",
-                    "color": "#0B5ED7",
-                    "action": {
-                      "type": "uri",
-                      "label": "PESAN",
-                      "uri": url
-                    }
-                  },
-                  {
-                    "type": "button",
-                    "action": {
-                      "type": "message",
-                      "label": "Catatan Tambahan",
-                      "text": "Catatan tambahan dong"
-                    }
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      };
+      /* Calling invoice's flex.
+      Value of parameter is 1) Warung 2) Alamat Warung 3) URL for Whatsapp API 4) Note for Transaction, in this case note is null */
+      var flexMsg = invoice.flex(data.warung, dataWarung.alamat, url, null);
       var totalHarga = 0;
       var jmlData = 0;
       for (result in data.pesanan){
         totalHarga += data.pesanan[result].jumlah * data.pesanan[result].harga;
         viewHarga = data.pesanan[result].jumlah + ' x ' + data.pesanan[result].harga;
-        pesanan = {
-          "type": "box",
-          "layout": "horizontal",
-          "contents": [
-            {
-              "type": "text",
-              "text": result,
-              "size": "sm",
-              "color": "#555555",
-              "flex": 0
-            },
-            {
-              "type": "text",
-              "text": viewHarga,
-              "size": "sm",
-              "color": "#111111",
-              "align": "end"
-            }
-          ]
-        };
+        pesanan = invoice.item(result, viewHarga);
         flexMsg.contents.body.contents[4].contents.unshift(pesanan);
         jmlData++;
       }
-      var showTotal = {
-        "type": "text",
-        "text": "Rp " + totalHarga.toString(),
-        "weight": "bold",
-        "size": "sm",
-        "color": "#111111",
-        "align": "end"
-      };
-      var showAlamat = {
-        "type": "text",
-        "margin": "sm",
-        "text": data.alamat,
-        "wrap": true,
-        "size": "xs",
-        "color": "#111111",
-        "align": "start"
-      };
+      var showTotal = {"type":"text","text":"Rp " + totalHarga.toString(),"weight":"bold","size":"sm","color":"#111111","align":"end"};
+      var showAlamat = {"type":"text","margin":"sm","text":data.alamat,"wrap":true,"size":"xs","color":"#111111","align":"start"};
       ref.child('totalHarga').set(totalHarga);
       flexMsg.contents.body.contents[4].contents[1+jmlData].contents.push(showTotal);
       flexMsg.contents.body.contents[4].contents[3+jmlData].contents.push(showAlamat);
@@ -209,185 +70,26 @@ var self = {
       text += "kirim ke " + data.alamat;
       text = encodeURIComponent(text);
       var url = "https://api.whatsapp.com/send?phone="+dataWarung.nomorWarung+"&text="+text;
-      var flexMsg = {
-        "type": "flex",
-        "altText": "Invoice",
-        "contents": {
-          "type": "bubble",
-          "styles": {
-            "footer": {
-              "separator": true
-            }
-          },
-          "body": {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-              {
-                "type": "text",
-                "text": "INVOICE",
-                "weight": "bold",
-                "color": "#1DB446",
-                "size": "sm"
-              },
-              {
-                "type": "text",
-                "text": data.warung,
-                "weight": "bold",
-                "size": "xxl",
-                "margin": "md"
-              },
-              {
-                "type": "text",
-                "text": dataWarung.alamat,
-                "size": "xs",
-                "color": "#aaaaaa",
-                "wrap": true
-              },
-              {
-                "type": "separator",
-                "margin": "xxl"
-              },
-              {
-                "type": "box",
-                "layout": "vertical",
-                "margin": "xxl",
-                "spacing": "sm",
-                "contents": [
-                  {
-                    "type": "separator",
-                    "margin": "xxl"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "horizontal",
-                    "margin": "xxl",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "TOTAL",
-                        "size": "sm",
-                        "color": "#555555"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "separator",
-                    "margin": "xxl"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "vertical",
-                    "margin": "xxl",
-                    "contents": [
-                      {
-                        "type": "text",
-                        "text": "ALAMAT PENGIRIMAN",
-                        "size": "sm",
-                        "color": "#555555"
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "box",
-                "layout": "vertical",
-                "contents":[
-                  {"type":"spacer",
-                    "size" : "xl"
-                  },
-                  {
-                    "type": "text",
-                    "text": "CATATAN",
-                    "size": "sm",
-                    "color": "#555555"
-                  }
-                ]
-              },
-              {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                  {
-                    "type": "spacer",
-                    "size": "xl"
-                  },
-                  {
-                    "type": "button",
-                    "style": "primary",
-                    "color": "#0B5ED7",
-                    "action": {
-                      "type": "uri",
-                      "label": "PESAN",
-                      "uri": url
-                    }
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      };
+      /* Calling invoice's flex.
+      Value of parameter is 1) Warung 2) Alamat Warung 3) URL for Whatsapp API 4) Note for Transaction */
+      var flexMsg = invoice.flex(data.warung, dataWarung.alamat, url, null);
       var jmlData = 0;
       for (result in data.pesanan){
         viewHarga = data.pesanan[result].jumlah + ' x ' + data.pesanan[result].harga;
-        pesanan = {
-          "type": "box",
-          "layout": "horizontal",
-          "contents": [
-            {
-              "type": "text",
-              "text": result,
-              "size": "sm",
-              "color": "#555555",
-              "flex": 0
-            },
-            {
-              "type": "text",
-              "text": viewHarga,
-              "size": "sm",
-              "color": "#111111",
-              "align": "end"
-            }
-          ]
-        };
+        pesanan = {"type":"box","layout":"horizontal","contents":[{"type":"text","text":result,"size":"sm","color":"#555555","flex":0},{"type":"text","text":viewHarga,"size":"sm","color":"#111111","align":"end"}]};
         flexMsg.contents.body.contents[4].contents.unshift(pesanan);
         jmlData++;
       }
-      var showTotal = {
-        "type": "text",
-        "text": "Rp " + data.totalHarga.toString(),
-        "weight": "bold",
-        "size": "sm",
-        "color": "#111111",
-        "align": "end"
-      };
-      var showAlamat = {
-        "type": "text",
-        "margin": "sm",
-        "text": data.alamat,
-        "wrap": true,
-        "size": "xs",
-        "color": "#111111",
-        "align": "start"
-      };
-      var showNote = {
-        "type": "text",
-        "margin": "sm",
-        "text": data.note,
-        "wrap": true,
-        "size": "xs",
-        "color": "#111111",
-        "align": "start"
-      };
+      var showTotal = {"type": "text","text": "Rp " + data.totalHarga.toString(),"weight": "bold","size": "sm","color": "#111111","align": "end"};
+      var showAlamat = {"type":"text","margin":"sm","text":data.alamat,"wrap":true,"size":"xs","color":"#111111","align":"start"};
+      var showNote = {"type":"text","margin":"sm","text":data.note,"wrap":true,"size":"xs","color":"#111111","align":"start"};
       flexMsg.contents.body.contents[4].contents[1+jmlData].contents.push(showTotal);
       flexMsg.contents.body.contents[4].contents[3+jmlData].contents.push(showAlamat);
       flexMsg.contents.body.contents[5].contents.push(showNote);
       return client.replyMessage(replyToken, [
           {
             "type": "text",
-          "text": `Terima kasih telah memesan via Dikampus 􀰂􀄥excited􏿿 \nSilakan tap tombol Pesan untuk melanjutkan transaksi`
+            "text": `Terima kasih telah memesan via Dikampus 􀰂􀄥excited􏿿 \nSilakan tap tombol Pesan untuk melanjutkan transaksi`
           },
           flexMsg
         ]);
@@ -418,82 +120,14 @@ var self = {
           var res = {};
           res[kategori] = dataKategori;
           var itemKategori = res[kategori];
-          var flexKategori = {
-            "type": "bubble",
-            "hero": {
-              "type": "image",
-              "url": itemKategori.thumbnail,
-              "size": "full",
-              "aspectRatio": "1:1",
-              "aspectMode": "cover",
-              "action": {
-                "type": "message",
-                "text": kategori
-              }
-            },
-            "body": {
-              "type": "box",
-              "layout": "vertical",
-              "spacing": "md",
-              "action": {
-                "type": "message",
-                "text": kategori
-              },
-              "contents": [
-                {
-                  "type": "text",
-                  "text": kategori,
-                  "weight": "bold",
-                  "size": "sm",
-                  "margin": "sm",
-                  "flex": 0
-                },
-                {
-                  "type": "box",
-                  "layout": "vertical",
-                  "spacing": "sm",
-                  "contents": []
-                }
-              ]
-            },
-            "footer": {
-              "type": "box",
-              "layout": "vertical",
-              "contents": [
-                {
-                  "type": "button",
-                  "style": "link",
-                  "color": "#0B5ED7",
-                  "action": {
-                    "type": "message",
-                    "label": "Lihat Semua",
-                    "text": kategori
-                  }
-                }
-              ]
-            }
-          }
+          var flexKategori = kategori.flex(itemKategori.thumbnail, kategori);
           var jmlMenu = 0;
           var hargaMax = 0;
           var hargaMin = 10000000;
           for (var menu in itemKategori) {
             var itemMenu = itemKategori[menu];
             if (menu !== 'thumbnail' && menu !== 'priority' && menu !== 'kategoriCounter') {
-              var flexMenu =  {
-                "type": "box",
-                "layout": "horizontal",
-                "margin" : "xxl",
-                "contents": [
-                  {
-                    "type": "text",
-                    "text": menu,
-                    "weight": "regular",
-                    "size": "sm",
-                    "margin": "sm",
-                    "flex": 0
-                  }
-                ]
-              };
+              var flexMenu =  {"type":"box","layout":"horizontal","margin":"xxl","contents":[{"type":"text","text":menu,"weight":"regular","size":"sm","margin":"sm","flex":0}]};
               flexKategori.body.contents[1].contents.push(flexMenu);
               jmlMenu++;
               if (jmlMenu >= 3) {
@@ -512,17 +146,8 @@ var self = {
               }
             }
           }
-          flexKategori.body.contents[1].contents.unshift({
-            "type": "separator",
-            "margin": "sm"
-          });
-          flexKategori.body.contents[1].contents.unshift({
-                "type": "text",
-                "text": "Harga mulai dari : Rp " + hargaMin + " - Rp " + hargaMax,
-                "wrap": true,
-                "color": "#aaaaaa",
-                "size": "xxs"
-              });
+          flexKategori.body.contents[1].contents.unshift({"type": "separator", "margin": "sm"});
+          flexKategori.body.contents[1].contents.unshift({"type": "text", "text": "Harga mulai dari : Rp " + hargaMin + " - Rp " + hargaMax, "wrap": true, "color": "#aaaaaa", "size": "xxs"});
           flexMsg.contents.contents.push(flexKategori);
           jmlKat++;
         });
@@ -535,7 +160,7 @@ var self = {
           return (warungCounter) + 1;
         }
       });
-      
+
       return client.replyMessage(replyToken, [
       {
         "type": "text",
@@ -547,7 +172,6 @@ var self = {
     });
   },
   menu: function (replyToken, warung, kategori, menus, userID) {
-    console.log("BETUL MENU");
     var db = bot.database;
     var client = bot.client;
     var replyText = bot.replyText;
@@ -590,106 +214,11 @@ var self = {
             var itemMenu = res[menu];
             if (menu !== 'thumbnail' && menu !== 'priority' && isFound && menu !== "kategoriCounter") {
               if (jmlMenu > 9) {
-                var lainnya = {
-                  "type": "bubble",
-                  "body": {
-                    "type": "box",
-                    "layout": "vertical",
-                    "spacing": "sm",
-                    "action": {
-                      "type":"postback",
-                      "label":"Menu Lainnya",
-                      "data":"data=menu&warung="+warung+"&kategori="+kategori+"&menu="+menu
-                    },
-                    "contents": [
-                      {
-                        "type": "button",
-                        "flex": 1,
-                        "gravity": "center",
-                        "action": {
-                          "type":"postback",
-                          "label":"Menu Lainnya",
-                          "data":"data=menu&warung="+warung+"&kategori="+kategori+"&menu="+menu
-                        }
-                      }
-                    ]
-                  }
-                };
+                var lainnya = menu.lainnya(warung, kategori, menu);
                 flexMsg.contents.contents.push(lainnya);
                 throw BreakException;
               }
-              var flexMenu = {
-                "type": "bubble",
-                "hero": {
-                  "type": "image",
-                  "size": "full",
-                  "aspectRatio": "1:1",
-                  "aspectMode": "cover",
-                  "url": itemMenu.thumbnail,
-                  "action": {
-                    "type": "message",
-                    "text": menu
-                  }
-                },
-                "body": {
-                  "type": "box",
-                  "layout": "vertical",
-                  "spacing": "sm",
-                  "action": {
-                    "type": "message",
-                    "text": menu
-                  },
-                  "contents": [
-                    {
-                      "type": "text",
-                      "text": menu,
-                      "wrap": true,
-                      "weight": "bold",
-                      "size": "lg"
-                    },
-                    {
-                      "type": "text",
-                      "text": itemMenu.deskripsi,
-                      "wrap": true,
-                      "color": "#aaaaaa",
-                      "size": "xxs"
-                    },
-                    {
-                      "type": "separator",
-                      "margin": "lg"
-                    },
-                    {
-                      "type": "box",
-                      "layout": "baseline",
-                      "margin": "lg",
-                      "contents": [
-                        {
-                          "type": "text",
-                          "text": "Rp " + itemMenu.harga.toString(),
-                          "size" : "md",
-                          "wrap": true
-                        }
-                      ]
-                    }
-                  ]
-                },
-                "footer": {
-                  "type": "box",
-                  "layout": "vertical",
-                  "contents": [
-                    {
-                      "type": "button",
-                      "style": "link",
-                      "color": "#0B5ED7",
-                      "action": {
-                        "type": "message",
-                        "label": "+ Tambahkan",
-                        "text": menu
-                      }
-                    }
-                  ]
-                }
-              };
+              var flexMenu = menu.flex(itemMenu.thumbnail, menu, itemMenu.deskripsi, itemMenu.harga.toString());
               flexMsg.contents.contents.push(flexMenu);
               jmlMenu++;
             }
@@ -697,7 +226,7 @@ var self = {
         } catch (e) {
           if (e !== BreakException) throw e;
         }
-        
+
         if (isFirst) {
           // analytics.viewsCounter(warung, userID, "item");
           return client.replyMessage(replyToken, [
@@ -751,161 +280,11 @@ var self = {
           var itemWarung = res[warung];
           if (isFound) {
             if (jmlWarung > 9) {
-              var lainnya = {
-                "type": "bubble",
-                "body": {
-                  "type": "box",
-                  "layout": "vertical",
-                  "spacing": "sm",
-                  "action": {
-                    "type":"postback",
-                    "label":"Warung Lainnya",
-                    "data":"data=warung&warung="+warung
-                  },
-                  "contents": [
-                    {
-                      "type": "button",
-                      "flex": 1,
-                      "gravity": "center",
-                      "action": {
-                        "type":"postback",
-                        "label":"Warung Lainnya",
-                        "data":"data=warung&warung="+warung
-                      }
-                    }
-                  ]
-                }
-              };
+              var lainnya = warung.lainnya(warung);
               flexMsg.contents.contents.push(lainnya);
               throw BreakException;
             }
-            var flexWarung = {
-              "type": "bubble",
-              "hero": {
-                "type": "image",
-                "url": itemWarung.thumbnail,
-                "size": "full",
-                "aspectRatio": "1:1",
-                "aspectMode": "cover",
-                "action": {
-                  "type": "message",
-                  "text": warung
-                }
-              },
-              "body": {
-                "type": "box",
-                "layout": "vertical",
-                "action": {
-                  "type": "message",
-                  "text": warung
-                },
-                "contents": [
-                  {
-                    "type": "text",
-                    "text": warung,
-                    "weight": "bold",
-                    "size": "xl"
-                  },
-                  {
-                    "type": "box",
-                    "layout": "vertical",
-                    "margin": "lg",
-                    "spacing": "sm",
-                    "contents": [
-                      {
-                        "type": "box",
-                        "layout": "baseline",
-                        "spacing": "sm",
-                        "contents": [
-                          {
-                            "type": "text",
-                            "text": "Alamat",
-                            "color": "#aaaaaa",
-                            "size": "sm",
-                            "flex": 1
-                          },
-                          {
-                            "type": "text",
-                            "text": itemWarung.alamat,
-                            "wrap": true,
-                            "color": "#666666",
-                            "size": "sm",
-                            "flex": 4
-                          }
-                        ]
-                      },
-                      {
-                        "type": "box",
-                        "layout": "baseline",
-                        "spacing": "sm",
-                        "contents": [
-                          {
-                            "type": "text",
-                            "text": "Buka",
-                            "color": "#aaaaaa",
-                            "size": "sm",
-                            "flex": 1
-                          },
-                          {
-                            "type": "text",
-                            "text": itemWarung.jamBuka,
-                            "wrap": true,
-                            "color": "#666666",
-                            "size": "sm",
-                            "flex": 4
-                          }
-                        ]
-                      },
-                      {
-                        "type": "box",
-                        "layout": "baseline",
-                        "spacing": "sm",
-                        "contents": [
-                          {
-                            "type": "text",
-                            "text": "Ongkir",
-                            "color": "#aaaaaa",
-                            "size": "sm",
-                            "flex": 1
-                          },
-                          {
-                            "type": "text",
-                            "text": itemWarung.ongkir,
-                            "wrap": true,
-                            "color": "#666666",
-                            "size": "sm",
-                            "flex": 4
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              },
-              "footer": {
-                "type": "box",
-                "layout": "vertical",
-                "spacing": "sm",
-                "contents": [
-                  {
-                    "type": "button",
-                    "style": "link",
-                    "color": "#0B5ED7",
-                    "height": "sm",
-                    "action": {
-                      "type": "message",
-                      "label": "Pilih Warung",
-                      "text": warung
-                    }
-                  },
-                  {
-                    "type": "spacer",
-                    "size": "sm"
-                  }
-                ],
-                "flex": 0
-              }
-            }
+            var flexWarung = warung.flex(itemWarung.thumbnail, warung, itemWarung.alamat, itemWarung.jamBuka, itemWarung.ongkir);
             // analytics.viewsRecommendedCounter(warung);
             flexMsg.contents.contents.push(flexWarung);
             jmlWarung++;
@@ -929,5 +308,3 @@ var self = {
     });
   }
 };
-
-module.exports = self;
