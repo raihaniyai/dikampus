@@ -2,9 +2,9 @@ const bot = require('./../bot.js');
 const analytics = require('./analytics.js');
 // Require Flex Message
 const invoice = require('./../flex/invoice.js');
-const kategori = require('./../flex/kategori.js');
-const menu = require('./../flex/menu.js');
-const warung = require('./../flex/warung.js');
+const flexKategori = require('./../flex/kategori.js');
+const flexMenu = require('./../flex/menu.js');
+const flexWarung = require('./../flex/warung.js');
 
 module.exports = {
   order: function (replyToken, idTransaksi, dataWarung) {
@@ -120,15 +120,15 @@ module.exports = {
           var res = {};
           res[kategori] = dataKategori;
           var itemKategori = res[kategori];
-          var flexKategori = kategori.flex(itemKategori.thumbnail, kategori);
+          var kategoriRes = flexKategori.flex(itemKategori.thumbnail, kategori);
           var jmlMenu = 0;
           var hargaMax = 0;
           var hargaMin = 10000000;
           for (var menu in itemKategori) {
             var itemMenu = itemKategori[menu];
             if (menu !== 'thumbnail' && menu !== 'priority' && menu !== 'kategoriCounter') {
-              var flexMenu =  {"type":"box","layout":"horizontal","margin":"xxl","contents":[{"type":"text","text":menu,"weight":"regular","size":"sm","margin":"sm","flex":0}]};
-              flexKategori.body.contents[1].contents.push(flexMenu);
+              var menuRes =  {"type":"box","layout":"horizontal","margin":"xxl","contents":[{"type":"text","text":menu,"weight":"regular","size":"sm","margin":"sm","flex":0}]};
+              kategoriRes.body.contents[1].contents.push(menuRes);
               jmlMenu++;
               if (jmlMenu >= 3) {
                 break;
@@ -146,9 +146,9 @@ module.exports = {
               }
             }
           }
-          flexKategori.body.contents[1].contents.unshift({"type": "separator", "margin": "sm"});
-          flexKategori.body.contents[1].contents.unshift({"type": "text", "text": "Harga mulai dari : Rp " + hargaMin + " - Rp " + hargaMax, "wrap": true, "color": "#aaaaaa", "size": "xxs"});
-          flexMsg.contents.contents.push(flexKategori);
+          kategoriRes.body.contents[1].contents.unshift({"type": "separator", "margin": "sm"});
+          kategoriRes.body.contents[1].contents.unshift({"type": "text", "text": "Harga mulai dari : Rp " + hargaMin + " - Rp " + hargaMax, "wrap": true, "color": "#aaaaaa", "size": "xxs"});
+          flexMsg.contents.contents.push(kategoriRes);
           jmlKat++;
         });
       } catch (e) {
@@ -214,12 +214,12 @@ module.exports = {
             var itemMenu = res[menu];
             if (menu !== 'thumbnail' && menu !== 'priority' && isFound && menu !== "kategoriCounter") {
               if (jmlMenu > 9) {
-                var lainnya = menu.lainnya(warung, kategori, menu);
+                var lainnya = flexMenu.lainnya(warung, kategori, menu);
                 flexMsg.contents.contents.push(lainnya);
                 throw BreakException;
               }
-              var flexMenu = menu.flex(itemMenu.thumbnail, menu, itemMenu.deskripsi, itemMenu.harga.toString());
-              flexMsg.contents.contents.push(flexMenu);
+              var menuRes = flexMenu.flex(itemMenu.thumbnail, menu, itemMenu.deskripsi, itemMenu.harga.toString());
+              flexMsg.contents.contents.push(menuRes);
               jmlMenu++;
             }
           });
@@ -280,13 +280,13 @@ module.exports = {
           var itemWarung = res[warung];
           if (isFound) {
             if (jmlWarung > 9) {
-              var lainnya = warung.lainnya(warung);
+              var lainnya = flexWarung.lainnya(warung);
               flexMsg.contents.contents.push(lainnya);
               throw BreakException;
             }
-            var flexWarung = warung.flex(itemWarung.thumbnail, warung, itemWarung.alamat, itemWarung.jamBuka, itemWarung.ongkir);
+            var warungRes = flexWarung.flex(itemWarung.thumbnail, warung, itemWarung.alamat, itemWarung.jamBuka, itemWarung.ongkir);
             // analytics.viewsRecommendedCounter(warung);
-            flexMsg.contents.contents.push(flexWarung);
+            flexMsg.contents.contents.push(warungRes);
             jmlWarung++;
           }
         });
