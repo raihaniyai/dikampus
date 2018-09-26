@@ -1,10 +1,10 @@
 const bot = require('./../bot.js');
 const analytics = require('./analytics.js');
 // Require Flex Message
-const invoice = require('./../flex/invoice.js');
-const flexKategori = require('./../flex/kategori.js');
-const flexMenu = require('./../flex/menu.js');
-const flexWarung = require('./../flex/warung.js');
+const invoice = require('./../template/invoice.js');
+const flexKategori = require('./../template/kategori.js');
+const flexMenu = require('./../template/menu.js');
+const flexWarung = require('./../template/warung.js');
 
 module.exports = {
   order: function (replyToken, idTransaksi, dataWarung) {
