@@ -3,8 +3,6 @@
 const line = require('@line/bot-sdk');
 const express = require('express');
 const firebase = require("firebase-admin");
-const dialogflow = require('./functions/dialogflow.js');
-const postback = require('./functions/postback.js');
 require('dotenv').config();
 
 // service account key for firebase
@@ -118,10 +116,10 @@ function handleEvent(event) {
     return console.log(`Unfollowed this bot: ${JSON.stringify(event)}`);
     break;
     case 'join':
-    var updateRef = db.ref("statistik/groups");
-    updateRef.transaction(function(groups) {
+    var updateRef = db.ref("statistik/groups/total");
+    updateRef.transaction(function(total) {
       // If node/clicks has never been set, currentRank will be `null`.
-      return (groups || 0) + 1;
+      return (total || 0) + 1;
     });
     return replyText(event.replyToken, [
       `Kenalin namaku Dika 􀰂􀄤smiling􏿿 \naku bisa pesenin makanan 🍽️ kesukaanmu di sekitar Telkom University loh!`,
@@ -154,7 +152,7 @@ function handleEvent(event) {
         var str = vars[i].split("=");
         res[str[0]] = str[1];
       }
-      return postback.response(event.replyToken, res, event.source.userId);
+      // return postback.response(event.replyToken, res, event.source.userId);
     }
     break;
     case 'beacon':
@@ -216,8 +214,6 @@ function handleText(message, replyToken, source) {
       });
     }
     break;
-    default:
-    return dialogflow.response(message.text, replyToken, source);
   }
 }
 
