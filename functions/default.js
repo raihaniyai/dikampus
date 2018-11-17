@@ -1,5 +1,4 @@
 const bot = require('./../bot.js');
-const template = require('./template.js');
 
 module.exports = {
   main: function (message, replyToken, source) {
