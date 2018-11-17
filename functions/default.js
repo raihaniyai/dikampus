@@ -1,7 +1,7 @@
 const bot = require('./../bot.js');
 
 module.exports = {
-  main: function (message, replyToken, source) {
+  main: function (text, replyToken, source) {
     var replyText = bot.replyText;
     var hasRegister = bot.hasRegister;
     var client = bot.client;
