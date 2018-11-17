@@ -78,7 +78,7 @@ const hasRegister = (userId, callback) => {
       } else {
         callback(null)
       }
-    }else {
+    } else {
       callback('nomorHP')
     }
   });
@@ -216,13 +216,16 @@ function handleText(message, replyToken, source) {
   var session = hasSession(source.userId) // return data of session (local storage)
   console.log("Ini Sessionnya: " + JSON.stringify(session));
   if (session) {
-    if (session.status = 'laper') {
+    if (session.status == 'laper') {
       // if status of session is laper
+      console.log("Masuk Session Laper");
       return laper.main(text, replyToken, source.userId, session)
-    } else if (session.status = 'register') {
+    } else if (session.status == 'register') {
+      console.log("Masuk Session Register");
       // if status of session is register
       return register.main(text, replyToken, source.userId, session)
     } else if (session.status == null) {
+      console.log("Masuk Session Fallback");
       // if status of session is null
       return fallback.main(text, replyToken, source.userId)
     }
