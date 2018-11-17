@@ -70,12 +70,16 @@ const hasRegister = (userId, callback) => {
   var ref = db.ref("user/"+userId)
   ref.once("value", function(snapshot) {
     var data = snapshot.val();
-    if (!data.nomorHP) {
+    if (data) {
+      if (!data.nomorHP) {
+        callback('nomorHP')
+      } else if (!data.jurusan) {
+        callback('jurusan')
+      } else {
+        callback(null)
+      }
+    }else {
       callback('nomorHP')
-    } else if (!data.jurusan) {
-      callback('jurusan')
-    } else {
-      callback(null)
     }
   });
 
