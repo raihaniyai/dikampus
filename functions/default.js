@@ -1,12 +1,16 @@
 const bot = require('./../bot.js');
+const laper = require('./functions/laper.js');
+const register = require('./functions/register.js');
+const profile = require('./functions/profile.js');
 
 module.exports = {
   main: function (text, replyToken, source) {
     var replyText = bot.replyText;
     var hasRegister = bot.hasRegister;
     var client = bot.client;
+    var laper = ['laper', 'lapar', 'pengen makan', 'mau makan'] // Laper Entity
     if (text == 'profile') {
-
+      return replyText(replyToken, 'Ini nanti diisi Profile')
     } else if (text == 'bye') {
       switch (source.type) {
         case 'group':

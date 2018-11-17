@@ -209,7 +209,6 @@ function handleEvent(event) {
 function handleText(message, replyToken, source) {
   client.getProfile(source.userId).then((profile) => console.log(profile.displayName+': '+profile.pictureUrl)); //Heroku Log Photo Profile User
   var text = message.text.toLowerCase()
-  var laper = ['laper', 'lapar', 'pengen makan', 'mau makan'] // Laper Entity
   var session = hasSession(source.userId) // return data of session (local storage)
   if (session) {
     if (session.status = 'laper') {
