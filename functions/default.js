@@ -1,6 +1,6 @@
 const bot = require('./../bot.js');
 const laper = require('./laper.js');
-const register = require('.register.js');
+const register = require('./register.js');
 const profile = require('./profile.js');
 
 module.exports = {
