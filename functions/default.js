@@ -37,7 +37,6 @@ module.exports = {
           },
         });
       }
-      break;
     } else if (laper.indexOf(text) > -1) {
       hasRegister(source.userId, function(data){
         if (data != null){
