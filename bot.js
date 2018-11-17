@@ -69,7 +69,7 @@ module.exports.replyText = replyText;
 const hasRegister = (userId, callback) => {
   var ref = db.ref("user/"+userId)
   ref.once("value", function(snapshot) {
-    data = snapshot.val();
+    var data = snapshot.val();
     if (!data.nomorHP) {
       callback('nomorHP')
     } else if (!data.jurusan) {
