@@ -10,7 +10,7 @@ require('dotenv').config()
 const laper = require('./functions/laper.js');
 const register = require('./functions/register.js');
 const profile = require('./functions/profile.js');
-const default = require('./functions/default.js');
+const fallback = require('./functions/default.js');
 
 // service account key for firebase
 var serviceAccount = JSON.parse(process.env.SERVICE_ACCOUNT_KEY);
@@ -220,12 +220,12 @@ function handleText(message, replyToken, source) {
       return register.main(text, replyToken, source.userId, session)
     } else {
       // if status of session is null
-      return default.main(text, replyToken, source.userId)
+      return fallback.main(text, replyToken, source.userId)
     }
   } else {
     // it's for the new user
     store.set(source.userId, {status: null})
-    return default.main(text, replyToken, source.userId)
+    return fallback.main(text, replyToken, source.userId)
   }
 }
 
