@@ -218,7 +218,7 @@ function handleText(message, replyToken, source) {
     } else if (session.status = 'register') {
       // if status of session is register
       return register.main(text, replyToken, source.userId, session)
-    } else {
+    } else if (session.status == null) {
       // if status of session is null
       return fallback.main(text, replyToken, source.userId)
     }
