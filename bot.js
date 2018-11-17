@@ -7,9 +7,10 @@ const store = require('store2')
 require('dotenv').config()
 
 // another javascript file (one file = one feature)
-const laper = require('./functions/laper');
-const register = require('./functions/register');
-const profile = require('./functions/profile');
+const laper = require('./functions/laper.js');
+const register = require('./functions/register.js');
+const profile = require('./functions/profile.js');
+const default = require('./functions/default.js');
 
 // service account key for firebase
 var serviceAccount = JSON.parse(process.env.SERVICE_ACCOUNT_KEY);
