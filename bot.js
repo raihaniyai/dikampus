@@ -1,9 +1,15 @@
 'use strict';
 
-const line = require('@line/bot-sdk');
-const express = require('express');
-const firebase = require("firebase-admin");
-require('dotenv').config();
+const line = require('@line/bot-sdk')
+const express = require('express')
+const firebase = require('firebase-admin')
+const store = require('store2')
+require('dotenv').config()
+
+// another javascript file (one file = one feature)
+const laper = require('./functions/laper');
+const register = require('./functions/register');
+const profile = require('./functions/profile');
 
 // service account key for firebase
 var serviceAccount = JSON.parse(process.env.SERVICE_ACCOUNT_KEY);
@@ -32,7 +38,7 @@ firebase.initializeApp({
 const db = firebase.database();
 module.exports.database = db;
 
-//Webhook Callback
+// webhook Callback
 app.post('/callback', line.middleware(config), (req, res) => {
   // req.body.events should be an array of events
   if (!Array.isArray(req.body.events)) {
@@ -58,6 +64,48 @@ const replyText = (token, texts) => {
 };
 module.exports.replyText = replyText;
 
+// periksa apakah user sudah mengisi biodata atau belum, return null if has registered
+const hasRegister = (userId, callback) => {
+  var ref = db.ref("user/"+userId)
+  ref.once("value", function(snapshot) {
+    data = snapshot.val();
+    if (!data.nomorHP) {
+      callback('nomorHP')
+    } else if (!data.jurusan) {
+      callback('jurusan')
+    } else {
+      callback(null)
+    }
+  });
+
+}
+
+// periksa apakah user sudah mengisi biodata atau belum, return null if has registered
+// const hasRegister = (userId) => {
+//   var ref = db.ref("user/"+userId);
+//   ref.once("value", function(snapshot) {
+//     data = snapshot.val();
+//     if (!data.nomorHP) {
+//       return replyText(event.replyToken, `Minta no HP dong`)
+//     } else if (!data.jurusan) {
+//       return replyText(event.replyToken, `Jurusannya apa?`)
+//     } else {
+//       return null
+//     }
+//   });
+// };
+module.exports.hasRegister = hasRegister;
+
+// check is the user has a session or not
+const hasSession = (userId) => {
+  if (store.has(userId)) {
+    return store.get(userId)
+  } else {
+    return null
+  }
+};
+module.exports.hasSession = hasSession;
+
 // callback function to handle a single event
 function handleEvent(event) {
   console.log(JSON.stringify(event)); //Giving Event Log to Heroku
@@ -67,10 +115,6 @@ function handleEvent(event) {
     switch (message.type) {
       case 'text':
       	return handleText(message, event.replyToken, event.source);
-      break;
-      default:
-      	throw new Error(`Unknown message: ${JSON.stringify(message)}`);
-      break;
     }
     break;
     case 'follow':
@@ -155,9 +199,6 @@ function handleEvent(event) {
       // return postback.response(event.replyToken, res, event.source.userId);
     }
     break;
-    case 'beacon':
-    return replyText(event.replyToken, `Got beacon: ${event.beacon.hwid}`);
-    break;
     default:
     throw new Error(`Unknown event: ${JSON.stringify(event)}`);
     break;
@@ -166,54 +207,24 @@ function handleEvent(event) {
 
 function handleText(message, replyToken, source) {
   client.getProfile(source.userId).then((profile) => console.log(profile.displayName+': '+profile.pictureUrl)); //Heroku Log Photo Profile User
-  switch (message.text) {
-    case 'profile':
-    if (source.userId) {
-      return client.getProfile(source.userId)
-      .then((profile) => replyText(
-        replyToken,
-        [
-          `Display name: ${profile.displayName}`,
-          `Status message: ${profile.statusMessage}`,
-        ]
-      ));
+  var text = message.text.toLowerCase()
+  var laper = ['laper', 'lapar', 'pengen makan', 'mau makan'] // Laper Entity
+  var session = hasSession(source.userId) // return data of session (local storage)
+  if (session) {
+    if (session.status = 'laper') {
+      // if status of session is laper
+      return laper.main(text, replyToken, source.userId, session)
+    } else if (session.status = 'register') {
+      // if status of session is register
+      return register.main(text, replyToken, source.userId, session)
     } else {
-      return replyText(replyToken, 'Bot can\'t use profile API without user ID');
+      // if status of session is null
+      return default.main(text, replyToken, source.userId)
     }
-    break;
-    case 'bye':
-    switch (source.type) {
-      case 'user':
-      return replyText(replyToken, 'Bot can\'t leave from 1:1 chat');
-      case 'group':
-      return client.replyMessage(replyToken, {
-        type: 'template',
-        altText: 'Kick Dikampus?',
-        template: {
-          type: 'confirm',
-          text: 'Yakin mau ngekick Dika?',
-          actions: [
-            { label: 'Gajadi', type: 'message', text: 'Gajadi' },
-            { label: 'Yakin', type: 'postback', data: 'leftGroup' },
-          ],
-        },
-      });
-      break;
-      case 'room':
-      return client.replyMessage(replyToken, {
-        type: 'template',
-        altText: 'Kick Dikampus?',
-        template: {
-          type: 'confirm',
-          text: 'Yakin mau ngekick Dika?',
-          actions: [
-            { label: 'Gajadi', type: 'message', text: 'Gajadi' },
-            { label: 'Yakin', type: 'postback', data: 'leftRoom' },
-          ],
-        },
-      });
-    }
-    break;
+  } else {
+    // it's for the new user
+    store.set(source.userId, {status: null})
+    return default.main(text, replyToken, source.userId)
   }
 }
 
