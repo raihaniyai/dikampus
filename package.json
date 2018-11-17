@@ -16,7 +16,8 @@
     "express-session": "^1.15.6",
     "firebase-admin": "^5.13.1",
     "request": "^2.88.0",
-    "request-promise": "^4.2.2"
+    "request-promise": "^4.2.2",
+    "store2": "^2.7.1"
   },
   "devDependencies": {},
   "repository": {
