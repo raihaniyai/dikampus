@@ -1,7 +1,7 @@
 const bot = require('./../bot.js');
-const laper = require('./functions/laper.js');
-const register = require('./functions/register.js');
-const profile = require('./functions/profile.js');
+const laper = require('./../functions/laper.js');
+const register = require('./../functions/register.js');
+const profile = require('./../functions/profile.js');
 
 module.exports = {
   main: function (text, replyToken, source) {
