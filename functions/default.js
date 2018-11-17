@@ -9,6 +9,7 @@ module.exports = {
     var hasRegister = bot.hasRegister;
     var client = bot.client;
     var laper = ['laper', 'lapar', 'pengen makan', 'mau makan'] // Laper Entity
+    console.log("Message: " + text);
     if (text == 'profile') {
       console.log("Masuk Profile");
       return replyText(replyToken, 'Ini nanti diisi Profile')
@@ -43,6 +44,7 @@ module.exports = {
         });
       }
     } else if (laper.indexOf(text) > -1) {
+      console.log("Masuk Laper");
       hasRegister(source.userId, function(data){
         if (data != null){
           return replyText(replyToken, 'Daftar dulu bosquu')
