@@ -218,14 +218,11 @@ function handleText(message, replyToken, source) {
   if (session) {
     if (session.status == 'laper') {
       // if status of session is laper
-      console.log("Masuk Session Laper");
       return laper.main(text, replyToken, source.userId, session)
     } else if (session.status == 'register') {
-      console.log("Masuk Session Register");
       // if status of session is register
       return register.main(text, replyToken, source.userId, session)
     } else if (session.status == null) {
-      console.log("Masuk Session Fallback");
       // if status of session is null
       return fallback.main(text, replyToken, source.userId)
     }
