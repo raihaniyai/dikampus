@@ -79,18 +79,19 @@ module.exports = {
             }
           });
         } else {
+          console.log("Masuk pak eko");
           db.ref('user/' + userId).set({
             fakultas: res.fakultas,
             jurusan: res.jurusan
           }, function(error) {
             if (error) {
               // The write failed...
+              return replyText(replyToken, "Error")
             } else {
               // Data saved successfully!
               return replyText(replyToken, "Berhasil Disimpan")
             }
           });
-
         }
         break;
       default:
