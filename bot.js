@@ -202,7 +202,7 @@ function handleEvent(event) {
           res[str[0]] = str[1];
         }
         if (res.data=='profile') {
-          pbprofile.main(replyToken, res, source)
+          pbprofile.main(event.replyToken, res, event.source)
         }
         // return postback.response(event.replyToken, res, event.source.userId);
       }
