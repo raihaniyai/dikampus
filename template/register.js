@@ -204,9 +204,9 @@ var self = {
               "type": "button",
               "color": "#0B5ED7",
               "action": {
-                "type": "postback",
+                "type": "message",
                 "label": "Edit",
-                "data": "data=register&action=edit"
+                "text": "Edit profil"
               }
             },
             {

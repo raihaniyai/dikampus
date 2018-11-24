@@ -4,11 +4,9 @@ const store = require('store2')
 
 module.exports = {
   main: function (text, replyToken, userId, session, res) {
-    var request = require('request'); //HTTP Request
-    var replyText = bot.replyText;
-    var client = bot.client;
-    var db = bot.database;
-    var response;
+    var replyText = bot.replyText
+    var client = bot.client
+    var db = bot.database
     switch (session.action) {
       case 'nomorHP':
         store.transact(userId, function(data) {

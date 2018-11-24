@@ -11,6 +11,7 @@ module.exports = {
     var hasRegister = bot.hasRegister;
     var client = bot.client;
     var laper = ['laper', 'lapar', 'pengen makan', 'mau makan'] // Laper Entity
+    var profil = ['edit profil', 'edit profile']
     console.log("Message: " + text);
     if (text == 'profile') {
       console.log("Masuk Profile");
@@ -62,6 +63,8 @@ module.exports = {
           return client.replyMessage(replyToken, flex);
         }
       })
+    } else if (profil.indexOf(text) > -1) {
+      return profile.edit(replyToken, source.userId)
     }
   }
 };

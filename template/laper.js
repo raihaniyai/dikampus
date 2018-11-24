@@ -21,19 +21,7 @@ var self = {
             "height": 1040
           }
         }
-      ],
-      "quickReply": {
-        "items": [
-          {
-            "type": "action",
-            "action": {
-              "type": "message",
-              "label": "Menu Serina",
-              "text": "Menu"
-            }
-          }
-        ]
-      }
+      ]
     };
     return flex;
   }
