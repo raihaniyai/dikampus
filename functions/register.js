@@ -1,4 +1,5 @@
-const bot = require('./../bot.js');
+const bot = require('./../bot.js')
+const store = require('store2')
 
 module.exports = {
   main: function (text, replyToken, userId, session) {
@@ -8,6 +9,7 @@ module.exports = {
     var response;
     switch (session.action) {
       case 'nomorHP':
+        store.transact(userId, function(data) data.status = 'register')
         return replyText(replyToken, 'Nomor hp nya berapa kak?');
         break;
       default:
