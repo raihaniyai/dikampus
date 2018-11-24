@@ -12,8 +12,8 @@ module.exports = {
         store.transact(userId, function(data) {
           data.status = 'register'
         })
-        var phoneno = /^\d{10}$/;
-        if (text.value.match(phoneno)) {
+        var phoneno = /^\(?([0-9]{4})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/;
+        if (text.match(phoneno)) {
           return replyText(replyToken, 'Bener tuh nomor hp')
         } else {
           return replyText(replyToken, 'Nomor hp nya berapa kak?');
