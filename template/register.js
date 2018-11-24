@@ -94,7 +94,7 @@ var self = {
             },
             {
               "type": "text",
-              "text": "KONFIRMASI PROFILE",
+              "text": "KONFIRMASI PROFIL",
               "flex": 1,
               "margin": "none",
               "align": "start",
