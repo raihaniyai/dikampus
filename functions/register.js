@@ -8,12 +8,27 @@ module.exports = {
     var client = bot.client;
     var response;
     switch (session.action) {
-      case 'tanyaNomorHP':
+      case 'nomorHP':
         store.transact(userId, function(data) {
           data.status = 'register'
         })
-        var phoneno = /^\(?([0-9]{4})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/;
-        if (text.match(phoneno)) {
+        var phoneno = /^\(?([0-9]{4})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/; // 12 digit number phone
+        var phoneno2 = /^\(?([0-9]{4})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{3})$/; // 11 digit number phone
+        if (text.match(phoneno) || text.match(phoneno2)) {
+          var phone = text.indexOf('0') == 0 ? string.substring(1) : string
+          phone = "62" + phone
+          firebase.database().ref('user/' + userId).set({
+            nomorHP: phone,
+          }, function(error) {
+            if (error) {
+              // The write failed...
+              return replyText(replyToken, 'Nomor hp nya berapa kak?');
+            } else {
+              // Data saved successfully!
+              return replyText(replyToken, 'Data tersimpan, sekarang masukin jurusannya');
+            }
+          });
+
           return replyText(replyToken, 'Bener tuh nomor hp')
         } else {
           return replyText(replyToken, 'Nomor hp nya berapa kak?');
