@@ -9,7 +9,9 @@ module.exports = {
     var response;
     switch (session.action) {
       case 'nomorHP':
-        store.transact(userId, function(data) data.status = 'register')
+        store.transact(userId, function(data) {
+          data.status = 'register'
+        })
         return replyText(replyToken, 'Nomor hp nya berapa kak?');
         break;
       default:
