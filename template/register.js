@@ -94,7 +94,7 @@ var self = {
             },
             {
               "type": "text",
-              "text": "PROFILE",
+              "text": "KONFIRMASI PROFILE",
               "flex": 1,
               "margin": "none",
               "align": "start",
@@ -141,7 +141,7 @@ var self = {
               "contents": [
                 {
                   "type": "text",
-                  "text": "Nomor",
+                  "text": "Nomor HP",
                   "flex": 0,
                   "color": "#AAAAAA"
                 },
@@ -202,18 +202,19 @@ var self = {
           "contents": [
             {
               "type": "button",
+              "color": "#0B5ED7",
               "action": {
-                "type": "uri",
+                "type": "postback",
                 "label": "Edit",
-                "uri": "https://linecorp.com"
+                "data": "data=register&action=edit"
               }
             },
             {
               "type": "button",
               "action": {
-                "type": "uri",
+                "type": "message",
                 "label": "Lanjut",
-                "uri": "https://linecorp.com"
+                "text": "Laper"
               },
               "color": "#0B5ED7",
               "style": "primary"

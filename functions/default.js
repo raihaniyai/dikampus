@@ -2,6 +2,7 @@ const bot = require('./../bot.js')
 const laper = require('./laper.js')
 const register = require('./register.js')
 const profile = require('./profile.js')
+const templatelaper = require('./../template/laper.js')
 const store = require('store2')
 
 module.exports = {
@@ -57,7 +58,8 @@ module.exports = {
             return register.main(text, replyToken, source.userId, session);
           }
         } else {
-          return laper.main(text, replyToken, source.userId, session)
+          var flex = templatelaper.imagemap()
+          return client.replyMessage(replyToken, flex);
         }
       })
     }
