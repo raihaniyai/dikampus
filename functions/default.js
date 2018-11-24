@@ -48,13 +48,12 @@ module.exports = {
       hasRegister(source.userId, function(data){
         if (data != null){
           if (data == 'nomorHP') {
-            store.add(source.userId, {action: 'nomorHP'})
-            session.action = 'nomorHP'
+            store.add(source.userId, {action: 'tanyaNomorHP'})
+            session.action = 'tanyaNomorHP'
             return register.main(text, replyToken, source.userId, session)
           } else if (data == 'jurusan') {
             store.add(source.userId, {action: 'jurusan'})
             session.action = 'jurusan'
-
           }
           return register.main(replyToken, source.userId, session);
         } else {
