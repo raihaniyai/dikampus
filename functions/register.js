@@ -84,7 +84,9 @@ module.exports = {
             data = snapshot.val();
             client.getProfile(userId).then((profile) => {
               var flex = template.profile(profile, data)
-              console.log(JSON.stringify(flex));
+              store.transact(userId, function(data) {
+                data.status = null
+              })
               return client.replyMessage(replyToken, flex)
             });
           });
