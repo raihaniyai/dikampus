@@ -49,7 +49,7 @@ var self = {
       "action": {
         "type": "postback",
         "label": jurusan,
-        "data": "data=jurusan&fakultas=" + fakultas + "jurusan=" + jurusan
+        "data": "data=jurusan&fakultas=" + fakultas + "&jurusan=" + jurusan
       },
       "contents": [
         {
