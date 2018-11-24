@@ -41,7 +41,7 @@ module.exports = {
                     flex.contents.contents.push(bubble)
                     var prodi = data[fakultas].jurusan
                     for (var i = 1; i <= Object.keys(prodi).length; i++) {
-                      var list = jurusan.list(prodi[i])
+                      var list = jurusan.list(data[fakultas].namaFakultas, prodi[i])
                       if (i < 4) flex.contents.contents[count].body.contents.push(list)
                       else {
                         flex.contents.contents[count].footer = jurusan.footer(data[fakultas].namaFakultas)

@@ -54,7 +54,7 @@ var self = {
     };
     return flex
   },
-  list: function (result) {
+  list: function (fakultas, jurusan) {
     var replyText = bot.replyText;
     var client = bot.client;
     flex = {
@@ -63,14 +63,21 @@ var self = {
       "margin": "md",
       "action": {
         "type": "postback",
-        "label": result,
-        "data": "data=prodi&prodi=" + result
+        "label": jurusan,
+        "data": "data=jurusan&fakultas=" + fakultas + "jurusan=" + jurusan
       },
       "contents": [
         {
           "type": "text",
-          "text": result,
+          "text": jurusan,
           "flex": 1
+        },
+        {
+          "type": "text",
+          "text": ">",
+          "weight": "bold",
+          "color": "#AAAAAA",
+          "flex": 0
         }
       ]
     };
