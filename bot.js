@@ -173,7 +173,7 @@ function handleEvent(event) {
     break;
     case 'postback':
     let data = event.postback.data;
-    var session = hasSession(source.userId) // return data of session (local storage)
+    var session = hasSession(event.source.userId) // return data of session (local storage)
     if (session.status == 'register') {
       var res = {};
       var vars = data.split("&");
