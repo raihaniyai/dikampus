@@ -15,7 +15,7 @@ module.exports = {
         var phoneno = /^\(?([0-9]{4})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/; // 12 digit number phone
         var phoneno2 = /^\(?([0-9]{4})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{3})$/; // 11 digit number phone
         if (text.match(phoneno) || text.match(phoneno2)) {
-          var phone = text.indexOf('0') == 0 ? string.substring(1) : string
+          var phone = text.indexOf('0') == 0 ? text.substring(1) : string
           phone = "62" + phone
           firebase.database().ref('user/' + userId).set({
             nomorHP: phone,
