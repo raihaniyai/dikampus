@@ -56,7 +56,6 @@ module.exports = {
               });
             }
           });
-          return replyText(replyToken, 'Bener tuh nomor hp')
         } else {
           return replyText(replyToken, 'Nomor hp nya berapa kak?');
         }
