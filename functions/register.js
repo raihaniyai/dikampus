@@ -51,6 +51,7 @@ module.exports = {
                     }
                     count++
                   }
+                  console.log(JSON.stringify(flex));
                   return client.replyMessage(replyToken, flex);
                 }
               });
