@@ -106,7 +106,7 @@ const hasSession = (userId) => {
   if (store.has(userId)) {
     return store.get(userId)
   } else {
-    store.set(source.userId, {status: null})
+    store.set(userId, {status: null})
     return store.get(userId)
   }
 };
