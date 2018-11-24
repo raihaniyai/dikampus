@@ -24,16 +24,16 @@ var self = {
           })
           var ref = db.ref("kampus/TEL-U/fakultas")
           ref.once("value", function(snapshot) {
-            var flex = template.flex()
+            var flex = templateregister.flex()
             var count = 0
             data = snapshot.val();
             if (data) {
               for (var fakultas in data) {
-                var bubble = template.bubble(data[fakultas])
+                var bubble = templateregister.bubble(data[fakultas])
                 flex.contents.contents.push(bubble)
                 var prodi = data[fakultas].jurusan
                 for (var i = 1; i <= Object.keys(prodi).length; i++) {
-                  var list = template.list(data[fakultas].namaFakultas, prodi[i])
+                  var list = templateregister.list(data[fakultas].namaFakultas, prodi[i])
                   flex.contents.contents[count].body.contents.push(list)
                   if (i+1 < prodi.length) flex.contents.contents[count].body.contents.push({"type": "separator", "margin": "md"})
                 }

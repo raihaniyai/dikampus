@@ -23,29 +23,43 @@ module.exports = {
               return replyText(replyToken, 'Nomor hp nya berapa sih kak?');
             } else {
               // Data saved successfully!
-              store.transact(userId, function(data) {
-                data.action = 'jurusan'
-              })
-              var ref = db.ref("kampus/TEL-U/fakultas")
-              ref.once("value", function(snapshot) {
-                var flex = template.flex()
-                var count = 0
+              var userRef = db.ref("user/"+userId)
+              userRef.once("value", function(snapshot) {
                 data = snapshot.val();
-                if (data) {
-                  for (var fakultas in data) {
-                    var bubble = template.bubble(data[fakultas])
-                    flex.contents.contents.push(bubble)
-                    var prodi = data[fakultas].jurusan
-                    for (var i = 1; i <= Object.keys(prodi).length; i++) {
-                      var list = template.list(data[fakultas].namaFakultas, prodi[i])
-                      flex.contents.contents[count].body.contents.push(list)
-                      if (i+1 < prodi.length) flex.contents.contents[count].body.contents.push({"type": "separator", "margin": "md"})
+                if (data.fakultas) {
+                  client.getProfile(userId).then((profile) => {
+                    var flex = template.profile(profile, data)
+                    store.transact(userId, function(data) {
+                      data.status = null
+                    })
+                    return client.replyMessage(replyToken, flex)
+                  });
+                } else {
+                  store.transact(userId, function(data) {
+                    data.action = 'jurusan'
+                  })
+                  var ref = db.ref("kampus/TEL-U/fakultas")
+                  ref.once("value", function(snapshot) {
+                    var flex = template.flex()
+                    var count = 0
+                    data = snapshot.val();
+                    if (data) {
+                      for (var fakultas in data) {
+                        var bubble = template.bubble(data[fakultas])
+                        flex.contents.contents.push(bubble)
+                        var prodi = data[fakultas].jurusan
+                        for (var i = 1; i <= Object.keys(prodi).length; i++) {
+                          var list = template.list(data[fakultas].namaFakultas, prodi[i])
+                          flex.contents.contents[count].body.contents.push(list)
+                          if (i+1 < prodi.length) flex.contents.contents[count].body.contents.push({"type": "separator", "margin": "md"})
+                        }
+                        count++
+                      }
+                      return client.replyMessage(replyToken, flex);
                     }
-                    count++
-                  }
-                  return client.replyMessage(replyToken, flex);
+                  });
                 }
-              });
+              })
             }
           });
         } else {
