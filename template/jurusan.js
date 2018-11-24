@@ -68,19 +68,14 @@ var self = {
       "margin": "md",
       "action": {
         "type": "postback",
-        "label": result.nama_prodi,
-        "data": "data=prodi&prodi=" + result.nama_prodi
+        "label": result,
+        "data": "data=prodi&prodi=" + result
       },
       "contents": [
         {
           "type": "text",
-          "text": result.nama_prodi,
+          "text": result,
           "flex": 1
-        },
-        {
-          "type": "text",
-          "text": result.akreditasi,
-          "flex": 0
         }
       ]
     };
