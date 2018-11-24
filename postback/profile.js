@@ -3,7 +3,7 @@ const templateregister = require('./../template/register.js')
 const store = require('store2')
 
 var self = {
-  main: function (replyToken, res, source) {
+  main: function (replyToken, res, userId) {
     var replyText = bot.replyText;
     var client = bot.client;
     var type = res.type;
