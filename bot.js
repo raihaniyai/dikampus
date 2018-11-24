@@ -106,7 +106,8 @@ const hasSession = (userId) => {
   if (store.has(userId)) {
     return store.get(userId)
   } else {
-    return null
+    store.set(source.userId, {status: null})
+    return store.get(userId)
   }
 };
 module.exports.hasSession = hasSession;
@@ -215,21 +216,15 @@ function handleText(message, replyToken, source) {
   var text = message.text.toLowerCase()
   var session = hasSession(source.userId) // return data of session (local storage)
   console.log("Ini Sessionnya: " + JSON.stringify(session));
-  if (session) {
-    if (session.status == 'laper') {
-      // if status of session is laper
-      return laper.main(text, replyToken, source.userId, session)
-    } else if (session.status == 'register') {
-      // if status of session is register
-      return register.main(text, replyToken, source.userId, session)
-    } else if (session.status == null) {
-      // if status of session is null
-      return fallback.main(text, replyToken, source.userId)
-    }
-  } else {
-    // it's for the new user
-    store.set(source.userId, {status: null})
-    return fallback.main(text, replyToken, source.userId)
+  if (session.status == 'laper') {
+    // if status of session is laper
+    return laper.main(text, replyToken, source.userId, session)
+  } else if (session.status == 'register') {
+    // if status of session is register
+    return register.main(text, replyToken, source.userId, session)
+  } else if (session.status == null) {
+    // if status of session is null
+    return fallback.main(text, replyToken, source.userId, session)
   }
 }
 
