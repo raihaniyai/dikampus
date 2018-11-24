@@ -82,23 +82,7 @@ const hasRegister = (userId, callback) => {
       callback('nomorHP')
     }
   });
-
 }
-
-// periksa apakah user sudah mengisi biodata atau belum, return null if has registered
-// const hasRegister = (userId) => {
-//   var ref = db.ref("user/"+userId);
-//   ref.once("value", function(snapshot) {
-//     data = snapshot.val();
-//     if (!data.nomorHP) {
-//       return replyText(event.replyToken, `Minta no HP dong`)
-//     } else if (!data.jurusan) {
-//       return replyText(event.replyToken, `Jurusannya apa?`)
-//     } else {
-//       return null
-//     }
-//   });
-// };
 module.exports.hasRegister = hasRegister;
 
 // check is the user has a session or not
@@ -189,22 +173,33 @@ function handleEvent(event) {
     break;
     case 'postback':
     let data = event.postback.data;
-    if (data === 'DATE' || data === 'TIME' || data === 'DATETIME') {
-      data += `(${JSON.stringify(event.postback.params)})`;
-    }else if (data === 'leftGroup'){
-      return replyText(event.replyToken, 'Dika pamit left group dulu yaa')
-      .then(() => client.leaveGroup(event.source.groupId));
-    }else if (data === 'leftRoom'){
-      return replyText(event.replyToken, 'Dika pamit left multichat dulu yaa')
-      .then(() => client.leaveRoom(event.source.roomId));
-    }else if (data.startsWith("data=")) {
+    var session = hasSession(source.userId) // return data of session (local storage)
+    if (session.status == 'register') {
       var res = {};
       var vars = data.split("&");
       for(var i=0; i < vars.length; i++){
         var str = vars[i].split("=");
         res[str[0]] = str[1];
       }
-      // return postback.response(event.replyToken, res, event.source.userId);
+      return register.main(null, replyToken, source.userId, session);
+    } else {
+      if (data === 'DATE' || data === 'TIME' || data === 'DATETIME') {
+        data += `(${JSON.stringify(event.postback.params)})`;
+      }else if (data === 'leftGroup'){
+        return replyText(event.replyToken, 'Dika pamit left group dulu yaa')
+        .then(() => client.leaveGroup(event.source.groupId));
+      }else if (data === 'leftRoom'){
+        return replyText(event.replyToken, 'Dika pamit left multichat dulu yaa')
+        .then(() => client.leaveRoom(event.source.roomId));
+      }else if (data.startsWith("data=")) {
+        var res = {};
+        var vars = data.split("&");
+        for(var i=0; i < vars.length; i++){
+          var str = vars[i].split("=");
+          res[str[0]] = str[1];
+        }
+        // return postback.response(event.replyToken, res, event.source.userId);
+      }
     }
     break;
     default:

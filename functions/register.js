@@ -43,11 +43,6 @@ module.exports = {
                     for (var i = 1; i <= Object.keys(prodi).length; i++) {
                       var list = jurusan.list(data[fakultas].namaFakultas, prodi[i])
                       flex.contents.contents[count].body.contents.push(list)
-                      // if (i < 4) flex.contents.contents[count].body.contents.push(list)
-                      // else {
-                      //   flex.contents.contents[count].footer = jurusan.footer(data[fakultas].namaFakultas)
-                      //   break;
-                      // }
                       if (i+1 < prodi.length) flex.contents.contents[count].body.contents.push({"type": "separator", "margin": "md"})
                     }
                     count++
@@ -62,7 +57,42 @@ module.exports = {
         }
         break;
       case 'jurusan':
+        if (text) {
+          var ref = db.ref("kampus/TEL-U/fakultas")
+          ref.once("value", function(snapshot) {
+            var flex = jurusan.flex()
+            var count = 0
+            data = snapshot.val();
+            if (data) {
+              for (var fakultas in data) {
+                var bubble = jurusan.bubble(data[fakultas])
+                flex.contents.contents.push(bubble)
+                var prodi = data[fakultas].jurusan
+                for (var i = 1; i <= Object.keys(prodi).length; i++) {
+                  var list = jurusan.list(data[fakultas].namaFakultas, prodi[i])
+                  flex.contents.contents[count].body.contents.push(list)
+                  if (i+1 < prodi.length) flex.contents.contents[count].body.contents.push({"type": "separator", "margin": "md"})
+                }
+                count++
+              }
+              return client.replyMessage(replyToken, flex);
+            }
+          });
+        } else {
+          db.ref('user/' + userId).set({
+            fakultas: res.fakultas,
+            jurusan: res.jurusan
+          }, function(error) {
+            if (error) {
+              // The write failed...
+            } else {
+              // Data saved successfully!
+              return replyText(replyToken, "Berhasil Disimpan")
+            }
+          });
 
+        }
+        break;
       default:
       return replyText(replyToken, 'daftar dulu dongs');
 

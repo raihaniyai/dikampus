@@ -12,21 +12,6 @@ var self = {
     }
     return flex
   },
-  quickReply: function () {
-    flex = {
-      "items": [
-        {
-          "type": "action",
-          "action": {
-            "type": "message",
-            "label": "Menu Serina",
-            "text": "Menu"
-          }
-        }
-      ]
-    }
-    return flex
-  },
   bubble: function (result) {
     var replyText = bot.replyText;
     var client = bot.client;
@@ -79,25 +64,6 @@ var self = {
           "weight": "bold",
           "color": "#AAAAAA",
           "flex": 0
-        }
-      ]
-    };
-    return flex
-  },
-  footer: function (fakultas) {
-    flex = {
-      "type": "box",
-      "layout": "horizontal",
-      "contents": [
-        {
-          "type": "button",
-          "style": "link",
-          "action": {
-            "type": "postback",
-            "label": "See More",
-            "data": "data=prodi&fakultas=" + fakultas
-          },
-          "color": "#0B5ED7"
         }
       ]
     };
