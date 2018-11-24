@@ -181,7 +181,7 @@ function handleEvent(event) {
         var str = vars[i].split("=");
         res[str[0]] = str[1];
       }
-      return register.main(null, event.replyToken, event.source.userId, session);
+      return register.main(null, event.replyToken, event.source.userId, session, res);
     } else {
       if (data === 'DATE' || data === 'TIME' || data === 'DATETIME') {
         data += `(${JSON.stringify(event.postback.params)})`;

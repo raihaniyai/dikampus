@@ -3,7 +3,7 @@ const jurusan = require('./../template/jurusan.js')
 const store = require('store2')
 
 module.exports = {
-  main: function (text, replyToken, userId, session) {
+  main: function (text, replyToken, userId, session, res) {
     var request = require('request'); //HTTP Request
     var replyText = bot.replyText;
     var client = bot.client;
