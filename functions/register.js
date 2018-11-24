@@ -1,4 +1,5 @@
 const bot = require('./../bot.js')
+const jurusan = require('./../template/jurusan.js')
 const store = require('store2')
 
 module.exports = {
@@ -23,18 +24,44 @@ module.exports = {
           }, function(error) {
             if (error) {
               // The write failed...
-              return replyText(replyToken, 'Nomor hp nya berapa kak?');
+              return replyText(replyToken, 'Nomor hp nya berapa sih kak?');
             } else {
               // Data saved successfully!
-              return replyText(replyToken, 'Data tersimpan, sekarang masukin jurusannya');
+              store.transact(userId, function(data) {
+                data.action = 'jurusan'
+              })
+              var ref = db.ref("kampus/TEL-U/fakultas")
+              ref.once("value", function(snapshot) {
+                var flex = jurusan.flex()
+                var count = 0
+                data = snapshot.val();
+                if (data) {
+                  for (var fakultas in data) {
+                    var bubble = jurusan.bubble(data[fakultas])
+                    flex.contents.contents.push(bubble)
+                    var prodi = data[fakultas].jurusan
+                    for (var i = 0; i < Object.keys(prodi).length; i++) {
+                      var list = jurusan.list(prodi[i])
+                      if (i < 4) flex.contents.contents[count].body.contents.push(list)
+                      else {
+                        flex.contents.contents[count].footer = tempprodi.footer(fakultas.nama_fakultas)
+                        break;
+                      }
+                      if (i+1 < prodi.length) flex.contents.contents[count].body.contents.push({"type": "separator", "margin": "md"})
+                    }
+                    count++
+                  }
+                  return client.replyMessage(replyToken, flex);
+                }
+              });
             }
           });
-
           return replyText(replyToken, 'Bener tuh nomor hp')
         } else {
           return replyText(replyToken, 'Nomor hp nya berapa kak?');
         }
-        break;
+      case 'jurusan':
+
       default:
       return replyText(replyToken, 'daftar dulu dongs');
 
