@@ -42,16 +42,16 @@ module.exports = {
                     var prodi = data[fakultas].jurusan
                     for (var i = 1; i <= Object.keys(prodi).length; i++) {
                       var list = jurusan.list(data[fakultas].namaFakultas, prodi[i])
-                      if (i < 4) flex.contents.contents[count].body.contents.push(list)
-                      else {
-                        flex.contents.contents[count].footer = jurusan.footer(data[fakultas].namaFakultas)
-                        break;
-                      }
+                      flex.contents.contents[count].body.contents.push(list)
+                      // if (i < 4) flex.contents.contents[count].body.contents.push(list)
+                      // else {
+                      //   flex.contents.contents[count].footer = jurusan.footer(data[fakultas].namaFakultas)
+                      //   break;
+                      // }
                       if (i+1 < prodi.length) flex.contents.contents[count].body.contents.push({"type": "separator", "margin": "md"})
                     }
                     count++
                   }
-                  console.log(JSON.stringify(flex));
                   return client.replyMessage(replyToken, flex);
                 }
               });
