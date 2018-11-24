@@ -40,7 +40,7 @@ module.exports = {
                     var bubble = jurusan.bubble(data[fakultas])
                     flex.contents.contents.push(bubble)
                     var prodi = data[fakultas].jurusan
-                    for (var i = 0; i < Object.keys(prodi).length; i++) {
+                    for (var i = 1; i <= Object.keys(prodi).length; i++) {
                       var list = jurusan.list(prodi[i])
                       if (i < 4) flex.contents.contents[count].body.contents.push(list)
                       else {
