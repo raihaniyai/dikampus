@@ -12,6 +12,9 @@ const register = require('./functions/register.js');
 const profile = require('./functions/profile.js');
 const fallback = require('./functions/default.js');
 
+// postback file
+const pbprofile = require('./postback/profile.js');
+
 // service account key for firebase
 var serviceAccount = JSON.parse(process.env.SERVICE_ACCOUNT_KEY);
 
@@ -197,6 +200,9 @@ function handleEvent(event) {
         for(var i=0; i < vars.length; i++){
           var str = vars[i].split("=");
           res[str[0]] = str[1];
+        }
+        if (res.data=='profile') {
+          pbprofile.main(replyToken, res, source)
         }
         // return postback.response(event.replyToken, res, event.source.userId);
       }
