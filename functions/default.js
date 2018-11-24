@@ -54,8 +54,8 @@ module.exports = {
           } else if (data == 'jurusan') {
             store.add(source.userId, {action: 'jurusan'})
             session.action = 'jurusan'
+            return register.main(text, replyToken, source.userId, session);
           }
-          return register.main(replyToken, source.userId, session);
         } else {
           return laper.main(text, replyToken, source.userId, session)
         }

@@ -19,9 +19,7 @@ module.exports = {
         if (text.match(phoneno) || text.match(phoneno2)) {
           var phone = text.indexOf('0') == 0 ? text.substring(1) : string
           phone = "62" + phone
-          db.ref('user/' + userId).set({
-            nomorHP: phone,
-          }, function(error) {
+          db.ref('user/' + userId + '/nomorHP').set(phone, function(error) {
             if (error) {
               // The write failed...
               return replyText(replyToken, 'Nomor hp nya berapa sih kak?');
@@ -80,18 +78,9 @@ module.exports = {
           });
         } else {
           console.log("Masuk pak eko");
-          db.ref('user/' + userId).set({
-            fakultas: res.fakultas,
-            jurusan: res.jurusan
-          }, function(error) {
-            if (error) {
-              // The write failed...
-              return replyText(replyToken, "Error")
-            } else {
-              // Data saved successfully!
-              return replyText(replyToken, "Berhasil Disimpan")
-            }
-          });
+          db.ref('user/' + userId + '/fakultas').set(res.fakultas);
+          db.ref('user/' + userId + '/jurusan').set(res.jurusan);
+          return replyText(replyToken, "Berhasil Disimpan")
         }
         break;
       default:
