@@ -18,18 +18,17 @@ module.exports = {
           {
             "type": "action",
             "action": {
-              "type": "message",
+              "type": "postback",
               "label": "Nomor HP",
-              "text": "Nomor HP"
+              "data": "data=profile&action=edit&profile=nomorHP"
             }
           },
           {
             "type": "action",
-            "imageUrl": "https://example.com/tempura.png",
             "action": {
-              "type": "message",
+              "type": "postback",
               "label": "Jurusan",
-              "text": "Jurusan"
+              "data": "data=profile&action=edit&profile=jurusan"
             }
           }
         ]
