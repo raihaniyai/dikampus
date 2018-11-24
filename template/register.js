@@ -74,7 +74,7 @@ var self = {
     var client = bot.client;
     flex = {
       "type": "flex",
-      "altText": "Konfirmasi profil " + nama,
+      "altText": "Konfirmasi profil " + profile.displayName,
       "contents": {
         "type": "bubble",
         "direction": "ltr",
