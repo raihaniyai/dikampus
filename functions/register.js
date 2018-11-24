@@ -9,6 +9,7 @@ module.exports = {
     var response;
     switch (session.action) {
       case 'nomorHP':
+        console.log(userId);
         store.transact(userId, function(data) {
           data.status = 'register'
         })

@@ -50,7 +50,6 @@ module.exports = {
           if (data == 'nomorHP') {
             store.add(source.userId, {action: 'nomorHP'})
             session.action = 'nomorHP'
-            console.log(session);
             return register.main(text, replyToken, source.userId, session)
           } else if (data == 'jurusan') {
             store.add(source.userId, {action: 'jurusan'})
