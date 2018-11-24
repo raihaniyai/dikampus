@@ -1,5 +1,5 @@
 const bot = require('./../bot.js')
-const jurusan = require('./../template/jurusan.js')
+const tempregister = require('./../template/register.js')
 const store = require('store2')
 
 module.exports = {
@@ -30,16 +30,16 @@ module.exports = {
               })
               var ref = db.ref("kampus/TEL-U/fakultas")
               ref.once("value", function(snapshot) {
-                var flex = jurusan.flex()
+                var flex = tempregister.flex()
                 var count = 0
                 data = snapshot.val();
                 if (data) {
                   for (var fakultas in data) {
-                    var bubble = jurusan.bubble(data[fakultas])
+                    var bubble = tempregister.bubble(data[fakultas])
                     flex.contents.contents.push(bubble)
                     var prodi = data[fakultas].jurusan
                     for (var i = 1; i <= Object.keys(prodi).length; i++) {
-                      var list = jurusan.list(data[fakultas].namaFakultas, prodi[i])
+                      var list = tempregister.list(data[fakultas].namaFakultas, prodi[i])
                       flex.contents.contents[count].body.contents.push(list)
                       if (i+1 < prodi.length) flex.contents.contents[count].body.contents.push({"type": "separator", "margin": "md"})
                     }
@@ -58,16 +58,16 @@ module.exports = {
         if (text) {
           var ref = db.ref("kampus/TEL-U/fakultas")
           ref.once("value", function(snapshot) {
-            var flex = jurusan.flex()
+            var flex = tempregister.flex()
             var count = 0
             data = snapshot.val();
             if (data) {
               for (var fakultas in data) {
-                var bubble = jurusan.bubble(data[fakultas])
+                var bubble = tempregister.bubble(data[fakultas])
                 flex.contents.contents.push(bubble)
                 var prodi = data[fakultas].jurusan
                 for (var i = 1; i <= Object.keys(prodi).length; i++) {
-                  var list = jurusan.list(data[fakultas].namaFakultas, prodi[i])
+                  var list = tempregister.list(data[fakultas].namaFakultas, prodi[i])
                   flex.contents.contents[count].body.contents.push(list)
                   if (i+1 < prodi.length) flex.contents.contents[count].body.contents.push({"type": "separator", "margin": "md"})
                 }
@@ -77,10 +77,16 @@ module.exports = {
             }
           });
         } else {
-          console.log("Masuk pak eko");
           db.ref('user/' + userId + '/fakultas').set(res.fakultas);
           db.ref('user/' + userId + '/jurusan').set(res.jurusan);
-          return replyText(replyToken, "Berhasil Disimpan")
+          var ref = db.ref("user/"+userId)
+          ref.once("value", function(snapshot) {
+            data = snapshot.val();
+            client.getProfile(source.userId).then((profile) => {
+              var flex = tempregister.profile(profile, data)
+              return client.replyMessage(replyToken, flex)
+            });
+          });
         }
         break;
       default:
