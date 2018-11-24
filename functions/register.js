@@ -85,7 +85,13 @@ module.exports = {
                 }
                 count++
               }
-              return client.replyMessage(replyToken, flex);
+              return client.replyMessage(replyToken, [
+                {
+                  "type": "text",
+                  "text": "Kakak jurusannya apa?"
+                },
+                flex
+              ]);
             }
           });
         } else {
@@ -99,14 +105,17 @@ module.exports = {
               store.transact(userId, function(data) {
                 data.status = null
               })
-              return client.replyMessage(replyToken, flex)
+              return client.replyMessage(replyToken, [
+                {
+                  "type": "text",
+                  "text": "Profilnya udah bener belum nih kak?"
+                },
+                flex
+              ])
             });
           });
         }
         break;
-      default:
-      return replyText(replyToken, 'daftar dulu dongs');
-
     }
   }
 };
