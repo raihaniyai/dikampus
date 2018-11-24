@@ -44,7 +44,7 @@ module.exports = {
                       var list = jurusan.list(prodi[i])
                       if (i < 4) flex.contents.contents[count].body.contents.push(list)
                       else {
-                        flex.contents.contents[count].footer = tempprodi.footer(fakultas.nama_fakultas)
+                        flex.contents.contents[count].footer = jurusan.footer(data[fakultas].namaFakultas)
                         break;
                       }
                       if (i+1 < prodi.length) flex.contents.contents[count].body.contents.push({"type": "separator", "margin": "md"})
