@@ -70,6 +70,7 @@ var self = {
         {
           "type": "text",
           "text": jurusan,
+          "wrap": true,
           "flex": 1
         },
         {
