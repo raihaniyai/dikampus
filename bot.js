@@ -104,8 +104,10 @@ module.exports.hasRegister = hasRegister;
 // check is the user has a session or not
 const hasSession = (userId) => {
   if (store.has(userId)) {
+    console.log("Terdaftar di session");
     return store.get(userId)
   } else {
+    console.log("Belum terdaftar di session");
     store.set(userId, {status: null})
     return store.get(userId)
   }
@@ -215,7 +217,7 @@ function handleText(message, replyToken, source) {
   client.getProfile(source.userId).then((profile) => console.log(profile.displayName+': '+profile.pictureUrl)); //Heroku Log Photo Profile User
   var text = message.text.toLowerCase()
   var session = hasSession(source.userId) // return data of session (local storage)
-  console.log("Ini Sessionnya: " + JSON.stringify(session));
+  console.log("Ini Sessionnya => " + source.userId + ": " + JSON.stringify(session));
   if (session.status == 'laper') {
     // if status of session is laper
     return laper.main(text, replyToken, source.userId, session)
