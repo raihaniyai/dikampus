@@ -6,6 +6,7 @@ module.exports = {
     var request = require('request'); //HTTP Request
     var replyText = bot.replyText;
     var client = bot.client;
+    var db = bot.db;
     var response;
     switch (session.action) {
       case 'nomorHP':
@@ -17,7 +18,7 @@ module.exports = {
         if (text.match(phoneno) || text.match(phoneno2)) {
           var phone = text.indexOf('0') == 0 ? text.substring(1) : string
           phone = "62" + phone
-          firebase.database().ref('user/' + userId).set({
+          db.ref('user/' + userId).set({
             nomorHP: phone,
           }, function(error) {
             if (error) {
