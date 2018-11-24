@@ -79,12 +79,12 @@ module.exports = {
         } else {
           db.ref('user/' + userId + '/fakultas').set(res.fakultas);
           db.ref('user/' + userId + '/jurusan').set(res.jurusan);
-          var ref = db.ref("user/"+userId)
+          var ref = db.ref("user/" + userId)
           ref.once("value", function(snapshot) {
             data = snapshot.val();
             client.getProfile(userId).then((profile) => {
-              console.log(JSON.stringify(flex));
               var flex = tempregister.profile(profile, data)
+              console.log(JSON.stringify(flex));
               return client.replyMessage(replyToken, flex)
             });
           });
