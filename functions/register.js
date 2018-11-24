@@ -82,7 +82,8 @@ module.exports = {
           var ref = db.ref("user/"+userId)
           ref.once("value", function(snapshot) {
             data = snapshot.val();
-            client.getProfile(source.userId).then((profile) => {
+            client.getProfile(userId).then((profile) => {
+              console.log(JSON.stringify(flex));
               var flex = tempregister.profile(profile, data)
               return client.replyMessage(replyToken, flex)
             });
