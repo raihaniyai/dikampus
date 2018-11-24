@@ -42,7 +42,7 @@ var self = {
             "text": result.namaFakultas,
             "align": "center",
             "weight": "bold",
-            "color": "#FFFFFF"
+            "color": "#0B5ED7"
           }
         ]
       },
@@ -50,11 +50,6 @@ var self = {
         "type": "box",
         "layout": "vertical",
         "contents": []
-      },
-      "styles": {
-        "header": {
-          "backgroundColor": "#ED1C24"
-        }
       }
     };
     return flex
@@ -94,7 +89,7 @@ var self = {
             "label": "See More",
             "data": "data=prodi&fakultas=" + fakultas
           },
-          "color": "#ED1C24"
+          "color": "#0B5ED7"
         }
       ]
     };
