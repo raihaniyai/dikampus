@@ -1,5 +1,6 @@
-const bot = require('./../bot.js');
-const templateregister = require('./../template/register.js');
+const bot = require('./../bot.js')
+const templateregister = require('./../template/register.js')
+const store = require('store2')
 
 var self = {
   main: function (replyToken, res, source) {
