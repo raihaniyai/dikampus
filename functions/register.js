@@ -59,6 +59,7 @@ module.exports = {
         } else {
           return replyText(replyToken, 'Nomor hp nya berapa kak?');
         }
+        break;
       case 'jurusan':
 
       default:
