@@ -49,7 +49,7 @@ var self = {
       "action": {
         "type": "postback",
         "label": jurusan,
-        "data": "data=jurusan&fakultas=" + fakultas + "&jurusan=" + jurusan
+        "data": "data=register&action=jurusan&fakultas=" + fakultas + "&jurusan=" + jurusan
       },
       "contents": [
         {
@@ -206,18 +206,19 @@ var self = {
             {
               "type": "button",
               "action": {
-                "type": "uri",
+                "type": "message",
                 "label": "Edit",
-                "uri": "https://linecorp.com"
+                "text": "Edit Profil"
               },
               "color": "#0B5ED7"
             },
             {
               "type": "button",
               "action": {
-                "type": "uri",
+                "type": "postback",
                 "label": "Lanjut",
-                "uri": "https://linecorp.com"
+                "text": "Laper",
+                "data": "data=register&action=done"
               },
               "color": "#0B5ED7",
               "style": "primary"

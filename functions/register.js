@@ -27,7 +27,7 @@ module.exports = {
               var userRef = db.ref("user/"+userId)
               userRef.once("value", function(snapshot) {
                 data = snapshot.val();
-                if (data.fakultas) {
+                if (data.fakultas) { // kalau fakultas sudah terdaftar (dipake pas edit profil)
                   client.getProfile(userId).then((profile) => {
                     var flex = template.profile(profile, data)
                     store.transact(userId, function(data) {
@@ -38,6 +38,7 @@ module.exports = {
                 } else {
                   store.transact(userId, function(data) {
                     data.action = 'jurusan'
+                    data.counter = 0
                   })
                   var ref = db.ref("kampus/TEL-U/fakultas")
                   ref.once("value", function(snapshot) {
@@ -76,8 +77,7 @@ module.exports = {
         } else {
           return client.getProfile(userId)
           .then((profile) => {
-            console.log("Session counter:"+session.counter);
-            if (parseInt(session.counter) > 0) answer = [`Kayaknya 📱 nomor hp kak ${profile.displayName} masih salah nih, kirim ulang nomor hp nya dong kak􀰂􀄤smiling􏿿`, `Kayaknya 📱 nomor hp kak ${profile.displayName} belum bener deh, coba dikirim ulang dong kak􀰂􀄤smiling􏿿`, `Kayaknya \'${text}\' bukan nomor hp deh kak.. Minta nomor hp nya dong kak􀰂􀄤smiling􏿿`]
+            if (session.counter > 0) answer = [`Kayaknya 📱 nomor hp kak ${profile.displayName} masih salah nih, kirim ulang nomor hp nya dong kak􀰂􀄤smiling􏿿`, `Kayaknya 📱 nomor hp kak ${profile.displayName} belum bener deh, coba dikirim ulang dong kak􀰂􀄤smiling􏿿`, `Kayaknya \'${text}\' bukan nomor hp deh kak.. Minta nomor hp nya dong kak􀰂􀄤smiling􏿿`]
             else answer = [`Dika butuh 📱 nomor hp kak ${profile.displayName} nih􀰂􀄤smiling􏿿`, `Sebelum order makanan, Dika minta 📱 nomor hp kak ${profile.displayName} dong 􀰂􀄤smiling􏿿`, `📱 Nomor hp kak ${profile.displayName} berapa nih? 􀰂􀄤smiling􏿿`]
             client.replyMessage(replyToken, [
               {
@@ -112,7 +112,7 @@ module.exports = {
               }
               return client.getProfile(userId)
               .then((profile) => {
-                answer = [`Kak ${profile.displayName} jurusan apa nih? 􀰂􀄥excited􏿿`, `Kak ${profile.displayName} jurusan apa? \nLangsung dipilih aja ya kak 􀰂􀄤smiling􏿿`, `Kak ${profile.displayName} kuliahnya jurusan apa? Langsung tap aja jurusan kakak di bawah :D`]
+                answer = [`Langsung tap aja jurusannya kak 􀰂􀄥excited􏿿`, `Langsung aja pilih jurusan kak ${profile.displayName} 􀰂􀄤smiling􏿿`, `Langsung di tap aja jurusan kak ${profile.displayName} 􀰂􀄤smiling􏿿`]
                 client.replyMessage(replyToken, [
                   {
                     "type": "text",
