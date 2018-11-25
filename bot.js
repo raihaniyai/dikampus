@@ -221,13 +221,16 @@ function handleText(message, replyToken, source) {
   console.log("Ini Sessionnya => " + source.userId + ": " + JSON.stringify(session));
   if (session.status == 'laper') {
     // if status of session is laper
-    return laper.main(text, replyToken, source.userId, session)
+    if (text == 'reset') store.set(userId, {status: null})
+    else return laper.main(text, replyToken, source.userId, session)
   } else if (session.status == 'register') {
     // if status of session is register
-    return register.main(text, replyToken, source.userId, session)
+    if (text == 'reset') store.set(userId, {status: null})
+    else return register.main(text, replyToken, source.userId, session)
   } else if (session.status == null) {
     // if status of session is null
-    return fallback.main(text, replyToken, source, session)
+    if (text == 'reset') store.set(userId, {status: null})
+    else return fallback.main(text, replyToken, source, session)
   }
 }
 
