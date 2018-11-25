@@ -74,41 +74,32 @@ var self = {
     var client = bot.client;
     flex = {
       "type": "flex",
-      "altText": "Konfirmasi profil " + profile.displayName,
+      "altText": "Konfirmasi Profil " + profile.displayName,
       "contents": {
         "type": "bubble",
         "direction": "ltr",
         "header": {
           "type": "box",
           "layout": "baseline",
-          "spacing": "none",
-          "margin": "none",
           "contents": [
             {
               "type": "text",
               "text": ".",
               "flex": 0,
-              "margin": "none",
               "size": "xl",
+              "align": "start",
+              "weight": "bold",
               "color": "#00D54D"
             },
             {
               "type": "text",
               "text": "Konfirmasi Profil",
               "flex": 1,
-              "margin": "none",
               "align": "start",
               "weight": "bold",
               "color": "#0B5ED7"
             }
           ]
-        },
-        "hero": {
-          "type": "image",
-          "url": profile.pictureUrl,
-          "size": "full",
-          "aspectRatio": "4:3",
-          "aspectMode": "fit"
         },
         "body": {
           "type": "box",
@@ -121,16 +112,18 @@ var self = {
                 {
                   "type": "text",
                   "text": "Nama",
-                  "flex": 0,
-                  "align": "center",
+                  "flex": 1,
+                  "size": "sm",
+                  "align": "start",
                   "color": "#AAAAAA"
                 },
                 {
                   "type": "text",
                   "text": profile.displayName,
-                  "flex": 1,
+                  "flex": 2,
                   "margin": "md",
-                  "align": "end",
+                  "size": "sm",
+                  "align": "start",
                   "wrap": true
                 }
               ]
@@ -142,15 +135,19 @@ var self = {
                 {
                   "type": "text",
                   "text": "Nomor HP",
-                  "flex": 0,
+                  "flex": 1,
+                  "size": "sm",
+                  "align": "start",
                   "color": "#AAAAAA"
                 },
                 {
                   "type": "text",
                   "text": data.nomorHP,
-                  "flex": 1,
+                  "flex": 2,
                   "margin": "md",
-                  "align": "end"
+                  "size": "sm",
+                  "align": "start",
+                  "wrap": true
                 }
               ]
             },
@@ -161,15 +158,18 @@ var self = {
                 {
                   "type": "text",
                   "text": "Fakultas",
-                  "flex": 0,
+                  "flex": 1,
+                  "size": "sm",
+                  "align": "start",
                   "color": "#AAAAAA"
                 },
                 {
                   "type": "text",
                   "text": data.fakultas,
-                  "flex": 1,
+                  "flex": 2,
                   "margin": "md",
-                  "align": "end",
+                  "size": "sm",
+                  "align": "start",
                   "wrap": true
                 }
               ]
@@ -181,15 +181,18 @@ var self = {
                 {
                   "type": "text",
                   "text": "Jurusan",
-                  "flex": 0,
+                  "flex": 1,
+                  "size": "sm",
+                  "align": "start",
                   "color": "#AAAAAA"
                 },
                 {
                   "type": "text",
                   "text": data.jurusan,
-                  "flex": 1,
+                  "flex": 2,
                   "margin": "md",
-                  "align": "end",
+                  "size": "sm",
+                  "align": "start",
                   "wrap": true
                 }
               ]
@@ -202,19 +205,19 @@ var self = {
           "contents": [
             {
               "type": "button",
-              "color": "#0B5ED7",
               "action": {
-                "type": "message",
+                "type": "uri",
                 "label": "Edit",
-                "text": "Edit profil"
-              }
+                "uri": "https://linecorp.com"
+              },
+              "color": "#0B5ED7"
             },
             {
               "type": "button",
               "action": {
-                "type": "message",
+                "type": "uri",
                 "label": "Lanjut",
-                "text": "Laper"
+                "uri": "https://linecorp.com"
               },
               "color": "#0B5ED7",
               "style": "primary"

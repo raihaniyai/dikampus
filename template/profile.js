@@ -30,13 +30,6 @@ var self = {
             }
           ]
         },
-        "hero": {
-          "type": "image",
-          "url": profile.pictureUrl,
-          "size": "full",
-          "aspectRatio": "4:3",
-          "aspectMode": "fit"
-        },
         "body": {
           "type": "box",
           "layout": "vertical",
@@ -48,16 +41,18 @@ var self = {
                 {
                   "type": "text",
                   "text": "Nama",
-                  "flex": 0,
+                  "flex": 1,
+                  "size": "sm",
                   "align": "start",
                   "color": "#AAAAAA"
                 },
                 {
                   "type": "text",
                   "text": profile.displayName,
-                  "flex": 1,
+                  "flex": 2,
                   "margin": "md",
-                  "align": "end",
+                  "size": "sm",
+                  "align": "start",
                   "wrap": true
                 }
               ]
@@ -69,16 +64,18 @@ var self = {
                 {
                   "type": "text",
                   "text": "Nomor HP",
-                  "flex": 0,
+                  "flex": 1,
+                  "size": "sm",
                   "align": "start",
                   "color": "#AAAAAA"
                 },
                 {
                   "type": "text",
                   "text": data.nomorHP,
-                  "flex": 1,
+                  "flex": 2,
                   "margin": "md",
-                  "align": "end"
+                  "size": "sm",
+                  "align": "start"
                 }
               ]
             },
@@ -89,16 +86,18 @@ var self = {
                 {
                   "type": "text",
                   "text": "Fakultas",
-                  "flex": 0,
+                  "flex": 1,
+                  "size": "sm",
                   "align": "start",
                   "color": "#AAAAAA"
                 },
                 {
                   "type": "text",
                   "text": data.fakultas,
-                  "flex": 1,
+                  "flex": 2,
                   "margin": "md",
-                  "align": "end",
+                  "size": "sm",
+                  "align": "start",
                   "wrap": true
                 }
               ]
@@ -110,47 +109,53 @@ var self = {
                 {
                   "type": "text",
                   "text": "Jurusan",
-                  "flex": 0,
+                  "flex": 1,
                   "margin": "md",
-                  "color": "#AAAAAA"
-                },
-                {
-                  "type": "text",
-                  "text": data.jurusan,
-                  "margin": "md",
-                  "align": "end",
-                  "wrap": true
-                }
-              ]
-            },
-            {
-              "type": "box",
-              "layout": "horizontal",
-              "contents": [
-                {
-                  "type": "text",
-                  "text": "Points",
-                  "flex": 0,
+                  "size": "sm",
                   "align": "start",
                   "color": "#AAAAAA"
                 },
                 {
                   "type": "text",
-                  "text": data.points.toString(),
-                  "flex": 1,
+                  "text": data.jurusan,
+                  "flex": 2,
                   "margin": "md",
-                  "align": "end",
-                  "weight": "bold",
+                  "size": "sm",
+                  "align": "start",
                   "wrap": true
-                },
+                }
+              ]
+            },
+            {
+              "type": "separator",
+              "margin": "md"
+            },
+            {
+              "type": "box",
+              "layout": "horizontal",
+              "margin": "md",
+              "contents": [
                 {
                   "type": "text",
                   "text": "Points",
-                  "flex": 0,
-                  "margin": "sm",
-                  "align": "end"
+                  "flex": 1,
+                  "size": "sm",
+                  "color": "#AAAAAA"
+                },
+                {
+                  "type": "text",
+                  "text": "⭐ " + data.points.toString() + " pts",
+                  "flex": 2,
+                  "margin": "md",
+                  "size": "sm",
+                  "align": "start",
+                  "weight": "bold"
                 }
               ]
+            },
+            {
+              "type": "separator",
+              "margin": "md"
             }
           ]
         },
