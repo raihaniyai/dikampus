@@ -136,7 +136,7 @@ var self = {
                 },
                 {
                   "type": "text",
-                  "text": data.points,
+                  "text": parseInt(data.points),
                   "flex": 1,
                   "margin": "md",
                   "align": "end",
