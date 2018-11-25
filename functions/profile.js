@@ -2,7 +2,7 @@ const bot = require('./../bot.js');
 const template = require('./../template/profile.js');
 
 module.exports = {
-  main: function (message, replyToken, source, session) {
+  main: function (replyToken, userId) {
     var replyText = bot.replyText;
     var client = bot.client;
     var db = bot.database;
