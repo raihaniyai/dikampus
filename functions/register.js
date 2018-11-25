@@ -97,6 +97,7 @@ module.exports = {
         } else {
           db.ref('user/' + userId + '/fakultas').set(res.fakultas);
           db.ref('user/' + userId + '/jurusan').set(res.jurusan);
+          db.ref('user/' + userId + '/points').set(0);
           var ref = db.ref("user/" + userId)
           ref.once("value", function(snapshot) {
             data = snapshot.val();
