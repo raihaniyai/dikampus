@@ -77,8 +77,8 @@ module.exports = {
           return client.getProfile(userId)
           .then((profile) => {
             console.log("Session counter:"+session.counter);
-            if (parseInt(session.counter) > 0) answer = [`Dika butuh 📱 nomor hp kak ${profile.displayName} nih􀰂􀄤smiling􏿿`, `Sebelum order makanan, Dika minta 📱 nomor hp kak ${profile.displayName} dong 􀰂􀄤smiling􏿿`, `📱 Nomor hp kak ${profile.displayName} berapa nih? 􀰂􀄤smiling􏿿`]
-            else answer = [`Kayaknya 📱 nomor hp kak ${profile.displayName} masih salah nih, kirim ulang nomor hp nya dong kak􀰂􀄤smiling􏿿`, `Kayaknya 📱 nomor hp kak ${profile.displayName} belum bener deh, coba dikirim ulang dong kak􀰂􀄤smiling􏿿`, `Kayaknya \'${text}\' bukan nomor hp deh kak.. Minta nomor hp nya dong kak􀰂􀄤smiling􏿿`]
+            if (parseInt(session.counter) > 0) answer = [`Kayaknya 📱 nomor hp kak ${profile.displayName} masih salah nih, kirim ulang nomor hp nya dong kak􀰂􀄤smiling􏿿`, `Kayaknya 📱 nomor hp kak ${profile.displayName} belum bener deh, coba dikirim ulang dong kak􀰂􀄤smiling􏿿`, `Kayaknya \'${text}\' bukan nomor hp deh kak.. Minta nomor hp nya dong kak􀰂􀄤smiling􏿿`]
+            else answer = [`Dika butuh 📱 nomor hp kak ${profile.displayName} nih􀰂􀄤smiling􏿿`, `Sebelum order makanan, Dika minta 📱 nomor hp kak ${profile.displayName} dong 􀰂􀄤smiling􏿿`, `📱 Nomor hp kak ${profile.displayName} berapa nih? 􀰂􀄤smiling􏿿`]
             client.replyMessage(replyToken, [
               {
                 "type": "text",

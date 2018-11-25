@@ -49,7 +49,7 @@ module.exports = {
       hasRegister(source.userId, function(data){
         if (data != null){
           if (data == 'nomorHP') {
-            store.add(source.userId, {action: 'nomorHP', counter:0})
+            store.add(source.userId, {action: 'nomorHP', counter: 0})
             session.action = 'nomorHP'
             session.counter = 0
             return register.main(text, replyToken, source.userId, session)
