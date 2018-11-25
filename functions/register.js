@@ -11,6 +11,7 @@ module.exports = {
       case 'nomorHP':
         store.transact(userId, function(data) {
           data.status = 'register'
+          data.counter++
         })
         var phoneno = /^\(?([0-9]{4})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/; // 12 digit number phone
         var phoneno2 = /^\(?([0-9]{4})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{3})$/; // 11 digit number phone
@@ -75,7 +76,8 @@ module.exports = {
         } else {
           return client.getProfile(userId)
           .then((profile) => {
-            answer = [`Dika butuh nomor hp kak ${profile.displayName} nih supaya makanannya sampai dengan selamat 􀰂􀄤smiling􏿿\nNomor hp nya berapa ya kak?`, `Sebelum order makanan, Dika minta nomor hp kak ${profile.displayName} dong.\nSupaya makanannya bisa sampai dengan selamat 􀰂􀄤smiling􏿿`, `Nomor hp kak ${profile.displayName} berapa nih?`]
+            if (session.counter > 0) answer = [`Dika butuh 📱 nomor hp kak ${profile.displayName} nih􀰂􀄤smiling􏿿`, `Sebelum order makanan, Dika minta 📱 nomor hp kak ${profile.displayName} dong 􀰂􀄤smiling􏿿`, `📱 Nomor hp kak ${profile.displayName} berapa nih? 􀰂􀄤smiling􏿿`]
+            else answer = [`Kayaknya 📱 nomor hp kak ${profile.displayName} masih salah nih, kirim ulang nomor hp nya ya kak􀰂􀄤smiling􏿿`, `Kayaknya 📱 nomor hp kak ${profile.displayName} belum bener deh, coba dikirim ulang ya kak􀰂􀄤smiling􏿿`, `Kayaknya \'${text}\' bukan nomor hp deh kak.. Minta nomor hp nya dong kak􀰂􀄤smiling􏿿`]
             client.replyMessage(replyToken, [
               {
                 "type": "text",
