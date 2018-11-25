@@ -88,13 +88,19 @@ const hasRegister = (userId, callback) => {
 }
 module.exports.hasRegister = hasRegister;
 
+const resetBot = (userId, replyToken) => {
+  store.set(userId, {status: null})
+  return replyText(replyToken, "Bot berhasil direset")
+}
+module.exports.hasRegister = hasRegister;
+
 // check is the user has a session or not
 const hasSession = (userId) => {
   if (store.has(userId)) {
-    console.log("Terdaftar di session");
+    // Terdaftar di session
     return store.get(userId)
   } else {
-    console.log("Belum terdaftar di session");
+    // Belum terdaftar di session
     store.set(userId, {status: null})
     return store.get(userId)
   }
@@ -219,18 +225,16 @@ function handleText(message, replyToken, source) {
   var text = message.text.toLowerCase()
   var session = hasSession(source.userId) // return data of session (local storage)
   console.log("Ini Sessionnya => " + source.userId + ": " + JSON.stringify(session));
-  if (session.status == 'laper') {
+  if (text == 'reset') resetBot(source.userId, replyToken)
+  else if (session.status == 'laper') {
     // if status of session is laper
-    if (text == 'reset') store.set(userId, {status: null})
-    else return laper.main(text, replyToken, source.userId, session)
+    return laper.main(text, replyToken, source.userId, session)
   } else if (session.status == 'register') {
     // if status of session is register
-    if (text == 'reset') store.set(userId, {status: null})
-    else return register.main(text, replyToken, source.userId, session)
+    return register.main(text, replyToken, source.userId, session)
   } else if (session.status == null) {
     // if status of session is null
-    if (text == 'reset') store.set(userId, {status: null})
-    else return fallback.main(text, replyToken, source, session)
+    return fallback.main(text, replyToken, source, session)
   }
 }
 

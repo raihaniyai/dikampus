@@ -165,6 +165,7 @@ var self = {
           "contents": [
             {
               "type": "button",
+              "color": "#0B5ED7",
               "action": {
                 "type": "message",
                 "label": "Edit Profil",
