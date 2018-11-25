@@ -14,9 +14,8 @@ module.exports = {
     var editProfil = ['edit profil', 'edit profile', 'ganti profil', 'ganti profile'] // edit profile entity
     var profil = ['profil', 'profile', 'lihat profile','lihat profil', 'liat profil', 'liat profile'] // see profile entity
     console.log("Message: " + text);
-    if (text == 'profile') {
-      console.log("Masuk Profile");
-      return replyText(replyToken, 'Ini nanti diisi Profile')
+    if (profil.indexOf(text) > -1) {
+      return profile.main(replyToken, source.userId)
     } else if (text == 'bye') {
       switch (source.type) {
         case 'group':
@@ -65,8 +64,6 @@ module.exports = {
         }
       })
     } else if (editProfil.indexOf(text) > -1) {
-      return profile.edit(replyToken, source.userId)
-    } else if (profil.indexOf(text) > -1) {
       return profile.edit(replyToken, source.userId)
     }
   }
