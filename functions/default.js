@@ -13,7 +13,6 @@ module.exports = {
     var laper = ['laper', 'lapar', 'pengen makan', 'mau makan'] // Laper Entity
     var editProfil = ['edit profil', 'edit profile', 'ganti profil', 'ganti profile'] // edit profile entity
     var profil = ['profil', 'profile', 'lihat profile','lihat profil', 'liat profil', 'liat profile'] // see profile entity
-    console.log("Message: " + text);
     if (profil.indexOf(text) > -1) {
       return profile.main(replyToken, source.userId)
     } else if (text == 'bye') {

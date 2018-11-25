@@ -55,7 +55,17 @@ module.exports = {
                         }
                         count++
                       }
-                      return client.replyMessage(replyToken, flex);
+                      return client.getProfile(userId)
+                      .then((profile) => {
+                        answer = [`Kak ${profile.displayName} jurusan apa nih? 􀰂􀄥excited􏿿`, `Kak ${profile.displayName} jurusan apa? \nLangsung dipilih aja ya kak 􀰂􀄤smiling􏿿`, `Kak ${profile.displayName} kuliahnya jurusan apa? Langsung tap aja jurusan kakak di bawah :D`]
+                        client.replyMessage(replyToken, [
+                          {
+                            "type": "text",
+                            "text": answer[Math.floor(Math.random()*answer.length)]
+                          },
+                          flex
+                        ]);
+                      });
                     }
                   });
                 }
@@ -63,10 +73,22 @@ module.exports = {
             }
           });
         } else {
-          return replyText(replyToken, 'Nomor hp nya berapa kak?');
+          return client.getProfile(userId)
+          .then((profile) => {
+            answer = [`Dika butuh nomor hp kak ${profile.displayName} nih supaya makanannya sampai dengan selamat 􀰂􀄤smiling􏿿\nNomor hp nya berapa ya kak?`, `Sebelum order makanan, Dika minta nomor hp kak ${profile.displayName} dong.\nSupaya makanannya bisa sampai dengan selamat 􀰂􀄤smiling􏿿`, `Nomor hp kak ${profile.displayName} berapa nih?`]
+            client.replyMessage(replyToken, [
+              {
+                "type": "text",
+                "text": answer[Math.floor(Math.random()*answer.length)]
+              }
+            ]);
+          });
         }
         break;
       case 'jurusan':
+        store.transact(userId, function(data) {
+          data.status = 'register'
+        })
         if (text) {
           var ref = db.ref("kampus/TEL-U/fakultas")
           ref.once("value", function(snapshot) {
@@ -85,13 +107,17 @@ module.exports = {
                 }
                 count++
               }
-              return client.replyMessage(replyToken, [
-                {
-                  "type": "text",
-                  "text": "Kakak jurusannya apa?"
-                },
-                flex
-              ]);
+              return client.getProfile(userId)
+              .then((profile) => {
+                answer = [`Kak ${profile.displayName} jurusan apa nih? 􀰂􀄥excited􏿿`, `Kak ${profile.displayName} jurusan apa? \nLangsung dipilih aja ya kak 􀰂􀄤smiling􏿿`, `Kak ${profile.displayName} kuliahnya jurusan apa? Langsung tap aja jurusan kakak di bawah :D`]
+                client.replyMessage(replyToken, [
+                  {
+                    "type": "text",
+                    "text": answer[Math.floor(Math.random()*answer.length)]
+                  },
+                  flex
+                ]);
+              });
             }
           });
         } else {
@@ -106,13 +132,17 @@ module.exports = {
               store.transact(userId, function(data) {
                 data.status = null
               })
-              return client.replyMessage(replyToken, [
-                {
-                  "type": "text",
-                  "text": "Profilnya udah bener belum nih kak?"
-                },
-                flex
-              ])
+              return client.getProfile(userId)
+              .then((profile) => {
+                answer = [`Profil kak ${profile.displayName} udah bener belum nih?\nKalau udah bener, langsung lanjut aja kak􀰂􀄥excited􏿿`, `Profilnya udah bener kan kak ${profile.displayName}?\nKalau udah bener langsung lanjut aja kak􀰂􀄤smiling􏿿`, `Kak ${profile.displayName} masih mau edit profil atau lanjut nih? 􀰂􀄤smiling􏿿`]
+                client.replyMessage(replyToken, [
+                  {
+                    "type": "text",
+                    "text": answer[Math.floor(Math.random()*answer.length)]
+                  },
+                  flex
+                ]);
+              });
             });
           });
         }
