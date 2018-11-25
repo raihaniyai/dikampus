@@ -11,6 +11,7 @@ module.exports = {
       data = snapshot.val();
       client.getProfile(userId).then((profile) => {
         var flex = template.main(profile, data)
+        console.log(JSON.stringify(flex));
         return client.replyMessage(replyToken, [
           {
             "type": "text",
