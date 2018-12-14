@@ -61,7 +61,7 @@ app.post('/callback', line.middleware(config), (req, res) => {
 });
 
 // webhook Callback
-app.post('/push', line.middleware(config), (req, res) => {
+app.post('/push', (req, res) => {
   return pushMessage.main(req, res)
 });
 
