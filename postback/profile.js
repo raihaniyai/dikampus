@@ -3,13 +3,13 @@ const templateregister = require('./../template/register.js')
 const store = require('store2')
 
 var self = {
-  main: function (replyToken, res, userId) {
+  main: function (replyToken, res, userId, session) {
     var replyText = bot.replyText;
     var client = bot.client;
     var type = res.type;
     var db = bot.database;
     if (res.action == 'edit') {
-      switch (res.profile) {
+      switch (res.data) {
         case 'nomorHP':
           store.transact(userId, function(data) {
             data.status = 'register'

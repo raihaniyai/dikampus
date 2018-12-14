@@ -133,7 +133,7 @@ module.exports = {
             client.getProfile(userId).then((profile) => {
               var flex = template.profile(profile, data)
               store.transact(userId, function(data) {
-                data.status = null
+                data.action = 'editProfile'
               })
               return client.getProfile(userId)
               .then((profile) => {
@@ -148,6 +148,12 @@ module.exports = {
               });
             });
           });
+        }
+        break;
+      case 'editProfile':
+        var data = ['nomor hp', 'jurusan', 'nomor', 'nomer hp', 'nomer', 'prodi', 'program studi'] // Laper Entity
+        if (data.indexOf(text) > -1) {
+          
         }
         break;
     }

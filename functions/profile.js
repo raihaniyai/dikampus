@@ -35,7 +35,7 @@ module.exports = {
             "action": {
               "type": "postback",
               "label": "Nomor HP",
-              "data": "data=profile&action=edit&profile=nomorHP"
+              "data": "data=profile&action=edit&data=nomorHP"
             }
           },
           {
@@ -43,7 +43,7 @@ module.exports = {
             "action": {
               "type": "postback",
               "label": "Jurusan",
-              "data": "data=profile&action=edit&profile=jurusan"
+              "data": "data=profile&action=edit&data=jurusan"
             }
           }
         ]

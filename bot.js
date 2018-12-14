@@ -7,6 +7,7 @@ const store = require('store2')
 require('dotenv').config()
 
 // another javascript file (one file = one feature)
+const pushMessage = require('./pushMessage.js');
 const laper = require('./functions/laper.js');
 const register = require('./functions/register.js');
 const profile = require('./functions/profile.js');
@@ -57,6 +58,11 @@ app.post('/callback', line.middleware(config), (req, res) => {
     console.error(err);
     res.status(500).end();
   });
+});
+
+// webhook Callback
+app.post('/push', line.middleware(config), (req, res) => {
+  return pushMessage.main(req, res)
 });
 
 // Simple Reply Function
