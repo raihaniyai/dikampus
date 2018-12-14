@@ -4,6 +4,7 @@ const line = require('@line/bot-sdk')
 const express = require('express')
 const firebase = require('firebase-admin')
 const store = require('store2')
+const bodyParser = require('body-parser')
 require('dotenv').config()
 
 // another javascript file (one file = one feature)
