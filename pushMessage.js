@@ -3,6 +3,7 @@ const store = require('store2')
 
 module.exports = {
   main: function (req, res) {
+    console.log("msuksini");
     var replyText = bot.replyText;
     var client = bot.client;
     var type = res.type;
