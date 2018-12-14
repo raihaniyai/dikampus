@@ -1,7 +1,7 @@
 const bot = require('./../bot.js')
 const store = require('store2')
 
-var module.exports = {
+module.exports = {
   main: function (req, res) {
     var replyText = bot.replyText;
     var client = bot.client;
