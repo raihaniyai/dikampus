@@ -1,4 +1,4 @@
-const bot = require('./../bot.js')
+const bot = require('./bot.js')
 const store = require('store2')
 
 module.exports = {
