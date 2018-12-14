@@ -4,6 +4,7 @@ const store = require('store2')
 module.exports = {
   main: function (req, res) {
     console.log("msuksini");
+    console.log(req.body);
     var replyText = bot.replyText;
     var client = bot.client;
     var type = res.type;
