@@ -61,6 +61,8 @@ app.post('/callback', line.middleware(config), (req, res) => {
 });
 
 // webhook Callback
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.post('/push', (req, res) => {
   console.log(req.body);
   return pushMessage.main(req, res)
