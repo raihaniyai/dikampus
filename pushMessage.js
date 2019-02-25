@@ -40,7 +40,8 @@ module.exports = {
      "data" : {
          "body" : "Pesanan sudah siap ganteng",
          "title": "Pesanan Datang!",
-     }
+     },
+     "topic" : topic
     }
 
     // Send a message to devices subscribed to the provided topic.
