@@ -51,5 +51,8 @@ module.exports = {
       .catch((error) => {
         console.log('Error sending message:', error);
       });
+    res.send({
+        success: "ok"
+    });
   }
 };
