@@ -19,7 +19,7 @@ const pbprofile = require('./postback/profile.js');
 const pbregister = require('./postback/register.js');
 
 // service account key for firebase
-var serviceAccount = JSON.parse(process.env.SERVICE_ACCOUNT_KEY);
+var serviceAccount = require('./serviceAccount.json');
 
 // create LINE SDK config from env variables
 const config = {

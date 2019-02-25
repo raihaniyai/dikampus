@@ -27,14 +27,29 @@ module.exports = {
     }
 
     return client.pushMessage(req.body.userId, message)
-      // .then(() => {
-      //   ...
-      // })
-      // .catch((err) => {
-      //   console.log("Error");
-      // });
     res.send({
         success: "ok"
     });
+  },
+  notif: function (req, res){
+    // The topic name can be optionally prefixed with "/topics/".
+    var topic = req.warung_id;
+
+    var message = {
+     "data" : {
+         "body" : "Pesanan sudah siap ganteng",
+         "title": "Pesanan Datang!",
+     }
+    }
+
+    // Send a message to devices subscribed to the provided topic.
+    admin.messaging().send(message)
+      .then((response) => {
+        // Response is a message ID string.
+        console.log('Successfully sent message:', response);
+      })
+      .catch((error) => {
+        console.log('Error sending message:', error);
+      });
   }
 };
