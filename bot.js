@@ -66,8 +66,7 @@ app.post('/callback', line.middleware(config), (req, res) => {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.post('/push', (req, res) => {
-  console.log(req.body.userId);
-  console.log("req" + req.body);
+  console.log("req: " + JSON.stringify(req.body));
   if (req.body.source == 'website') {
     return pushMessage.website(req, res)
   } else if (req.body.source == 'mitra') {
