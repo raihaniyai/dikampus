@@ -46,7 +46,7 @@ module.exports = {
      "topic" : topic
     }
 
-    flex = {
+    var flex = {
       "type": "flex",
       "altText": "Invoice",
       "contents": {
@@ -125,10 +125,10 @@ module.exports = {
       }
     };
 
+    return client.pushMessage(req.body.userId, "vangke")
     // Send a message to devices subscribed to the provided topic.
     admin.messaging().send(message)
       .then((response) => {
-        return client.pushMessage(req.body.userId, flex)
         // Response is a message ID string.
         console.log('Successfully sent message:', response);
       })
