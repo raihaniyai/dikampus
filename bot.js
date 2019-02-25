@@ -67,7 +67,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.post('/push', (req, res) => {
   console.log(req.body.userId);
-  console.log("Request Body: " + JSON.stringify(req.body));
+  console.log(req.body);
   if (req.body.source == 'website') {
     return pushMessage.website(req, res)
   } else if (req.body.source == 'mitra') {
