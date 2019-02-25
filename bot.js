@@ -44,6 +44,7 @@ firebase.initializeApp({
 });
 const db = firebase.database();
 module.exports.database = db;
+module.exports.admin = firebase;
 
 // webhook Callback
 app.post('/callback', line.middleware(config), (req, res) => {

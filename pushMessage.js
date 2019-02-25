@@ -32,7 +32,7 @@ module.exports = {
     });
   },
   notif: function (req, res){
-    var db = bot.database;
+    var admin = bot.firebase;
     // The topic name can be optionally prefixed with "/topics/".
     var topic = "12345";
 
@@ -44,7 +44,7 @@ module.exports = {
     }
 
     // Send a message to devices subscribed to the provided topic.
-    db.messaging().send(message)
+    admin.messaging().send(message)
       .then((response) => {
         // Response is a message ID string.
         console.log('Successfully sent message:', response);
