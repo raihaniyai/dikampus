@@ -67,7 +67,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.post('/push', (req, res) => {
   console.log("Request Body: " + req.body);
-  return pushMessage.notif(req, res)
+  if (req.body == 'website') {
+    return pushMessage.website(req, res)
+  } else (req.body == 'mitra') {
+    return pushMessage.mitra(req, res)
+  }
 });
 
 // Simple Reply Function

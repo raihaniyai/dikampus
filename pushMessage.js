@@ -2,7 +2,7 @@ const bot = require('./bot.js')
 const store = require('store2')
 
 module.exports = {
-  main: function (req, res) {
+  mitra: function (req, res) {
     var replyText = bot.replyText;
     var client = bot.client;
     var type = res.type;
@@ -31,7 +31,7 @@ module.exports = {
         success: "ok"
     });
   },
-  notif: function (req, res){
+  website: function (req, res){
     var admin = bot.admin;
     // The topic name can be optionally prefixed with "/topics/".
     var topic = "12345";
@@ -44,9 +44,89 @@ module.exports = {
      "topic" : topic
     }
 
+    flex = {
+      "type": "flex",
+      "altText": "Invoice",
+      "contents": {
+        "type": "bubble",
+        "styles": {
+          "footer": {
+            "separator": true
+          }
+        },
+        "body": {
+          "type": "box",
+          "layout": "vertical",
+          "contents": [
+            {
+              "type": "text",
+              "text": "INVOICE",
+              "weight": "bold",
+              "color": "#1DB446",
+              "size": "sm"
+            },
+            {
+              "type": "text",
+              "text": req.body.nama_warung,
+              "weight": "bold",
+              "size": "xxl",
+              "margin": "md"
+            },
+            {
+              "type": "separator",
+              "margin": "xxl"
+            },
+            {
+              "type": "box",
+              "layout": "vertical",
+              "margin": "xxl",
+              "spacing": "sm",
+              "contents": [
+                {
+                  "type": "separator",
+                  "margin": "xxl"
+                },
+                {
+                  "type": "box",
+                  "layout": "horizontal",
+                  "margin": "xxl",
+                  "contents": [
+                    {
+                      "type": "text",
+                      "text": "TOTAL",
+                      "size": "sm",
+                      "color": "#555555"
+                    }
+                  ]
+                },
+                {
+                  "type": "separator",
+                  "margin": "xxl"
+                },
+                {
+                  "type": "box",
+                  "layout": "vertical",
+                  "margin": "xxl",
+                  "contents": [
+                    {
+                      "type": "text",
+                      "text": "ALAMAT PENGIRIMAN",
+                      "size": "sm",
+                      "color": "#555555"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    };
+
     // Send a message to devices subscribed to the provided topic.
     admin.messaging().send(message)
       .then((response) => {
+        return client.pushMessage(req.body.userId, flex)
         // Response is a message ID string.
         console.log('Successfully sent message:', response);
       })
