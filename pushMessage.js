@@ -44,7 +44,7 @@ module.exports = {
      },
      "topic" : topic
     }
-    // 
+    //
     // var flex = {
     //   "type": "flex",
     //   "altText": "Invoice",
@@ -124,11 +124,11 @@ module.exports = {
     //   }
     // };
 
-    // return client.pushMessage(req.body.userId, {
-    //   type: 'text',
-    //   text: "answer[Math.floor(Math.random()*answer.length)]"
-    // })
-    // Send a message to devices subscribed to the provided topic.
+    return client.pushMessage(req.body.userId, {
+      type: 'text',
+      text: "answer[Math.floor(Math.random()*answer.length)]"
+    })
+    Send a message to devices subscribed to the provided topic.
     admin.messaging().send(message)
       .then((response) => {
         // Response is a message ID string.
