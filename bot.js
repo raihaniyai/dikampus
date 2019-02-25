@@ -73,7 +73,8 @@ app.post('/push', (req, res) => {
   } else if (req.body.source == 'mitra') {
     return pushMessage.mitra(req, res)
   } else {
-    return pushMessage.website(req, res)
+    console.log("body kosong");
+    // return pushMessage.website(req, res)
   }
 });
 
