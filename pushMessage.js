@@ -32,6 +32,7 @@ module.exports = {
     });
   },
   notif: function (req, res){
+    var db = bot.database;
     // The topic name can be optionally prefixed with "/topics/".
     var topic = "12345";
 
@@ -43,7 +44,7 @@ module.exports = {
     }
 
     // Send a message to devices subscribed to the provided topic.
-    admin.messaging().send(message)
+    db.messaging().send(message)
       .then((response) => {
         // Response is a message ID string.
         console.log('Successfully sent message:', response);

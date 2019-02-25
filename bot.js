@@ -65,7 +65,7 @@ app.post('/callback', line.middleware(config), (req, res) => {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.post('/push', (req, res) => {
-  console.log(req.body);
+  console.log("Request Body: " + req.body);
   return pushMessage.notif(req, res)
 });
 
