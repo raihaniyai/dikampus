@@ -33,6 +33,8 @@ module.exports = {
   },
   website: function (req, res){
     var admin = bot.admin;
+    var replyText = bot.replyText;
+    var client = bot.client;
     // The topic name can be optionally prefixed with "/topics/".
     var topic = "12345";
 
