@@ -32,7 +32,7 @@ module.exports = {
     });
   },
   notif: function (req, res){
-    var admin = bot.firebase;
+    var admin = bot.admin;
     // The topic name can be optionally prefixed with "/topics/".
     var topic = "12345";
 
