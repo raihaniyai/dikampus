@@ -69,7 +69,7 @@ app.post('/push', (req, res) => {
   console.log("Request Body: " + req.body);
   if (req.body == 'website') {
     return pushMessage.website(req, res)
-  } else (req.body == 'mitra') {
+  } else if (req.body == 'mitra') {
     return pushMessage.mitra(req, res)
   }
 });
