@@ -124,13 +124,13 @@ module.exports = {
     //   }
     // };
 
-    // return client.pushMessage(req.body.userId, {
-    //   type: 'text',
-    //   text: "answer[Math.floor(Math.random()*answer.length)]"
-    // })
     // Send a message to devices subscribed to the provided topic.
     admin.messaging().send(message)
       .then((response) => {
+        return client.pushMessage(req.body.userId, {
+          type: 'text',
+          text: "answer[Math.floor(Math.random()*answer.length)]"
+        })
         // Response is a message ID string.
         console.log('Successfully sent message:', response);
       })
