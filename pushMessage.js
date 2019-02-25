@@ -33,7 +33,7 @@ module.exports = {
   },
   notif: function (req, res){
     // The topic name can be optionally prefixed with "/topics/".
-    var topic = req.warung_id;
+    var topic = "12345";
 
     var message = {
      "data" : {
