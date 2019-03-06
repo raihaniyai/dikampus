@@ -105,6 +105,11 @@ var self = {
               "color": "#0B5ED7"
             },
             {
+              "type": "box",
+              "layout": "vertical",
+              "contents": order
+            },
+            {
               "type": "separator",
               "color": "#0B5ED7"
             },
@@ -143,7 +148,7 @@ var self = {
               "contents": [
                 {
                   "type": "text",
-                  "text": "Alamat Pengiriman",
+                  "text": "Alamat",
                   "weight": "bold"
                 },
                 {
@@ -159,7 +164,7 @@ var self = {
               "contents": [
                 {
                   "type": "text",
-                  "text": "Catatan Tambahan",
+                  "text": "Catatan",
                   "weight": "bold"
                 },
                 {
