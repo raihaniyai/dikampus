@@ -21,7 +21,7 @@ module.exports = {
       }
     } else {
       var message = {
-        type: 'text',
+        type: 'text', 
         text: "answer[Math.floor(Math.random()*answer.length)]"
       }
     }

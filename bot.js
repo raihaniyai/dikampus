@@ -5,6 +5,7 @@ const express = require('express')
 const firebase = require('firebase-admin')
 const store = require('store2')
 const bodyParser = require('body-parser')
+const cors = require('cors')
 require('dotenv').config()
 
 // another javascript file (one file = one feature)
@@ -45,6 +46,8 @@ firebase.initializeApp({
 const db = firebase.database();
 module.exports.database = db;
 module.exports.admin = firebase;
+
+app.use(cors())
 
 // webhook Callback
 app.post('/callback', line.middleware(config), (req, res) => {
