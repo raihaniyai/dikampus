@@ -27,25 +27,25 @@ var self = {
   },
   invoice: function (body) {
     order = []
-    for (var menu in body.transaction_items) {
+    tmpBody = body.transaction_items
+    for (var menu in tmpBody) {
       tmpMenu = {
         "type": "box",
         "layout": "horizontal",
         "contents": [
           {
             "type": "text",
-            "text": menu.item.namaMenu + "(" + menu.kuantitas + ")",
+            "text": tmpBody[menu].item.namaMenu + "(" + tmpBody[menu].item.kuantitas + ")",
             "wrap": true
           },
           {
             "type": "text",
-            "text": menu.item.harga.toString(),
+            "text": tmpBody[menu].item.harga.toString(),
             "flex": 0,
             "align": "end"
           }
         ]
       }
-
       order.push(tmpMenu)
     }
 
