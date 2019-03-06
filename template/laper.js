@@ -204,7 +204,7 @@ var self = {
             },
             {
               "type": "text",
-              "text": body.trans_id.substr(trans_id.length - 6),
+              "text": body.trans_id.substr(body.trans_id.length - 6),
               "flex": 0,
               "align": "end"
             }
