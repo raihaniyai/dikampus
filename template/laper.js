@@ -41,7 +41,7 @@ var self = {
           },
           {
             "type": "text",
-            "text": tmpBody[menu].item.kuantitas + " x " + body.rupiah(tmpBody[menu].item.harga),
+            "text": tmpBody[menu].item.kuantitas + " x " + bot.rupiah(tmpBody[menu].item.harga),
             "flex": 0,
             "align": "end"
           }
@@ -204,7 +204,7 @@ var self = {
             },
             {
               "type": "text",
-              "text": body.trans_id.substr(trans_id.length - 5),
+              "text": body.trans_id.substr(trans_id.length - 6),
               "flex": 0,
               "align": "end"
             }
