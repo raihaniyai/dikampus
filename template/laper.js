@@ -153,7 +153,7 @@ var self = {
                 },
                 {
                   "type": "text",
-                  "text": body.address,
+                  "text": body.alamat,
                   "wrap": true
                 }
               ]
