@@ -39,7 +39,7 @@ var self = {
           },
           {
             "type": "text",
-            "text": menu.item.harga,
+            "text": menu.item.harga.toString(),
             "flex": 0,
             "align": "end"
           }
@@ -129,7 +129,7 @@ var self = {
                     },
                     {
                       "type": "text",
-                      "text": body.total_price,
+                      "text": body.total_price.toString(),
                       "flex": 0,
                       "align": "end",
                       "weight": "bold"
