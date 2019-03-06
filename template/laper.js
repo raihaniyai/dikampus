@@ -32,15 +32,16 @@ var self = {
       tmpMenu = {
         "type": "box",
         "layout": "horizontal",
+        "spacing": "md",
         "contents": [
           {
             "type": "text",
-            "text": tmpBody[menu].item.namaMenu + "(" + tmpBody[menu].item.kuantitas + ")",
+            "text": tmpBody[menu].item.namaMenu,
             "wrap": true
           },
           {
             "type": "text",
-            "text": tmpBody[menu].item.harga.toString(),
+            "text": tmpBody[menu].item.kuantitas + " x " + body.rupiah(tmpBody[menu].item.harga),
             "flex": 0,
             "align": "end"
           }
@@ -49,7 +50,7 @@ var self = {
       order.push(tmpMenu)
     }
 
-    flex ={
+    flex = {
       "type": "flex",
       "altText": "Invoice " + body.nama_warung,
       "contents": {
@@ -106,6 +107,7 @@ var self = {
             {
               "type": "box",
               "layout": "vertical",
+              "spacing": "md",
               "contents": order
             },
             {
@@ -114,6 +116,7 @@ var self = {
             {
               "type": "box",
               "layout": "vertical",
+              "spacing": "md",
               "contents": [
                 {
                   "type": "box",
@@ -121,13 +124,30 @@ var self = {
                   "contents": [
                     {
                       "type": "text",
-                      "text": "Total",
-                      "weight": "bold",
+                      "text": "Ongkir",
+                      "color": "#222222",
                       "wrap": true
                     },
                     {
                       "type": "text",
-                      "text": "Rp" + body.total_price,
+                      "text": bot.rupiah(body.ongkir),
+                      "flex": 0,
+                      "align": "end"
+                    }
+                  ]
+                },
+                {
+                  "type": "box",
+                  "layout": "horizontal",
+                  "contents": [
+                    {
+                      "type": "text",
+                      "text": "Total",
+                      "wrap": true
+                    },
+                    {
+                      "type": "text",
+                      "text": "Rp " + bot.rupiah(body.total_price),
                       "flex": 0,
                       "align": "end",
                       "weight": "bold"
@@ -145,8 +165,8 @@ var self = {
               "contents": [
                 {
                   "type": "text",
-                  "text": "Alamat",
-                  "weight": "bold"
+                  "text": "ALAMAT",
+                  "color": "#888888"
                 },
                 {
                   "type": "text",
@@ -161,8 +181,8 @@ var self = {
               "contents": [
                 {
                   "type": "text",
-                  "text": "Catatan",
-                  "weight": "bold"
+                  "text": "CATATAN",
+                  "color": "#888888"
                 },
                 {
                   "type": "text",
@@ -202,6 +222,7 @@ var self = {
         }
       }
     }
+
     return flex;
   }
 };

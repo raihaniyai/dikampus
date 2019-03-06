@@ -268,3 +268,9 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`listening on ${port}`);
 });
+
+// Make Rupiah Format
+const rupiahFormat = (rupiah) => {
+  return rupiah.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+};
+module.exports.rupiah = rupiahFormat;
