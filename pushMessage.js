@@ -1,6 +1,6 @@
 const bot = require('./bot.js')
 const store = require('store2')
-const laper = requiire('./template/laper.js')
+const laper = require('./template/laper.js')
 
 module.exports = {
   mitra: function (req, res) {
