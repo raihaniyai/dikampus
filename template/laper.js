@@ -49,7 +49,7 @@ var self = {
       order.push(tmpMenu)
     }
 
-    flex = {
+    flex ={
       "type": "flex",
       "altText": "Invoice " + body.nama_warung,
       "contents": {
@@ -78,7 +78,7 @@ var self = {
         "body": {
           "type": "box",
           "layout": "vertical",
-          "spacing": "md",
+          "spacing": "lg",
           "contents": [
             {
               "type": "box",
@@ -101,8 +101,7 @@ var self = {
               ]
             },
             {
-              "type": "separator",
-              "color": "#0B5ED7"
+              "type": "separator"
             },
             {
               "type": "box",
@@ -110,8 +109,7 @@ var self = {
               "contents": order
             },
             {
-              "type": "separator",
-              "color": "#0B5ED7"
+              "type": "separator"
             },
             {
               "type": "box",
@@ -129,7 +127,7 @@ var self = {
                     },
                     {
                       "type": "text",
-                      "text": body.total_price.toString(),
+                      "text": "Rp" + body.total_price,
                       "flex": 0,
                       "align": "end",
                       "weight": "bold"
@@ -139,8 +137,7 @@ var self = {
               ]
             },
             {
-              "type": "separator",
-              "color": "#0B5ED7"
+              "type": "separator"
             },
             {
               "type": "box",
