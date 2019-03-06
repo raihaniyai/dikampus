@@ -105,11 +105,6 @@ var self = {
               "color": "#0B5ED7"
             },
             {
-              "type": "box",
-              "layout": "vertical",
-              "contents": order
-            },
-            {
               "type": "separator",
               "color": "#0B5ED7"
             },
