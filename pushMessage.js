@@ -26,11 +26,12 @@ module.exports = {
         text: "answer[Math.floor(Math.random()*answer.length)]"
       }
     }
-
-    return client.pushMessage(req.body.userId, message)
+    
     res.send({
         success: "ok"
     });
+    return client.pushMessage(req.body.userId, message)
+
   },
   website: function (req, res){
     var admin = bot.admin;
