@@ -26,7 +26,7 @@ module.exports = {
         text: "answer[Math.floor(Math.random()*answer.length)]"
       }
     }
-    
+
     res.send({
         success: "ok"
     });
@@ -39,10 +39,12 @@ module.exports = {
     // The topic name can be optionally prefixed with "/topics/".
     var topic = req.body.nama_warung;
 
+    var bodyNotif = ["Ada pesanan masuk nih kak", "Ada rejeki dateng nih kak!", "Rejeki datang! Cepat diterima kak!", "Terima pesanannya sekarang", "Ada yang laper nih kak", "Ada pesanan nih kak.."]
+
     var message = {
      "data" : {
-         "body" : "Pesanan sudah siap ganteng",
-         "title": "Pesanan Datang!",
+         "body" : bodyNotif[Math.floor(Math.random()*bodyNotif.length)],
+         "title": "Ada Pesanan Baru",
      },
      "topic" : topic
     }
