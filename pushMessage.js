@@ -36,7 +36,7 @@ module.exports = {
     var admin = bot.admin;
     var client = bot.client;
     // The topic name can be optionally prefixed with "/topics/".
-    var topic = "12345";
+    var topic = req.body.nama_warung;
 
     var message = {
      "data" : {
