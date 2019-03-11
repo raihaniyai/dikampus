@@ -37,7 +37,7 @@ module.exports = {
     var admin = bot.admin;
     var client = bot.client;
     // The topic name can be optionally prefixed with "/topics/".
-    var topic = req.body.nama_warung;
+    var topic = req.body.id_warung;
 
     var bodyNotif = ["Ada pesanan masuk nih kak", "Ada rejeki dateng nih kak!", "Rejeki datang! Cepat diterima kak!", "Terima pesanannya sekarang", "Ada yang laper nih kak", "Ada pesanan nih kak.."]
 
